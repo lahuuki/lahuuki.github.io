@@ -1,6 +1,6 @@
 ---
 title: "Louise Huuki-Myers"
-image: "Huuki_Louise.jpg"
+image: "LAH_profile22.jpg"
 color1: "#5A59A3"
 color2: "#C66060"
 angle: 130
