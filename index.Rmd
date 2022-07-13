@@ -20,9 +20,12 @@ output:
 
 ## Bio
 
-I am currently a research associate at the [Lieber Institute for Brain Development](https://www.libd.org/),
-working on RNA-seq analysis primarily in R. I joined the data science team at LIBD
-in 2020 after graduating with my PSM in Bioinformatics at Temple University.
+I am currently a Research Associate at the Lieber Institute for Brain Development in Leonardo Collado-Torres’ Data Science Team. I’ve been at LIBD since Spring 2020. 
+
+I earned a Professional Science Master’s in Bioinformatics from Temple University in 2019, after a Bachelor's degree in Biology and minor in Computer Science in 2018. During my time at Temple university I was involved in research at the Institute of Genomics and Evolutionary Medicine with Sudhir Kumar, studying phylogenetic applications to study evolutary timing for species divergence, viral diseases, and cancer cell evolution.
+
+At LIBD, I work on bulk and single nucleus RNA sequencing (snRNA-seq) analysis, and leading the innovation of cell type deconvolution methods, pairing Single-Molecule Fluorescence In Situ Hybridization (smFISH) imaging and snRNA-seq data. I also mentor LIBD staff through Data Science guidance sessions.
+
 
 ## Education
 
