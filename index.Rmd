@@ -1,0 +1,41 @@
+---
+title: "Louise Huuki-Myers"
+image: "Huuki_Louise.jpg"
+color1: "#5A59A3"
+color2: "#C66060"
+angle: 130
+links:
+  - label: LinkedIn
+    url: "https://www.linkedin.com/in/louise-huuki/"
+  - label: Github
+    url: "https://github.com/lahuuki"
+  - label: Twitter
+    url: "https://twitter.com/lahuuki"
+  - label: Email
+    url: "mailto:lahuuki@gmail.com"
+output:
+  postcards::onofre
+---
+
+
+## Bio
+
+I am currently a research associate at the [Lieber Institute for Brain Development](https://www.libd.org/),
+working on RNA-seq analysis primarily in R. I joined the data science team at LIBD
+in 2020 after graduating with my PSM in Bioinformatics at Temple University.
+
+## Education
+
+**Temple University** | Philadelphia PA
+
+Professional Science Master's in Bioinformatics | 2018 - 2019
+
+Bachelors of Science in Biology | 2014 - 2018
+
+## Experience
+
+**Lieber Institute for Brain Development** | Research Associate | April 2020 - Present
+
+**iGEM @ Temple University** | Technical Support Assistant | July 2018 - April 2020
+
+**iGEM @ Temple University** | Undergraduate Research Assistant | June 2015 - July 2018
