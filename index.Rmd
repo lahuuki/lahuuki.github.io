@@ -65,4 +65,5 @@ Data-driven Identification of Total RNA Expression Genes (TREGs) for Estimation 
 * My **first first-author paper** is now in pre-print! This pairs with my 
 **first Bioconductor R package** [TREG](https://bioconductor.org/packages/TREG)
 
-You can find my full publications list on [ORCiD](https://orcid.org/0000-0001-5148-3602)
+You can find my full publications list on [ORCiD](https://orcid.org/0000-0001-5148-3602) or
+[Google Scholar](https://scholar.google.com/citations?user=GGJIfVYAAAAJ&hl=en)
