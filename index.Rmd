@@ -52,7 +52,7 @@ Slides and posters and available on my [speakerdeck](https://speakerdeck.com/lah
 
 Integrated single cell and unsupervised spatial transcriptomic analysis defines molecular anatomy of the human dorsolateral prefrontal cortex
 
-* DOI: [10.1101/2023.02.15.528722](10.1101/2023.02.15.528722)
+* Pre-print DOI: [10.1101/2023.02.15.528722](https://www.biorxiv.org/content/10.1101/2023.02.15.528722v1)
 
 * Exciting new work on spatial transcritomics & snRNA-seq in the human DLPFC!
 
@@ -62,7 +62,7 @@ Integrated single cell and unsupervised spatial transcriptomic analysis defines 
 
 Data-driven Identification of Total RNA Expression Genes (TREGs) for Estimation of RNA Abundance in Heterogeneous Cell Types  
 
-* DOI: [10.1101/2022.04.28.489923](10.1101/2022.04.28.489923)
+* Pre-print DOI: [10.1101/2022.04.28.489923](https://www.biorxiv.org/content/10.1101/2022.04.28.489923v1)
 
 * My **first first-author paper** is now in pre-print! This pairs with my 
 **first Bioconductor R package** [TREG](https://bioconductor.org/packages/TREG)
