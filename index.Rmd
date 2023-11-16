@@ -50,6 +50,15 @@ Slides and posters and available on my [speakerdeck](https://speakerdeck.com/lah
 
 ## Publications 
 
+Data-driven identification of total RNA expression genes for estimation of RNA abundance in heterogeneous cell types highlighted in brain tissue
+
+* DOI: [10.1186/s13059-023-03066-w](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-023-03066-w#article-info)
+
+* Pre-print DOI: [10.1101/2022.04.28.489923](https://www.biorxiv.org/content/10.1101/2022.04.28.489923v1)
+
+* My **first first-author paper** is now in published by Genome Biology! This pairs with my 
+**first Bioconductor R package** [TREG](https://bioconductor.org/packages/TREG)
+
 Integrated single cell and unsupervised spatial transcriptomic analysis defines molecular anatomy of the human dorsolateral prefrontal cortex
 
 * Pre-print DOI: [10.1101/2023.02.15.528722](https://www.biorxiv.org/content/10.1101/2023.02.15.528722v1)
@@ -60,12 +69,6 @@ Integrated single cell and unsupervised spatial transcriptomic analysis defines 
 
 * [Tweetorial](https://twitter.com/lahuuki/status/1626686409313763328?s=20)
 
-Data-driven Identification of Total RNA Expression Genes (TREGs) for Estimation of RNA Abundance in Heterogeneous Cell Types  
-
-* Pre-print DOI: [10.1101/2022.04.28.489923](https://www.biorxiv.org/content/10.1101/2022.04.28.489923v1)
-
-* My **first first-author paper** is now in pre-print! This pairs with my 
-**first Bioconductor R package** [TREG](https://bioconductor.org/packages/TREG)
 
 You can find my full publications list on [ORCiD](https://orcid.org/0000-0001-5148-3602) or
 [Google Scholar](https://scholar.google.com/citations?user=GGJIfVYAAAAJ&hl=en)
