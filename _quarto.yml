@@ -1,0 +1,36 @@
+project:
+  type: website
+  resources:
+    - "CNAME"
+
+execute:
+  freeze: true
+
+website:
+  title: "Bioconductor community blog"
+  site-url: https://bioconductor.github.io/biocblog/
+  description: "A blog for the Bioconductor community!"
+  open-graph: true
+  navbar:
+    right:
+      - about.qmd
+      - contributing.qmd
+      - icon: github
+        href: https://github.com/bioconductor/biocblog
+      - icon: mastodon
+        href: https://genomic.social/@bioconductor
+      - icon: linkedin
+        href: https://www.linkedin.com/company/bioconductor/
+      - icon: youtube
+        href: https://www.youtube.com/user/bioconductor
+      - icon: slack
+        href: https://slack.bioconductor.org/
+      - icon: rss
+        href: index.xml
+format:
+  html:
+    theme: yeti
+    css: styles.css
+    include-in-header:
+      text: |
+        <script defer data-domain="bioconductor.github.io/biocblog" src="https://plausible.io/js/script.js"></script>
