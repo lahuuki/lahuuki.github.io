@@ -1,0 +1,23 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About Me",
+    "section": "",
+    "text": "Welcome to my Website!\n\nAbout me:\nI am currently a Staff Scientist at the Lieber Institute for Brain Development in the R/Bioconductor-powered Team Data Science group led by Leonardo Collado-Torres. She works to analyze bulk and single nucleus RNA sequencing, as well as spatially resolved transcriptomic data.\nI am is also pursuing a part-time PhD in Clinical Neuroscience from the University of Cambridge with Mina Ryten, Studying complex brain disorders through the analysis of spatially-resolved and single nucleus transcriptomics data.\nPreviously, I earned a Professional Science Master’s in Bioinformatics from Temple University in 2019, after a Bachelor’s degree in Biology and minor in Computer Science in 2018. During my time at Temple university I was involved in research at the Institute of Genomics and Evolutionary Medicine with Sudhir Kumar, studying phylogenetic applications to study evolutionary timing for species divergence, viral diseases, and cancer cell evolution.\n\n\nEducation\nTemple University | Philadelphia PA\nProfessional Science Master’s in Bioinformatics | 2018 - 2019\nBachelors of Science in Biology | 2014 - 2018\n\n\nExperience\nLieber Institute for Brain Development | Staff Scientist I, Data Science | July 2022 - Present\nLieber Institute for Brain Development | Research Associate | April 2020 - July 2022\niGEM @ Temple University | Technical Support Assistant | July 2018 - April 2020\niGEM @ Temple University | Undergraduate Research Assistant | June 2015 - July 2018\nThe webite was created using Quarto."
+  },
+  {
+    "objectID": "posts/2024-05-16-test/index.html",
+    "href": "posts/2024-05-16-test/index.html",
+    "title": "Test Blog",
+    "section": "",
+    "text": "In January 2024, we proudly launched the redesigned bioconductor.org, marking a significant milestone in enhancing user experience. This initiative reflects our commitment to creating a more navigable, accessible, and welcoming website for our global community. For those interested in the evolution of our site and the steps leading up to this redesign, we invite you to revisit our August 2023 blog update.\n\n\n\nprep for spatialDLPFC"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "My Blog",
+    "section": "",
+    "text": "Test Blog\n\n\n\n\n\n\ntest\n\n\n\nA first try to get this going \n\n\n\n\n\nMay 16, 2024\n\n\nLouise Huuki-Myers\n\n\n\n\n\n\nNo matching items"
+  }
+]
