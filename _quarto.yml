@@ -3,13 +3,17 @@ project:
 
 website:
   title: "Louise Huuki-Myers"
+  site-url: https://lahuuki.github.io/
+  description: "Louise's Blog"
   navbar:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
+        href: https://github.com/lahuuki/
+      - icon: linkedin
+        href: https://www.linkedin.com/in/louise-huuki/
       - icon: twitter
-        href: https://twitter.com
+        href: https://twitter.com/lahuuki/
 format:
   html:
     theme: cosmo
