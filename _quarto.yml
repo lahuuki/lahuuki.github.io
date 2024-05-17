@@ -1,29 +1,19 @@
 project:
   type: website
-  resources:
-    - "CNAME"
-
-execute:
-  freeze: true
 
 website:
   title: "Louise Huuki-Myers"
-  site-url: https://lahuuki.github.io/
-  description: "Welcome to my website!"
-  open-graph: true
   navbar:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/lahuuki
-      - icon: linkedin
-        href: https://www.linkedin.com/in/louise-huuki/
+        href: https://github.com/
       - icon: twitter
-        href: https://twitter.com/lahuuki
+        href: https://twitter.com
 format:
   html:
-    theme: yeti
+    theme: cosmo
     css: styles.css
-    include-in-header:
-      text: |
-        <script defer data-domain="lahuuki.github.io/" src="https://plausible.io/js/script.js"></script>
+
+editor: visual
+
