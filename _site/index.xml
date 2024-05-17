@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Louise Huuki-Myers</title>
+<link>https://lahuuki.github.io/</link>
+<atom:link href="https://lahuuki.github.io/index.xml" rel="self" type="application/rss+xml"/>
+<description>Welcome to my website!</description>
+<generator>quarto-1.4.554</generator>
+<lastBuildDate>Thu, 16 May 2024 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>Test Blog</title>
+  <dc:creator>Louise Huuki-Myers</dc:creator>
+  <link>https://lahuuki.github.io/posts/2024-05-16-test/</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>In January 2024, we proudly launched the redesigned <a href="https://bioconductor.org">bioconductor.org</a>, marking a significant milestone in enhancing user experience. This initiative reflects our commitment to creating a more navigable, accessible, and welcoming website for our global community. For those interested in the evolution of our site and the steps leading up to this redesign, we invite you to revisit our <a href="../2023-08-01-website-redesign-update/index.qmd">August 2023 blog update</a>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://lahuuki.github.io/posts/2024-05-16-test/spatialDLPFC_logo.png" class="img-fluid figure-img"></p>
+<figcaption>prep for spatialDLPFC</figcaption>
+</figure>
+</div>
+
+
+
+ ]]></description>
+  <category>test</category>
+  <guid>https://lahuuki.github.io/posts/2024-05-16-test/</guid>
+  <pubDate>Thu, 16 May 2024 04:00:00 GMT</pubDate>
+  <media:content url="https://lahuuki.github.io/posts/2024-05-16-test/spatialDLPFC_logo.png" medium="image" type="image/png" height="84" width="144"/>
+</item>
+</channel>
+</rss>
