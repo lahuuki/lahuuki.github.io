@@ -4,35 +4,25 @@ image: cab.png
 about:
   template: jolla
   links:
-    - icon: mastodon
-      text: Mastodon
-      href: https://genomic.social/@bioconductor
     - icon: linkedin
       text: LinkedIn
-      href: https://www.linkedin.com/company/bioconductor/
-    - icon: youtube
-      text: YouTube
-      href: https://www.youtube.com/user/bioconductor
-    - icon: slack
-      text: Slack
-      href: https://slack.bioconductor.org/
+      href: https://www.linkedin.com/in/louise-huuki/
     - icon: github
       text: Github
-      href: https://github.com/bioconductor/biocblog
-
+      href: https://github.com/lahuuki
+   - icon: twitter
+      text: Twitter
+      href: https://twitter.com/lahuuki
 ---
 
-Welcome to the Bioconductor community blog!
-Here you'll find the small contributions, highlight a package functionality, etc.
-There is a chance for people to give a shoutout to something great that happened
-recently in the community.
+## Welcome to my website!
 
-We also like to draw from a wide variety of contributors
-(so please consider submitting a post if so motivated!).
+### About me:
 
-If you are interested in publishing some of your own work or insights on
-the Bioconductor community blog, we'd love to hear from you!
-See the article on [contributing posts](contributing.html) for additional details.
+I am currently a Staff Scientist at the Lieber Institute for Brain Development in the R/Bioconductor-powered Team Data Science group led by Leonardo Collado-Torres. She works to analyze bulk and single nucleus RNA sequencing, as well as spatially resolved transcriptomic data.
 
-The Bioconductor community blog was created using
-[Quarto](https://quarto.org/).
+I am is also pursuing a part-time PhD in Clinical Neuroscience from the University of Cambridge with Mina Ryten, Studying complex brain disorders through the analysis of spatially-resolved and single nucleus transcriptomics data.
+
+Previously, I earned a Professional Science Master’s in Bioinformatics from Temple University in 2019, after a Bachelor's degree in Biology and minor in Computer Science in 2018. During my time at Temple university I was involved in research at the Institute of Genomics and Evolutionary Medicine with Sudhir Kumar, studying phylogenetic applications to study evolutionary timing for species divergence, viral diseases, and cancer cell evolution.
+
+The webite was created using [Quarto](https://quarto.org/).
