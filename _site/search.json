@@ -11,7 +11,7 @@
     "href": "posts/2024-05-16-test/index.html",
     "title": "Test Blog",
     "section": "",
-    "text": "In January 2024, we proudly launched the redesigned bioconductor.org, marking a significant milestone in enhancing user experience. This initiative reflects our commitment to creating a more navigable, accessible, and welcoming website for our global community. For those interested in the evolution of our site and the steps leading up to this redesign, we invite you to revisit our August 2023 blog update.\n\n\n\nprep for spatialDLPFC"
+    "text": "Introduction\nIn the spatialDLPFC project we set out to learn more about the organization of the dorsolateral prefrontal cortex (aka then DLPFC), its cell types, and gene expression profile.\n\n\n\nprep for spatialDLPFC"
   },
   {
     "objectID": "index.html",
