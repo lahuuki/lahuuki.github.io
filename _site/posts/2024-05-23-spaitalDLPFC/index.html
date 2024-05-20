@@ -23,7 +23,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -230,7 +250,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="data-driven-spatial-domains" class="level1">
 <h1>Data-Driven Spatial Domains</h1>
-<p>An earlier study, from the Lieber Institute, of spatial transcriptomics in the DLPFC (Maynard et al., 2021) relied on manually annotating the known layers of the cortex based on the histological images and the expression of select genes. This dataset has been invaluable for testing methodologies in spatial transcriptomics. However, manual annotation is tedious, time-consuming, and prone to human error and bias.&nbsp;</p>
+<p>An earlier study, from the Lieber Institute, of spatial transcriptomics in the DLPFC <span class="citation" data-cites="maynard_2021">(<a href="#ref-maynard_2021" role="doc-biblioref">Maynard et al. 2021</a>)</span> relied on manually annotating the known layers of the cortex based on the histological images and the expression of select genes. This dataset has been invaluable for testing methodologies in spatial transcriptomics. However, manual annotation is tedious, time-consuming, and prone to human error and bias.&nbsp;</p>
 <p>In our current study, which builds on the previous DLPFC project, we aimed to use unsupervised clustering to annotate the layers of the DLPFC, thereby avoiding the labor-intensive process of manual annotation and potentially discovering novel or unknown layers in the brain.</p>
 <p>Based on benchmarking against the manually annotated layer data, we chose the method BayesSpace as the best method for clustering spatial data. We clustered the 30 Visium slides at a large range of resolutions, from k=2 to 28 (k denotes the number of clusters). We refer to these clusters as spatial domains, to name these domains we used the syntax SpkDd, where k is clustering resolution and d is spatial domain number, so Sp9D1 is spatial domain 1 when k=9.&nbsp;</p>
 <p>We found that k=2 did a great job separating the white matter from the gray matter. With an increasing number of clusters, the layers of the cortex begin to emerge. This brings us to a question: which level of clustering best captures biologically important layers of the DLPFC?</p>
@@ -274,10 +294,15 @@ ul.task-list li input[type="checkbox"] {
 </div>
 
 
+
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-maynard_2021" class="csl-entry" role="listitem">
+Maynard, KR, L Collado-Torres, LM Weber, C Uytingco, BK Barry, SR Williams, JL Catallini, et al. 2021. <span>“Transcriptome-Scale Spatial Gene Expression in the Human Dorsolateral Prefrontal Cortex.”</span> <em>Nature Neuroscience</em> 24 (3): 425–36. <a href="https://doi.org/10.1038/s41593-020-00787-0">https://doi.org/10.1038/s41593-020-00787-0</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

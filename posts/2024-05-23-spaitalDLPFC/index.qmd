@@ -8,6 +8,7 @@ date: 2024-05-23
 categories:
   - test
 image: "spatialDLPFC_logo.png"
+bibliography: references.bib
 ---
 
 # Introduction
@@ -62,7 +63,7 @@ In this study we analyzed the DLPFC of ten healthy adult donors. We sampled thre
 
 # Data-Driven Spatial Domains
 
-An earlier study, from the Lieber Institute, of spatial transcriptomics in the DLPFC (Maynard et al., 2021) relied on manually annotating the known layers of the cortex based on the histological images and the expression of select genes. This dataset has been invaluable for testing methodologies in spatial transcriptomics. However, manual annotation is tedious, time-consuming, and prone to human error and bias. 
+An earlier study, from the Lieber Institute, of spatial transcriptomics in the DLPFC [@maynard_2021] relied on manually annotating the known layers of the cortex based on the histological images and the expression of select genes. This dataset has been invaluable for testing methodologies in spatial transcriptomics. However, manual annotation is tedious, time-consuming, and prone to human error and bias. 
 
 In our current study, which builds on the previous DLPFC project, we aimed to use unsupervised clustering to annotate the layers of the DLPFC, thereby avoiding the labor-intensive process of manual annotation and potentially discovering novel or unknown layers in the brain.
 
