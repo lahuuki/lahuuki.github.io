@@ -10,10 +10,26 @@ categories:
 image: "spatialDLPFC_logo.png"
 ---
 
-# Introduction 
+# Introduction
+
+This blog post provides a high-level summary of our paper "A data-driven single cell and spatial transcriptomic map of the human prefrontal cortex" published in Science in May 2024 (aka spatialDLPFC).
 
 In the spatialDLPFC project we set out to learn more about the organization of the dorsolateral prefrontal cortex (aka then DLPFC), its cell types, and gene expression profile.
 
-![prep for spatialDLPFC](spatialDLPFC_logo.png)
+![Logo for the spatialDLPFC project](spatialDLPFC_logo.png)
 
-This is a test update
+# Background
+
+## DLPFC
+
+The dorsolateral prefrontal cortex (or the DLPFC) region of the brain is especially important for executive functions including working memory, cognitive flexibility, and planning. Disruptions of the DLPFC have been associated with several psychiatric and neurodevelopmental disorders, including schizophrenia and autism spectrum disorder
+
+## RNA-sequencing 
+
+One of the ways that we can understand the functions of different cell types and structures in the brain is to study what genes they express by sequencing the RNA in a tissue. (The measurement of RNA transcription is known as “transcriptomics”) Recently, several advanced transcriptomic approaches using RNA sequencing have emerged, enhancing our ability to analyze gene expression in the brain.
+
+This LEGO brain schematic demonstrates the evolution from bulk RNA sequencing, which provides a mixture of cell types, to single cell/single nucleus RNA-seq, which reveals the transcriptional profiles of individual cell types. The latest advancement, spatial transcriptomics, links gene expression to specific anatomical locations, providing deeper insights into the relationships between brain structure and function.
+
+<iframe class="speakerdeck-iframe" frameborder="0" src="https://speakerdeck.com/lahuuki/single-cell-and-spatial-transcriptomics-in-the-postmortem-brain?slide=3" title="Lego Brain" allowfullscreen="true" style="border: 0px; background: padding-box padding-box rgba(0, 0, 0, 0.1); margin: 0px; padding: 0px; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; width: 100%; height: auto; aspect-ratio: 560 / 315;" data-ratio="1.7777777777777777">
+
+</iframe>
