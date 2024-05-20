@@ -7,7 +7,8 @@ website:
   description: "Louise's Blog"
   navbar:
     right:
-      - about.qmd
+      - text: "About"
+        file: about.qmd
       - icon: github
         href: https://github.com/lahuuki/
       - icon: linkedin
@@ -18,6 +19,11 @@ format:
   html:
     theme: cosmo
     css: styles.css
-
+    
 editor: visual
+
+execute:
+  freeze: true
+
+
 
