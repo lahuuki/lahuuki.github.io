@@ -2,12 +2,12 @@ project:
   type: website
 
 website:
-  title: "Louise Huuki-Myers"
+  title: "Louise A. Huuki-Myers"
   site-url: https://lahuuki.github.io/
   description: "Louise's Blog"
   navbar:
     right:
-      - text: "About"
+      - text: "About Me"
         file: about.qmd
       - icon: github
         href: https://github.com/lahuuki/
