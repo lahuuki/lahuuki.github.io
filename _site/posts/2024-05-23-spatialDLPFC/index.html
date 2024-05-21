@@ -8,7 +8,7 @@
 
 <meta name="author" content="Louise A. Huuki-Myers">
 <meta name="dcterms.date" content="2024-05-23">
-<meta name="description" content="A highlevel overview of the spatialDLPFC project, now published in Science!">
+<meta name="description" content="A high level overview of the spatialDLPFC project, now published in Science!">
 
 <title>Louise A. Huuki-Myers - Spatial DLPFC: TL;DR</title>
 <style>
@@ -91,11 +91,40 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -136,6 +165,11 @@ div.csl-indent {
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
+    <a class="nav-link" href="mailto:lahuuki@gmail.com"> <i class="bi bi-envelope-at" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
     <a class="nav-link" href="../../blog.xml"> <i class="bi bi-rss" role="img">
 </i> 
 <span class="menu-text"></span></a>
@@ -151,7 +185,30 @@ div.csl-indent {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a>
+  <ul class="collapse">
+  <li><a href="#dlpfc" id="toc-dlpfc" class="nav-link" data-scroll-target="#dlpfc">DLPFC</a></li>
+  <li><a href="#rna-sequencing" id="toc-rna-sequencing" class="nav-link" data-scroll-target="#rna-sequencing">RNA-sequencing&nbsp;</a>
+  <ul class="collapse">
+  <li><a href="#single-nucleus-rna-seq" id="toc-single-nucleus-rna-seq" class="nav-link" data-scroll-target="#single-nucleus-rna-seq">Single Nucleus RNA-seq</a></li>
+  <li><a href="#spatially-resolved-transcriptomics-visium" id="toc-spatially-resolved-transcriptomics-visium" class="nav-link" data-scroll-target="#spatially-resolved-transcriptomics-visium">Spatially Resolved Transcriptomics (Visium)</a></li>
+  <li><a href="#study-design" id="toc-study-design" class="nav-link" data-scroll-target="#study-design">Study Design&nbsp;</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#data-driven-spatial-domains" id="toc-data-driven-spatial-domains" class="nav-link" data-scroll-target="#data-driven-spatial-domains">Data-Driven Spatial Domains</a>
+  <ul class="collapse">
+  <li><a href="#spatial-registration-of-bayesspace-clusters" id="toc-spatial-registration-of-bayesspace-clusters" class="nav-link" data-scroll-target="#spatial-registration-of-bayesspace-clusters">Spatial Registration of BayesSpace Clusters</a></li>
+  <li><a href="#novel-biology-in-spatial-domains" id="toc-novel-biology-in-spatial-domains" class="nav-link" data-scroll-target="#novel-biology-in-spatial-domains">Novel Biology in Spatial Domains</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -159,13 +216,16 @@ div.csl-indent {
 <div class="quarto-title">
 <h1 class="title">Spatial DLPFC: TL;DR</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">test</div>
+    <div class="quarto-category">paper preview</div>
+    <div class="quarto-category">spatialDLPFC</div>
+    <div class="quarto-category">spatial</div>
+    <div class="quarto-category">single cell</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    <p>A highlevel overview of the spatialDLPFC project, now published in Science!</p>
+    <p>A high level overview of the spatialDLPFC project, now published in <em>Science</em>!</p>
   </div>
 </div>
 
@@ -196,12 +256,12 @@ div.csl-indent {
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>This blog post provides a high-level summary of our paper “A data-driven single cell and spatial transcriptomic map of the human prefrontal cortex” published in Science in May 2024 (aka spatialDLPFC).</p>
-<p>In the spatialDLPFC project we set out to learn more about the organization of the dorsolateral prefrontal cortex (aka then DLPFC), its cell types, and gene expression profile.</p>
+<p>This blog post provides a high-level summary of our paper <a href="https://doi.org/10.1126/science.adh1938">“A data-driven single cell and spatial transcriptomic map of the human prefrontal cortex”</a> published in <em>Science</em> in May 2024 (aka <strong>spatialDLPFC</strong>).</p>
+<p>In the spatialDLPFC project we set out to learn more about the organization of the dorsolateral prefrontal cortex (aka DLPFC), its cell types, and gene expression profile 🧠.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="SpatialDLPFC_GraphAbs_revision2.4.png" class="img-fluid figure-img"></p>
-<figcaption>Graphical abstract for the spatialDLPFC project</figcaption>
+<figcaption>Graphical abstract for the spatialDLPFC project, summarized here (TODO add link)</figcaption>
 </figure>
 </div>
 </section>
@@ -209,52 +269,51 @@ div.csl-indent {
 <h1>Background</h1>
 <section id="dlpfc" class="level2">
 <h2 class="anchored" data-anchor-id="dlpfc">DLPFC</h2>
-<p>The dorsolateral prefrontal cortex (or the DLPFC) region of the brain is especially important for executive functions including working memory, cognitive flexibility, and planning. Disruptions of the DLPFC have been associated with several psychiatric and neurodevelopmental disorders, including schizophrenia and autism spectrum disorder</p>
+<p>The dorsolateral prefrontal cortex region of the brain is especially important for executive functions including working memory, cognitive flexibility, and planning. Disruptions of the DLPFC have been associated with several psychiatric and neurodevelopmental disorders, including schizophrenia and autism spectrum disorder.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="background.png" class="img-fluid figure-img"></p>
-<figcaption>Location of the DLPFC, its laminar structure, and major cell types</figcaption>
+<figcaption>Location of the DLPFC, its laminar structure, and major cell types.</figcaption>
 </figure>
 </div>
 </section>
 <section id="rna-sequencing" class="level2">
 <h2 class="anchored" data-anchor-id="rna-sequencing">RNA-sequencing&nbsp;</h2>
-<p>One of the ways that we can understand the functions of different cell types and structures in the brain is to study what genes they express by sequencing the RNA in a tissue. (The measurement of RNA transcription is known as “transcriptomics”) Recently, several advanced transcriptomic approaches using RNA sequencing have emerged, enhancing our ability to analyze gene expression in the brain.</p>
+<p>One of the ways that we can understand the functions of different cell types and structures in the brain is to study what genes they express by sequencing the RNA in a tissue. Recently, several advanced transcriptomic<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> approaches using RNA sequencing have emerged, enhancing our ability to analyze gene expression in the brain.</p>
+<script defer="" class="speakerdeck-embed" data-slide="3" data-id="044430d9444f4ce1b9e016125f22cad2" data-ratio="1.7772511848341233" src="//speakerdeck.com/assets/embed.js"></script>
 <p>This LEGO brain schematic demonstrates the evolution from bulk RNA sequencing, which provides a mixture of cell types, to single cell/single nucleus RNA-seq, which reveals the transcriptional profiles of individual cell types. The latest advancement, spatial transcriptomics, links gene expression to specific anatomical locations, providing deeper insights into the relationships between brain structure and function.</p>
-<iframe class="speakerdeck-iframe" frameborder="0" src="https://speakerdeck.com/lahuuki/single-cell-and-spatial-transcriptomics-in-the-postmortem-brain?slide=3" title="Lego Brain" allowfullscreen="true" style="border: 0px; background: padding-box padding-box rgba(0, 0, 0, 0.1); margin: 0px; padding: 0px; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; width: 100%; height: auto; aspect-ratio: 560 / 315;" data-ratio="1.7777777777777777">
-</iframe>
 <section id="single-nucleus-rna-seq" class="level3">
 <h3 class="anchored" data-anchor-id="single-nucleus-rna-seq">Single Nucleus RNA-seq</h3>
-<p>Single nucleus or single cell RNA sequencing (snRNA-seq) enables us to examine the gene expression of individual cells or nuclei. This technique relies on uniquely barcoded gel beads that attach to a single cell or nucleus, tagging all RNA molecules from that cell. When sequenced, these tagged RNA molecules can be traced back to their original cell. Cells or nuclei are then typically clustered by their gene expression profiles to identify different cell type populations. The expression profiles and cluster assignments are often visualized using reduced dimension plots such as UMAPs or tSNE. In these plots, each point represents a cell, and the distance between points indicates their similarity; closer points represent more similar cells, which are often of the same cell type (shown by different colors).</p>
-<p>In this experiment we are working with nucle,i as the cell membrane is destroyed when the brain tissue is frozen. The major cell type populations to identify in the DLPFC are neurons (Excitatory and Inhibitory), and glial cells (ex: Astrocytes, Microglia, Oligodendrocytes, OPC).</p>
+<p>Single nucleus or single cell RNA sequencing (snRNA-seq) enables us to examine the gene expression of individual cells or nuclei. This technique relies on uniquely barcoded gel beads that attach to a single cell or nucleus, tagging all RNA molecules from that cell. When sequenced, these tagged RNA molecules can be traced back to their original cell. Cells or nuclei are then typically clustered by their gene expression profiles to identify different cell type populations. The expression profiles and cluster assignments are often visualized using reduced dimension plots such as UMAPs or tSNE. In these plots, each point represents a cell, and the distance between points indicates their similarity<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>; closer points represent more similar cells, which are often of the same cell type (shown by different colors).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="background_sn.png" class="img-fluid figure-img"></p>
 <figcaption>Cartoon of 10x snRNA-seq process (via 10x Genomics), and tSNE plot</figcaption>
 </figure>
 </div>
+<p>In this experiment we are working with nuclei, as the cell membrane is destroyed when the brain tissue is frozen. The major cell type populations to identify in the DLPFC are neurons (Excitatory and Inhibitory), and glial cells (ex: Astrocytes, Microglia, Oligodendrocytes, OPC).</p>
 </section>
 <section id="spatially-resolved-transcriptomics-visium" class="level3">
 <h3 class="anchored" data-anchor-id="spatially-resolved-transcriptomics-visium">Spatially Resolved Transcriptomics (Visium)</h3>
 <p>Spatially resolved transcriptomics maps RNA to specific locations on a tissue sample, allowing us to profile gene expression across anatomical features such as blood vessels, glands, or, in our case, layers of the brain’s cortex.</p>
-<p>We used Visium slides, which feature a grid of approximately 5,000 spots arranged in a 6.5x6.5 mm area. Each spot has a unique barcode that binds to the RNA in the contacted tissue. When the RNA is sequenced, these molecules can be traced back to their specific grid locations, similar to the barcodes in snRNA-seq.&nbsp;</p>
-<p>This RNA-seq data is paired with a high-definition histology image of the original tissue, providing additional information and aiding in data visualization. We can visualize the gene expression of each spot in “spot plots” using color gradients overlaid on these images. In the example below we highlight the location of the gray matter with SNAP25 a gene highly expressed in neurons, MBP highlights white matter, and PCP4 marks layer 5.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="background_spatial.png" class="img-fluid figure-img"></p>
 <figcaption>Cartoon of Visium spatial transcriptomics (via 10x genomics), and example spot plots</figcaption>
 </figure>
 </div>
+<p>We used Visium slides, which feature a grid of approximately 5,000 spots arranged in a 6.5x6.5 mm area. Each spot has a unique barcode that binds to the RNA in the contacted tissue. When the RNA is sequenced, these molecules can be traced back to their specific grid locations, similar to the barcodes in snRNA-seq.&nbsp;</p>
+<p>This RNA-seq data is paired with a high-definition histology image of the original tissue, providing additional information and aiding in data visualization. We can visualize the gene expression of each spot in “spot plots” using color gradients overlaid on these images. In the example below we highlight the location of the gray matter with <em>SNAP25</em> a gene highly expressed in neurons, <em>MBP</em> highlights white matter, and <em>PCP4</em> marks layer 5.</p>
 </section>
 <section id="study-design" class="level3">
 <h3 class="anchored" data-anchor-id="study-design">Study Design&nbsp;</h3>
-<p>In this study we analyzed the DLPFC of ten healthy adult donors. We sampled three locations of the DLPFC, the anterior, middle, and posterior. All 30 samples were analyzed with Visium spatial transcriptomics, 19 (about 2 from each donor) were selected for snRNA-seq.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="study_design.png" class="img-fluid figure-img"></p>
 <figcaption>Study design for spatialDLPFC</figcaption>
 </figure>
 </div>
+<p>In this study we analyzed the DLPFC of ten healthy adult donors. We sampled three locations of the DLPFC: the anterior, middle, and posterior. All 30 samples were analyzed with Visium spatial transcriptomics, 19 (about 2 from each donor) were selected for snRNA-seq.</p>
 </section>
 </section>
 </section>
@@ -262,8 +321,8 @@ div.csl-indent {
 <h1>Data-Driven Spatial Domains</h1>
 <p>An earlier study, from the Lieber Institute, of spatial transcriptomics in the DLPFC <span class="citation" data-cites="maynard_2021">(<a href="#ref-maynard_2021" role="doc-biblioref">Maynard et al. 2021</a>)</span> relied on manually annotating the known layers of the cortex based on the histological images and the expression of select genes. This dataset has been invaluable for testing methodologies in spatial transcriptomics. However, manual annotation is tedious, time-consuming, and prone to human error and bias.&nbsp;</p>
 <p>In our current study, which builds on the previous DLPFC project, we aimed to use unsupervised clustering to annotate the layers of the DLPFC, thereby avoiding the labor-intensive process of manual annotation and potentially discovering novel or unknown layers in the brain.</p>
-<p>Based on benchmarking against the manually annotated layer data, we chose the method BayesSpace as the best method for clustering spatial data. We clustered the 30 Visium slides at a large range of resolutions, from k=2 to 28 (k denotes the number of clusters). We refer to these clusters as spatial domains, to name these domains we used the syntax SpkDd, where k is clustering resolution and d is spatial domain number, so Sp9D1 is spatial domain 1 when k=9.&nbsp;</p>
-<p>We found that k=2 did a great job separating the white matter from the gray matter. With an increasing number of clusters, the layers of the cortex begin to emerge. This brings us to a question: which level of clustering best captures biologically important layers of the DLPFC?</p>
+<p>Based on benchmarking against the manually annotated layer data, we chose the method BayesSpace as the best method for clustering spatial data. We clustered the 30 Visium slides at a large range of resolutions, from k=2 to 28 (k denotes the number of clusters). We refer to these clusters as spatial domains, to name these domains we used the syntax <span class="math inline">\(Sp_{k}D_{d}\)</span>, where <em>k</em> is clustering resolution and d is spatial domain number, so <span class="math inline">\(Sp_{9}D_{1}\)</span> is spatial domain 1 when <em>k</em>=9.&nbsp;</p>
+<p>We found that <em>k</em>=2 did a great job separating the white matter from the gray matter. With an increasing number of clusters, the layers of the cortex begin to emerge. This brings us to a question: which level of clustering best captures biologically important layers of the DLPFC?</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="clusters.png" class="img-fluid figure-img"></p>
@@ -273,46 +332,53 @@ div.csl-indent {
 <section id="spatial-registration-of-bayesspace-clusters" class="level2">
 <h2 class="anchored" data-anchor-id="spatial-registration-of-bayesspace-clusters">Spatial Registration of BayesSpace Clusters</h2>
 <p>To check which resolution of BayesSpace clusters best matches the six histological layers plus white matter, we used a useful analysis we’ve developed called “spatial registration”. We will delve into the details of this analysis in a future blog post, and its application in this <a href="https://research.libd.org/spatialLIBD/articles/guide_to_spatial_registration.html">vignette</a>.</p>
-<p>Briefly this analysis compares the gene expression profile of a reference set of clusters such as spatial regions or domains, annotated features, or cell type populations etc. (in this case the manual annotations from the pilot dataset), to a query set of clusters we want to learn more about (the BayesSpace clusters). The t-statistics from an enrichment analysis in the query and the reference set are correlated, pairwise across all groups. We visualize this in a heatmap where the high correlation is green, low correlation is purple.&nbsp; Where a query cluster has high correlation with a reference cluster, we can say the two groups are associated, and if the correlation passes our threshold we annotate the query group with the reference.&nbsp;</p>
-<p>In the below example Sp7D7 has a high correlation with the manual annotation white matter, we then annotate it as&nbsp; Sp7D7~WM. This annotation helps add biological context to our newly defined spatial domains.</p>
+<p>Briefly this analysis compares the gene expression profile of a reference set of clusters such as spatial regions or domains, annotated features, or cell type populations etc. (in this case the manual annotations from the pilot dataset), to a query set of clusters we want to learn more about (the BayesSpace clusters). The <em>t</em>-statistics from an enrichment analysis in the query and the reference set are correlated, pairwise across all groups. We visualize this in a heatmap where the high correlation is green, low correlation is purple.&nbsp; Where a query cluster has high correlation with a reference cluster, we can say the two groups are associated, and if the correlation passes our threshold we annotate the query group with the reference.&nbsp;</p>
+<p>In the below example <span class="math inline">\(Sp_{7}D_{7}\)</span> has a high correlation with the manual annotation white matter, we then annotate it as&nbsp;<span class="math inline">\(Sp_{7}D_{7}\sim WM\)</span>. This annotation helps add biological context to our newly defined spatial domains.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="spatial_registration.jpeg" class="img-fluid figure-img"></p>
-<figcaption>Example spatial registration between manual layers and k=7 BayesSpace clusters</figcaption>
+<figcaption>Example spatial registration between manual layers and <em>k</em>=7 BayesSpace clusters</figcaption>
 </figure>
 </div>
-<p>From this process we learned that k=9 best reiterated the expected pattern of six layers + white matter, by matching each spatial domain to only one layer. In contrast to the k=7 resolution where some of the spatial domains (Sp7D2 and Sp7D3) matched more than one layer. K=9 split white matter and Layer 1 into two spatial domains with unique gene expression.</p>
+<p>From this process we learned that <em>k</em>=9 best reiterated the expected pattern of six layers + white matter, by matching each spatial domain to only one layer. In contrast to the <em>k</em>=7 resolution where some of the spatial domains (<span class="math inline">\(Sp_{7}D_{2}\)</span> and <span class="math inline">\(Sp_{7}D_{3}\)</span>) matched more than one layer. <em>K</em>=9 split white matter and Layer 1 into two spatial domains with unique gene expression.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="bayesSpace_k09_spatial_registration_heatmap_color.png" class="img-fluid figure-img"></p>
-<figcaption>BayesSpace k=9 cluster spatial registration vs.&nbsp;manual layers</figcaption>
+<figcaption>BayesSpace <em>k</em>=9 cluster spatial registration vs.&nbsp;manual layers</figcaption>
 </figure>
 </div>
-<p>For higher resolution clustering, k=16 was determined to be the optimal number of clusters based on the fast H+ statistic, so based on the data this is the best way to cluster the data. This further split the six original layers into 2-3 sublayers each. The maximum number of clusters we could comfortably run on our computing setup was k=28, at this high number of clusters we lose the laminar definition.</p>
+<p>For higher resolution clustering, <em>k</em>=16 was determined to be the optimal number of clusters based on the fast H+ statistic, so based on the data this is the best way to cluster the data. This further split the six original layers into 2-3 sub-layers each. The maximum number of clusters we could comfortably run on our computing setup was <em>k</em>=28, at this high number of clusters we lose the laminar definition.</p>
 </section>
 <section id="novel-biology-in-spatial-domains" class="level2">
 <h2 class="anchored" data-anchor-id="novel-biology-in-spatial-domains">Novel Biology in Spatial Domains</h2>
 <p>So what does all this clustering and layer matching help us learn about the brain?</p>
 <p>At each resolution differentially expressed genes were detected between the spatial domains, this shows the complex organization of gene expression across the DLPFC tissue.&nbsp;</p>
-<p>The data-driven clustering at k=9 revealed a sub-layer of the white matter with as much difference in gene expression that exists in the previously considered layers. It also found a thin band of vascular tissue (Sp9D1~L1) in layer 1 with high expression for endothelial genes like <em>CLDN5</em>. These were both novel findings resulting from the unsupervised clustering. The sub-layers found in k=16 had distinct gene expression profiles.&nbsp;</p>
-<p>These new spatial domains help refine the layered anatomy of the DLPFC. Neat!</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Sp09D01_CLDN5.png" class="img-fluid figure-img"></p>
-<figcaption>Clustering at k=9, spot plots of and Violin plots of CLDN5 expression</figcaption>
+<figcaption>Clustering at <em>k</em>=9, spot plots of and Violin plots of <em>CLDN5</em> expression</figcaption>
 </figure>
 </div>
+<p>The data-driven clustering at <em>k</em>=9 revealed a sub-layer of the white matter with as much difference in gene expression that exists in the previously considered layers. It also found a thin band of vascular tissue (<span class="math inline">\(Sp_{9}D_{1}\sim L1\)</span>) in layer 1 with high expression for endothelial genes like <em>CLDN5</em>. These were both novel findings resulting from the unsupervised clustering. The sub-layers found in <em>k</em>=16 had distinct gene expression profiles.&nbsp;</p>
+<p>These new spatial domains help refine the layered anatomy of the DLPFC. Neat!</p>
 
 
 
 </section>
 </section>
+
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-maynard_2021" class="csl-entry" role="listitem">
 Maynard, KR, L Collado-Torres, LM Weber, C Uytingco, BK Barry, SR Williams, JL Catallini, et al. 2021. <span>“Transcriptome-Scale Spatial Gene Expression in the Human Dorsolateral Prefrontal Cortex.”</span> <em>Nature Neuroscience</em> 24 (3): 425–36. <a href="https://doi.org/10.1038/s41593-020-00787-0">https://doi.org/10.1038/s41593-020-00787-0</a>.
 </div>
-</div></section></div></main> <!-- /main -->
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>the measurement of RNA transcription is known as “transcriptomics”<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The full interpretation of these kinds of plots takes much nuance we won’t discuss here<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
