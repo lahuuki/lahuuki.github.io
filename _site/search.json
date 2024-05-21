@@ -49,6 +49,13 @@
     "text": "Novel Biology in Spatial Domains\nSo what does all this clustering and layer matching help us learn about the brain?\nAt each resolution differentially expressed genes were detected between the spatial domains, this shows the complex organization of gene expression across the DLPFC tissue. \n\n\n\nClustering at k=9 highlighting \\(Sp_{9}D_{1}\\sim L1\\), spot plots of and Violin plots of CLDN5 expression\n\n\nThe data-driven clustering at k=9 revealed a sub-layer of the white matter with as much difference in gene expression that exists in the previously considered layers. It also found a thin band of vascular tissue (\\(Sp_{9}D_{1}\\sim L1\\)) in layer 1 with high expression for endothelial genes like CLDN5. These were both novel findings resulting from the unsupervised clustering. The sub-layers found in k=16 had distinct gene expression profiles. \nThese new spatial domains help refine the layered anatomy of the DLPFC. Neat! 🎉"
   },
   {
+    "objectID": "posts/2024-05-23-spatialDLPFC/index.html#spot-deconvolution",
+    "href": "posts/2024-05-23-spatialDLPFC/index.html#spot-deconvolution",
+    "title": "Spatial DLPFC: TL;DR",
+    "section": "Spot Deconvolution",
+    "text": "Spot Deconvolution\n\n\n\nOverview of spot deconvolution: multiple cells exist in each spot, deconvolution predicts the cell type composition of each spot.\n\n\nA challenge with Visium spatial transcriptomics is that each spot is larger than single cell resolution, and on average contains 3 cells per spot. To better understand the gene expression of each spot, we employed an analysis called spot deconvolution, which predicts what cell types exist in the tissue for each Visium spot. \n\nWe determined that the methods Tangram and Cell2location were the most accurate for predicting cell type compositions through a benchmark experiment. From there we predicted the cell type composition of the spots across the 30 Visium slides with both deconvolution methods.\nThe spot deconvolution work was performed by Nick Eagles. Check out his slide deck above for more details."
+  },
+  {
     "objectID": "posts/2024-05-23-spatialDLPFC/index.html#footnotes",
     "href": "posts/2024-05-23-spatialDLPFC/index.html#footnotes",
     "title": "Spatial DLPFC: TL;DR",

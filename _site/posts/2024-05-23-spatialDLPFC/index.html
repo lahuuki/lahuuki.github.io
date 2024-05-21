@@ -211,6 +211,10 @@ window.Quarto = {
   <li><a href="#novel-biology-in-spatial-domains" id="toc-novel-biology-in-spatial-domains" class="nav-link" data-scroll-target="#novel-biology-in-spatial-domains">Novel Biology in Spatial Domains</a></li>
   </ul></li>
   <li><a href="#single-nucleus-rna-seq-1" id="toc-single-nucleus-rna-seq-1" class="nav-link" data-scroll-target="#single-nucleus-rna-seq-1">Single Nucleus RNA-seq</a></li>
+  <li><a href="#data-integration-and-downstream-analysis" id="toc-data-integration-and-downstream-analysis" class="nav-link" data-scroll-target="#data-integration-and-downstream-analysis">Data Integration and Downstream Analysis</a>
+  <ul class="collapse">
+  <li><a href="#spot-deconvolution" id="toc-spot-deconvolution" class="nav-link" data-scroll-target="#spot-deconvolution">Spot Deconvolution</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -419,14 +423,34 @@ window.Quarto = {
 <figcaption>Heatmap of the scaled pseudo-bulked logcounts for the top 10 marker genes for each layer level cell type</figcaption>
 </figure>
 </div>
-<p>For each cell type we identified cell type specific marker genes.</p>
+<p>For each cell type we identified cell type specific marker genes with the mean ratio method described in <span class="citation" data-cites="huuki-myers">(<a href="#ref-huuki-myers" role="doc-biblioref">Huuki-Myers et al., n.d.</a>)</span>. The end product is gene expression profiles for layer annotated cell types in the human dlpfc! 🦠</p>
+</section>
+<section id="data-integration-and-downstream-analysis" class="level1">
+<h1>Data Integration and Downstream Analysis</h1>
+<p>With this combined spatial and snRNA-seq data, there are a number of interesting downstream analyzes possible. Here I will briefly touch on two ways we integrated these data types.</p>
+<section id="spot-deconvolution" class="level2">
+<h2 class="anchored" data-anchor-id="spot-deconvolution">Spot Deconvolution</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/spot_deconvolution.jpeg" class="img-fluid figure-img"></p>
+<figcaption>Overview of spot deconvolution: multiple cells exist in each spot, deconvolution predicts the cell type composition of each spot.</figcaption>
+</figure>
+</div>
+<p>A challenge with Visium spatial transcriptomics is that each spot is larger than single cell resolution, and on average contains 3 cells per spot. To better understand the gene expression of each spot, we employed an analysis called spot deconvolution, which predicts what cell types exist in the tissue for each Visium spot.&nbsp;</p>
+<script defer="" class="speakerdeck-embed" data-id="ca75f869c0764642b48e8fa7143218ff" data-ratio="1.7772511848341233" src="//speakerdeck.com/assets/embed.js"></script>
+<p>We determined that the methods Tangram and Cell2location were the most accurate for predicting cell type compositions through a benchmark experiment.&nbsp;From there we predicted the cell type composition of the spots across the 30 Visium slides with both deconvolution methods.</p>
+<p>The spot deconvolution work was performed by <a href="https://www.linkedin.com/in/nick-eagles7/">Nick Eagles</a>. Check out his slide deck above for more details.</p>
 
 
 
 </section>
+</section>
 
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-huuki-myers" class="csl-entry" role="listitem">
+Huuki-Myers, Louise A., Kelsey D. Montgomery, Sang Ho Kwon, Sophia Cinquemani, Nicholas J. Eagles, Daianna Gonzalez-Padilla, Sean K. Maden, et al. n.d. <span>“Benchmark of Cellular Deconvolution Methods Using a Multi-Assay Reference Dataset from Postmortem Human Prefrontal Cortex.”</span> <a href="https://doi.org/10.1101/2024.02.09.579665">https://doi.org/10.1101/2024.02.09.579665</a>.
+</div>
 <div id="ref-Huuki-Myers2024" class="csl-entry" role="listitem">
 Huuki-Myers, Louise A., Abby Spangler, Nicholas J. Eagles, Kelsey D. Montgomery, Sang Ho Kwon, Boyi Guo, Melissa Grant-Peters, et al. 2024. <span>“A Data-Driven Single-Cell and Spatial Transcriptomic Map of the Human Prefrontal Cortex.”</span> <em>Science</em>. <a href="https://doi.org/10.1126/science.adh1938">https://doi.org/10.1126/science.adh1938</a>.
 </div>

@@ -149,4 +149,21 @@ The layer associations were used to annotate the excitatory neuron populations b
 
 ![Heatmap of the scaled pseudo-bulked logcounts for the top 10 marker genes for each layer level cell type](images/markers_heatmap_layer_mean.png)
 
-For each cell type we identified cell type specific marker genes.
+For each cell type we identified cell type specific marker genes with the mean ratio method described in [@huuki-myers]. The end product is gene expression profiles for layer annotated cell types in the human dlpfc! 🦠
+
+# Data Integration and Downstream Analysis
+
+With this combined spatial and snRNA-seq data, there are a number of interesting downstream analyzes possible. Here I will briefly touch on two ways we integrated these data types.
+
+## Spot Deconvolution
+
+![Overview of spot deconvolution: multiple cells exist in each spot, deconvolution predicts the cell type composition of each spot.](images/spot_deconvolution.jpeg)
+
+A challenge with Visium spatial transcriptomics is that each spot is larger than single cell resolution, and on average contains 3 cells per spot. To better understand the gene expression of each spot, we employed an analysis called spot deconvolution, which predicts what cell types exist in the tissue for each Visium spot. 
+
+```{=html}
+<script defer class="speakerdeck-embed" data-id="ca75f869c0764642b48e8fa7143218ff" data-ratio="1.7772511848341233" src="//speakerdeck.com/assets/embed.js"></script>
+```
+We determined that the methods Tangram and Cell2location were the most accurate for predicting cell type compositions through a benchmark experiment. From there we predicted the cell type composition of the spots across the 30 Visium slides with both deconvolution methods.
+
+The spot deconvolution work was performed by [Nick Eagles](https://www.linkedin.com/in/nick-eagles7/). Check out his slide deck above for more details.
