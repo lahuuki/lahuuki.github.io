@@ -1,12 +1,46 @@
 ---
-title: "Louise A. Huuki Myers' Blog"
-listing:
-  contents: posts
-  sort: "date desc"
-  type: default
-  categories: true
-  sort-ui: false
-  filter-ui: false
-page-layout: full
-title-block-banner: true
+title: "About Me"
+image: louise_in_london_crop.jpg
+about:
+  template: trestles
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/louise-huuki/
+    - icon: github
+      text: Github
+      href: https://github.com/lahuuki
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com/lahuuki
 ---
+
+# Welcome to my Website!
+
+### About me:
+
+I am currently a Staff Scientist at the Lieber Institute for Brain Development in the R/Bioconductor-powered Team Data Science group led by Leonardo Collado-Torres. She works to analyze bulk and single nucleus RNA sequencing, as well as spatially resolved transcriptomic data.
+
+I am is also pursuing a part-time PhD in Clinical Neuroscience from the University of Cambridge with Mina Ryten, Studying complex brain disorders through the analysis of spatially-resolved and single nucleus transcriptomics data.
+
+Previously, I earned a Professional Science Master’s in Bioinformatics from Temple University in 2019, after a Bachelor's degree in Biology and minor in Computer Science in 2018. During my time at Temple university I was involved in research at the Institute of Genomics and Evolutionary Medicine with Sudhir Kumar, studying phylogenetic applications to study evolutionary timing for species divergence, viral diseases, and cancer cell evolution.
+
+### Education
+
+**Temple University** \| Philadelphia PA
+
+Professional Science Master's in Bioinformatics \| 2018 - 2019
+
+Bachelors of Science in Biology \| 2014 - 2018
+
+### Experience
+
+**Lieber Institute for Brain Development** \| Staff Scientist I, Data Science \| July 2022 - Present
+
+**Lieber Institute for Brain Development** \| Research Associate \| April 2020 - July 2022
+
+**iGEM \@ Temple University** \| Technical Support Assistant \| July 2018 - April 2020
+
+**iGEM \@ Temple University** \| Undergraduate Research Assistant \| June 2015 - July 2018
+
+The webite was created using [Quarto](https://quarto.org/).
