@@ -5,6 +5,7 @@ website:
   title: "Louise A. Huuki-Myers"
   site-url: https://lahuuki.github.io/
   description: "Louise's Blog"
+  favicon: "favicon-32x32.png"
   navbar:
     right:
       - text: "About Me"
