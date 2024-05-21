@@ -56,6 +56,13 @@
     "text": "Spot Deconvolution\n\n\n\nOverview of spot deconvolution: multiple cells exist in each spot, deconvolution predicts the cell type composition of each spot.\n\n\nA challenge with Visium spatial transcriptomics is that each spot is larger than single cell resolution, and on average contains 3 cells per spot. To better understand the gene expression of each spot, we employed an analysis called spot deconvolution, which predicts what cell types exist in the tissue for each Visium spot. \n\nWe determined that the methods Tangram and Cell2location were the most accurate for predicting cell type compositions through a benchmark experiment. From there we predicted the cell type composition of the spots across the 30 Visium slides with both deconvolution methods.\nThe spot deconvolution work was performed by Nick Eagles. Check out his slide deck above for more details."
   },
   {
+    "objectID": "posts/2024-05-23-spatialDLPFC/index.html#data-availability",
+    "href": "posts/2024-05-23-spatialDLPFC/index.html#data-availability",
+    "title": "Spatial DLPFC: TL;DR",
+    "section": "Data Availability ",
+    "text": "Data Availability \nThe 30 DLPFC Visium samples & the 56k nuclei snRNA-seq dataset are available to explore on our interactive websites and Bioconductor/R pacakge: https://research.libd.org/spatialDLPFC/\nCheck out how your favorite gene is expressed over the layers or cell types of the DLPFC!"
+  },
+  {
     "objectID": "posts/2024-05-23-spatialDLPFC/index.html#footnotes",
     "href": "posts/2024-05-23-spatialDLPFC/index.html#footnotes",
     "title": "Spatial DLPFC: TL;DR",

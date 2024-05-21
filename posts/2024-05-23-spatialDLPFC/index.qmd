@@ -151,7 +151,7 @@ The layer associations were used to annotate the excitatory neuron populations b
 
 For each cell type we identified cell type specific marker genes with the mean ratio method described in [@huuki-myers]. The end product is gene expression profiles for layer annotated cell types in the human dlpfc! 🦠
 
-# Data Integration and Downstream Analysis
+# Data Integration
 
 With this combined spatial and snRNA-seq data, there are a number of interesting downstream analyzes possible. Here I will briefly touch on two ways we integrated these data types.
 
@@ -167,3 +167,11 @@ A challenge with Visium spatial transcriptomics is that each spot is larger than
 We determined that the methods Tangram and Cell2location were the most accurate for predicting cell type compositions through a benchmark experiment. From there we predicted the cell type composition of the spots across the 30 Visium slides with both deconvolution methods.
 
 The spot deconvolution work was performed by [Nick Eagles](https://www.linkedin.com/in/nick-eagles7/). Check out his slide deck above for more details.
+
+## Data Availability 
+
+The 30 DLPFC Visium samples & the 56k nuclei snRNA-seq dataset are available to explore on our interactive websites and Bioconductor/R pacakge: <https://research.libd.org/spatialDLPFC/>
+
+Check out how your favorite gene is expressed over the layers or cell types of the DLPFC!
+
+![](images/SpatialDLPFC_shiny-01.png)

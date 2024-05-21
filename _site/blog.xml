@@ -182,8 +182,8 @@
 </div>
 <p>For each cell type we identified cell type specific marker genes with the mean ratio method described in <span class="citation" data-cites="huuki-myers">(Huuki-Myers et al., n.d.)</span>. The end product is gene expression profiles for layer annotated cell types in the human dlpfc! 🦠</p>
 </section>
-<section id="data-integration-and-downstream-analysis" class="level1">
-<h1>Data Integration and Downstream Analysis</h1>
+<section id="data-integration" class="level1">
+<h1>Data Integration</h1>
 <p>With this combined spatial and snRNA-seq data, there are a number of interesting downstream analyzes possible. Here I will briefly touch on two ways we integrated these data types.</p>
 <section id="spot-deconvolution" class="level2">
 <h2 class="anchored" data-anchor-id="spot-deconvolution">Spot Deconvolution</h2>
@@ -197,6 +197,12 @@
 <script defer="" class="speakerdeck-embed" data-id="ca75f869c0764642b48e8fa7143218ff" data-ratio="1.7772511848341233" src="//speakerdeck.com/assets/embed.js"></script>
 <p>We determined that the methods Tangram and Cell2location were the most accurate for predicting cell type compositions through a benchmark experiment.&nbsp;From there we predicted the cell type composition of the spots across the 30 Visium slides with both deconvolution methods.</p>
 <p>The spot deconvolution work was performed by <a href="https://www.linkedin.com/in/nick-eagles7/">Nick Eagles</a>. Check out his slide deck above for more details.</p>
+</section>
+<section id="data-availability" class="level2">
+<h2 class="anchored" data-anchor-id="data-availability">Data Availability&nbsp;</h2>
+<p>The 30 DLPFC Visium samples &amp; the 56k nuclei snRNA-seq dataset are available to explore on our interactive websites and Bioconductor/R pacakge: <a href="https://research.libd.org/spatialDLPFC/" class="uri">https://research.libd.org/spatialDLPFC/</a></p>
+<p>Check out how your favorite gene is expressed over the layers or cell types of the DLPFC!</p>
+<p><img src="https://lahuuki.github.io/posts/2024-05-23-spatialDLPFC/images/SpatialDLPFC_shiny-01.png" class="img-fluid"></p>
 
 
 
