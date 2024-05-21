@@ -11,7 +11,7 @@
     "href": "posts/2024-05-23-spatialDLPFC/index.html",
     "title": "Spatial DLPFC: TL;DR",
     "section": "",
-    "text": "This blog post provides a high-level summary of our paper “A data-driven single cell and spatial transcriptomic map of the human prefrontal cortex” published in Science in May 2024 (aka spatialDLPFC).\nIn the spatialDLPFC project we set out to learn more about the organization of the dorsolateral prefrontal cortex (aka DLPFC), its cell types, and gene expression profile 🧠.\n\n\n\nGraphical abstract for the spatialDLPFC project, summarized here (TODO add link)"
+    "text": "This blog post provides a high-level summary of our paper “A data-driven single cell and spatial transcriptomic map of the human prefrontal cortex” published in Science in May 2024 (aka spatialDLPFC)(Huuki-Myers et al. 2024).\nIn the spatialDLPFC project we set out to learn more about the organization of the dorsolateral prefrontal cortex (aka DLPFC), its cell types, and gene expression profile 🧠.\n\n\n\nGraphical abstract for the spatialDLPFC project, summarized here (TODO add link)"
   },
   {
     "objectID": "posts/2024-05-23-spatialDLPFC/index.html#dlpfc",

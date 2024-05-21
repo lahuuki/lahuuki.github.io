@@ -22,7 +22,7 @@
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>This blog post provides a high-level summary of our paper <a href="https://doi.org/10.1126/science.adh1938">“A data-driven single cell and spatial transcriptomic map of the human prefrontal cortex”</a> published in <em>Science</em> in May 2024 (aka <strong>spatialDLPFC</strong>).</p>
+<p>This blog post provides a high-level summary of our paper <a href="https://doi.org/10.1126/science.adh1938">“A data-driven single cell and spatial transcriptomic map of the human prefrontal cortex”</a> published in <em>Science</em> in May 2024 (aka <strong>spatialDLPFC</strong>)<span class="citation" data-cites="Huuki-Myers2024">(Huuki-Myers et al. 2024)</span>.</p>
 <p>In the spatialDLPFC project we set out to learn more about the organization of the dorsolateral prefrontal cortex (aka DLPFC), its cell types, and gene expression profile 🧠.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -135,6 +135,9 @@
 
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="ref-Huuki-Myers2024" class="csl-entry">
+Huuki-Myers, Louise A., Abby Spangler, Nicholas J. Eagles, Kelsey D. Montgomery, Sang Ho Kwon, Boyi Guo, Melissa Grant-Peters, et al. 2024. <span>“A Data-Driven Single-Cell and Spatial Transcriptomic Map of the Human Prefrontal Cortex.”</span> <em>Science</em>. <a href="https://doi.org/10.1126/science.adh1938">https://doi.org/10.1126/science.adh1938</a>.
+</div>
 <div id="ref-maynard_2021" class="csl-entry">
 Maynard, KR, L Collado-Torres, LM Weber, C Uytingco, BK Barry, SR Williams, JL Catallini, et al. 2021. <span>“Transcriptome-Scale Spatial Gene Expression in the Human Dorsolateral Prefrontal Cortex.”</span> <em>Nature Neuroscience</em> 24 (3): 425–36. <a href="https://doi.org/10.1038/s41593-020-00787-0">https://doi.org/10.1038/s41593-020-00787-0</a>.
 </div>

@@ -16,7 +16,7 @@ bibliography: references.bib
 
 # Introduction
 
-This blog post provides a high-level summary of our paper ["A data-driven single cell and spatial transcriptomic map of the human prefrontal cortex"](https://doi.org/10.1126/science.adh1938) published in *Science* in May 2024 (aka **spatialDLPFC**).
+This blog post provides a high-level summary of our paper ["A data-driven single cell and spatial transcriptomic map of the human prefrontal cortex"](https://doi.org/10.1126/science.adh1938) published in *Science* in May 2024 (aka **spatialDLPFC**)[@Huuki-Myers2024].
 
 In the spatialDLPFC project we set out to learn more about the organization of the dorsolateral prefrontal cortex (aka DLPFC), its cell types, and gene expression profile 🧠.
 
