@@ -20,7 +20,7 @@ This blog post provides a high-level summary of our paper ["A data-driven single
 
 In the spatialDLPFC project we set out to learn more about the organization of the dorsolateral prefrontal cortex (aka DLPFC), its cell types, and gene expression profile 🧠.
 
-![Graphical abstract for the spatialDLPFC project, summarized here (TODO add link)](SpatialDLPFC_GraphAbs_revision2.4.png)
+![Graphical abstract for the spatialDLPFC project, summarized here (TODO add link)](images/SpatialDLPFC_GraphAbs_revision2.4.png)
 
 # Background
 
@@ -28,7 +28,7 @@ In the spatialDLPFC project we set out to learn more about the organization of t
 
 The dorsolateral prefrontal cortex region of the brain is especially important for executive functions including working memory, cognitive flexibility, and planning. Disruptions of the DLPFC have been associated with several psychiatric and neurodevelopmental disorders, including schizophrenia and autism spectrum disorder.
 
-![Location of the DLPFC, its laminar structure, and major cell types.](background.png)
+![Location of the DLPFC, its laminar structure, and major cell types.](images/background.png)
 
 ## RNA-sequencing 
 
@@ -47,7 +47,7 @@ Single nucleus or single cell RNA sequencing (snRNA-seq) enables us to examine t
 
 [^2]: The full interpretation of these kinds of plots takes much nuance we won't discuss here
 
-![Cartoon of 10x snRNA-seq process (via 10x Genomics), and tSNE plot](background_sn.png)
+![Cartoon of 10x snRNA-seq process (via 10x Genomics), and tSNE plot](images/background_sn.png)
 
 In this experiment we are working with nuclei, as the cell membrane is destroyed when the brain tissue is frozen. The major cell type populations to identify in the DLPFC are neurons (Excitatory and Inhibitory), and glial cells (ex: Astrocytes, Microglia, Oligodendrocytes, OPC).
 
@@ -55,7 +55,7 @@ In this experiment we are working with nuclei, as the cell membrane is destroyed
 
 Spatially resolved transcriptomics maps RNA to specific locations on a tissue sample, allowing us to profile gene expression across anatomical features such as blood vessels, glands, or, in our case, layers of the brain's cortex.
 
-![Cartoon of Visium spatial transcriptomics (via 10x genomics), and example spot plots](background_spatial.png)
+![Cartoon of Visium spatial transcriptomics (via 10x genomics), and example spot plots](images/background_spatial.png)
 
 We used Visium slides, which feature a grid of approximately 5,000 spots arranged in a 6.5x6.5 mm area. Each spot has a unique barcode that binds to the RNA in the contacted tissue. When the RNA is sequenced, these molecules can be traced back to their specific grid locations, similar to the barcodes in snRNA-seq. 
 
@@ -63,7 +63,7 @@ This RNA-seq data is paired with a high-definition histology image of the origin
 
 ### Study Design 
 
-![Study design for spatialDLPFC](study_design.png)
+![Study design for spatialDLPFC](images/study_design.png)
 
 In this study we analyzed the DLPFC of ten healthy adult donors. We sampled three locations of the DLPFC: the anterior, middle, and posterior. All 30 samples were analyzed with Visium spatial transcriptomics, 19 (about 2 from each donor) were selected for snRNA-seq.
 
@@ -77,7 +77,7 @@ Based on benchmarking against the manually annotated layer data, we chose the me
 
 We found that *k*=2 did a great job separating the white matter from the gray matter. With an increasing number of clusters, the layers of the cortex begin to emerge. This brings us to a question: which level of clustering best captures biologically important layers of the DLPFC?
 
-![A. Histological images of three DLPFC tissue sections B. spatial clustering at k=2, 9, and 16](clusters.png)
+![A. Histological images of three DLPFC tissue sections B. spatial clustering at k=2, 9, and 16](images/clusters.png)
 
 ## Spatial Registration of BayesSpace Clusters
 
@@ -87,11 +87,11 @@ Briefly this analysis compares the gene expression profile of a reference set of
 
 In the below example $Sp_{7}D_{7}$ has a high correlation with the manual annotation white matter, we then annotate it as $Sp_{7}D_{7}\sim WM$. This annotation helps add biological context to our newly defined spatial domains.
 
-![Example spatial registration between manual layers and *k*=7 BayesSpace clusters](spatial_registration.jpeg)
+![Example spatial registration between manual layers and *k*=7 BayesSpace clusters](images/spatial_registration.jpeg)
 
 From this process we learned that *k*=9 best reiterated the expected pattern of six layers + white matter, by matching each spatial domain to only one layer. In contrast to the *k*=7 resolution where some of the spatial domains ($Sp_{7}D_{2}$ and $Sp_{7}D_{3}$) matched more than one layer. *K*=9 split white matter and Layer 1 into two spatial domains with unique gene expression.
 
-![BayesSpace *k*=9 cluster spatial registration vs. manual layers](bayesSpace_k09_spatial_registration_heatmap_color.png)
+![BayesSpace *k*=9 cluster spatial registration vs. manual layers](images/bayesSpace_k09_spatial_registration_heatmap_color.png)
 
 For higher resolution clustering, *k*=16 was determined to be the optimal number of clusters based on the fast H+ statistic, so based on the data this is the best way to cluster the data. This further split the six original layers into 2-3 sub-layers each. The maximum number of clusters we could comfortably run on our computing setup was *k*=28, at this high number of clusters we lose the laminar definition.
 
@@ -101,8 +101,52 @@ So what does all this clustering and layer matching help us learn about the brai
 
 At each resolution differentially expressed genes were detected between the spatial domains, this shows the complex organization of gene expression across the DLPFC tissue. 
 
-![Clustering at *k*=9, spot plots of and Violin plots of *CLDN5* expression](Sp09D01_CLDN5.png)
+![Clustering at *k*=9 highlighting $Sp_{9}D_{1}\sim L1$, spot plots of and Violin plots of *CLDN5* expression](images/Sp09D01_CLDN5.png)
 
 The data-driven clustering at *k*=9 revealed a sub-layer of the white matter with as much difference in gene expression that exists in the previously considered layers. It also found a thin band of vascular tissue ($Sp_{9}D_{1}\sim L1$) in layer 1 with high expression for endothelial genes like *CLDN5*. These were both novel findings resulting from the unsupervised clustering. The sub-layers found in *k*=16 had distinct gene expression profiles. 
 
-These new spatial domains help refine the layered anatomy of the DLPFC. Neat!
+These new spatial domains help refine the layered anatomy of the DLPFC. Neat! 🎉
+
+# Single Nucleus RNA-seq 
+
+![Cartoons of brain cell types, Created with BioRender.com](images/Brain%20Cell%20Types%20Text.png)
+
+On the single nucleus side of the experiment, we processed 56k nuclei from n=19 samples. The first round of clustering (hierarchical clustering) found 29 distinct cell type clusters from seven broad cell types: 
+
+**Glia: provide structure to the brain, support neurons**[^3] 
+
+[^3]: The following are brief notes on cell type function to provide context, not comprehensive descriptions of the complex roles of these cell types
+
+1.  Astrocytes (Astro):link neurons to blood supply, clear neurotransmitters 
+
+2.  Endothelial/Mural cells (EndoMural): blood vessels/vascular tissue
+
+3.  Microglial (Micro): immune function
+
+4.  Oligodendrocytes (Oligo): myelin sheath
+
+5.  Oligodendrocyte Precursor cells (OPCs)
+
+**Neurons: send and receive signals in the brain**
+
+6.  Excitatory Neurons (Excit)
+
+7.  Inhibitory Neurons (Inhib)\
+
+![tSNE plot of snRNA-seq with 29 hierarchical clusters](images/TSNE_cellType.png)
+
+Sub-populations in EndoMural, Oligos, and the Excit/Inhib Neurons were found in the first round of clustering.
+
+In the DLPFC we know that different populations of excitatory neurons exist between the six layers of gray matter. To annotate our 13 Excit clusters we brought back our spatial registration tool, comparing all of the 29 hierarchical clusters to the manually annotated clusters from [@maynard_2021] as well as the BayesSpace spatial domains at *k*=9 & *k*=16.
+
+![Spatial registration between the 29 snRNA-seq hierarchical clusters vs. histological layers or spatial domains at k=9 & 16. Annotations with good confidence (cor \> 0.25, merge ratio = 0.1) are marked with “X” and poor confidence are marked with “\*”.](images/spatial_registration_sn_heatmap_bayesAnno.png)
+
+We found Oligo and OPC cell types mapped to white matter, and EndoMural plus Astro mapped to Layer 1. Inhib neurons had a weak association with Layer 2-4, and the Excit neurons had strong associations with 1-3 layers each across the gray matter. The same patterns were found and re-fined in the spatial domains, such as the EndoMural groups mapping to $Sp_{9}D_{1}\sim L1$.
+
+![tSNE plot of snRNA-seq data with layer level annotations](images/TSNE_cellType_layer_label.png)
+
+The layer associations were used to annotate the excitatory neuron populations by their strongest associated layers, other cell types were collapsed to their broad cell types. This resulted in our "layer-level" annotation with 13 cell types, and 7 populations of Excit neurons.
+
+![Heatmap of the scaled pseudo-bulked logcounts for the top 10 marker genes for each layer level cell type](images/markers_heatmap_layer_mean.png)
+
+For each cell type we identified cell type specific marker genes.
