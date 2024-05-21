@@ -13,11 +13,14 @@ about:
     - icon: twitter
       text: Twitter
       href: https://twitter.com/lahuuki
+    - icon: envelope-at
+      text: lahuuki@gmail.com
+      href: mailto:lahuuki@gmail.com
 ---
 
-# Welcome to my Website!
+# Welcome to My Website!
 
-### About me:
+### About Me
 
 I am currently a Staff Scientist at the Lieber Institute for Brain Development in the R/Bioconductor-powered Team Data Science group led by Leonardo Collado-Torres. She works to analyze bulk and single nucleus RNA sequencing, as well as spatially resolved transcriptomic data.
 
@@ -27,11 +30,15 @@ Previously, I earned a Professional Science Master’s in Bioinformatics from Te
 
 ### Education
 
+**University of Cambridge** \| Cambridge, UK
+
+-   PhD Clinical Neuroscience \| 2024 - Present
+
 **Temple University** \| Philadelphia PA
 
-Professional Science Master's in Bioinformatics \| 2018 - 2019
+-   Professional Science Master's in Bioinformatics \| 2018 - 2019
 
-Bachelors of Science in Biology \| 2014 - 2018
+-   Bachelors of Science in Biology \| 2014 - 2018
 
 ### Experience
 
@@ -43,4 +50,4 @@ Bachelors of Science in Biology \| 2014 - 2018
 
 **iGEM \@ Temple University** \| Undergraduate Research Assistant \| June 2015 - July 2018
 
-The webite was created using [Quarto](https://quarto.org/).
+👾The website was created using [Quarto](https://quarto.org/).

@@ -1,0 +1,45 @@
+---
+title: "My Publications"
+---
+
+![](images/my_hexs.png){width="336"}
+
+You can find my full publications list on [ORCiD](https://orcid.org/0000-0001-5148-3602) or [Google Scholar](https://scholar.google.com/citations?user=GGJIfVYAAAAJ&hl=en)
+
+# 2024
+
+### spatialDLPFC
+
+![](posts/2024-05-23-spatialDLPFC/SpatialDLPFC_logo.png){width="100"}
+
+**A data-driven single cell and spatial transcriptomic map of the human prefrontal cortex**
+
+-   DOI: <https://doi.org/10.1126/science.adh1938>
+
+-   Pre-print DOI: [10.1101/2023.02.15.528722](https://www.biorxiv.org/content/10.1101/2023.02.15.528722v1)
+
+-   Exciting new work on spatial transcritomics & snRNA-seq in the human DLPFC!
+
+-   Explore this data at [research.libd.org/spatialDLPFC/](https://research.libd.org/spatialDLPFC/)
+
+-   [Tweetorial](https://twitter.com/lahuuki/status/1626686409313763328?s=20)
+
+# 2023
+
+### TREG
+
+![](images/TREG_hex.png){width="100"}
+
+**Data-driven identification of total RNA expression genes for estimation of RNA abundance in heterogeneous cell types highlighted in brain tissue**
+
+-   DOI: [10.1186/s13059-023-03066-w](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-023-03066-w#article-info)
+
+-   Pre-print DOI: [10.1101/2022.04.28.489923](https://www.biorxiv.org/content/10.1101/2022.04.28.489923v1)
+
+-   My **first first-author paper** is now in published by Genome Biology! This pairs with my **first Bioconductor R package** [TREG](https://bioconductor.org/packages/TREG)
+
+You can find my full publications list on [ORCiD](https://orcid.org/0000-0001-5148-3602) or [Google Scholar](https://scholar.google.com/citations?user=GGJIfVYAAAAJ&hl=en)
+
+## Presentations
+
+Slides and posters and available on my [speakerdeck](https://speakerdeck.com/lahuuki)

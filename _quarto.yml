@@ -4,7 +4,7 @@ project:
 website:
   title: "Louise A. Huuki-Myers"
   site-url: https://lahuuki.github.io/
-  description: "Louise's Blog"
+  description: "Louise's personal webpage & blog"
   favicon: "favicon-32x32.png"
   navbar:
     right:
@@ -12,6 +12,8 @@ website:
         file: index.qmd
       - text: "Blog"
         file: blog.qmd
+      - text: "My Publications"
+        file: publications.qmd
       - icon: github
         href: https://github.com/lahuuki/
       - icon: linkedin
