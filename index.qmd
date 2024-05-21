@@ -1,5 +1,5 @@
 ---
-title: "About Me"
+title: "Louise A. Huuki Myers"
 image: louise_in_london_crop.jpg
 about:
   template: trestles

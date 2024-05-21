@@ -8,13 +8,17 @@ website:
   navbar:
     right:
       - text: "About Me"
-        file: about.qmd
+        file: index.qmd
+      - text: "Blog"
+        file: blog.qmd
       - icon: github
         href: https://github.com/lahuuki/
       - icon: linkedin
         href: https://www.linkedin.com/in/louise-huuki/
       - icon: twitter
         href: https://twitter.com/lahuuki/
+      - icon: rss
+        href: index.xml
 format:
   html:
     theme: cosmo
