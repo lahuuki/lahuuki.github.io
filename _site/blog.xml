@@ -142,7 +142,7 @@
 <ol type="1">
 <li><p>Astrocytes (Astro):link neurons to blood supply, clear neurotransmitters&nbsp;</p></li>
 <li><p>Endothelial/Mural cells (EndoMural): blood vessels/vascular tissue</p></li>
-<li><p>Microglial (Micro): immune function</p></li>
+<li><p>Microglia (Micro): immune function</p></li>
 <li><p>Oligodendrocytes (Oligo): myelin sheath</p></li>
 <li><p>Oligodendrocyte Precursor cells (OPCs)</p></li>
 </ol>
@@ -180,7 +180,7 @@
 <figcaption>Heatmap of the scaled pseudo-bulked logcounts for the top 10 marker genes for each layer level cell type</figcaption>
 </figure>
 </div>
-<p>For each cell type we identified cell type specific marker genes with the mean ratio method described in <span class="citation" data-cites="huuki-myers">(Huuki-Myers et al., n.d.)</span>. The end product is gene expression profiles for layer annotated cell types in the human dlpfc! 🦠</p>
+<p>For each cell type we identified cell type specific marker genes with the mean ratio method described in <span class="citation" data-cites="huuki-myers">(Huuki-Myers et al., n.d.)</span>. The end product is gene expression profiles for layer annotated cell types in the human DLPFC! 🦠</p>
 </section>
 <section id="data-integration" class="level1">
 <h1>Data Integration</h1>
@@ -203,11 +203,11 @@
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://lahuuki.github.io/posts/2024-05-23-spatialDLPFC/images/ligend_receptor_spatialDLPFC.jpeg" class="img-fluid figure-img"></p>
-<figcaption>Cell-cell communication, EFNA5 and EPHA5 co-localizing in <img src="https://latex.codecogs.com/png.latex?Sp_%7B9%7DD_%7B7%7D%5Csim%20L6"> , cartoon of LR interaction in a Visium spot</figcaption>
+<figcaption>Cell-cell communication, <em>EFNA5</em> and <em>EPHA5</em> co-localizing in <img src="https://latex.codecogs.com/png.latex?Sp_%7B9%7DD_%7B7%7D%5Csim%20L6"> , cartoon of LR interaction in a Visium spot</figcaption>
 </figure>
 </div>
-<p>To show how this dataset can be a rich resource to study neuropsychiatric diseases we explored the spatial location of a ligand-receptor (LR) interaction that is associated with schizophrenia. We performed a cell-cell communication analysis which predicts which cell types are interacting with each other, and then identified overlapping LR pairs with risk of schizophrenia from databases with the cell-cell communication results. From the common set of LR pairs we examined ligand EFNA5 &amp; receptor EPHA5. From the snRNA-seq populations, EFNA5 was most expressed in Excit_L5/6, and EPHA5 in Excit_L6. From the Visium data we identified spots where the two genes were co-expressed, most frequent in <img src="https://latex.codecogs.com/png.latex?Sp_%7B9%7DD_%7B7%7D%5Csim%20L6">, these spots also had high proportions of Excit_L5/6 neurons and Excit_L6 neurons predicted by spot deconvolution. Spatially mapping LR pairs helps us gain insight into the potentials for drug development. (This cool work was completed By <a href="https://x.com/BoyiGuo">Boyi Guo</a> and <a href="https://x.com/mgrantpeters">Melissa Grant-Peters</a>)</p>
-<p>This analysis used many elements of the data from the spatialLIBD project, and is just one example of how this dataset is relevant to the study of disease, for example we also checked for enrichment of depression and PTSD related genes between the spatial domains. There are lots of exciting applications for the study of diseases with spatial and single cell, stay tuned to future work from the Lieber Institute for more! 👀</p>
+<p>To show how this dataset can be a rich resource to study neuropsychiatric diseases we explored the spatial location of a ligand-receptor (LR) interaction that is associated with schizophrenia. We performed a cell-cell communication analysis which predicts which cell types are interacting with each other, and then identified overlapping LR pairs with risk of schizophrenia from databases with the cell-cell communication results. From the common set of LR pairs we examined ligand <em>EFNA5</em> &amp; receptor <em>EPHA5</em>. From the snRNA-seq populations, <em>EFNA5</em> was most expressed in Excit_L5/6, and <em>EPHA5</em> in Excit_L6. From the Visium data we identified spots where the two genes were co-expressed, most frequent in <img src="https://latex.codecogs.com/png.latex?Sp_%7B9%7DD_%7B7%7D%5Csim%20L6">, these spots also had high proportions of Excit_L5/6 neurons and Excit_L6 neurons predicted by spot deconvolution. Spatially mapping LR pairs helps us gain insight into the potentials for drug development. (This cool work was completed By <a href="https://x.com/BoyiGuo">Boyi Guo</a> and <a href="https://x.com/mgrantpeters">Melissa Grant-Peters</a>)</p>
+<p>This analysis used many elements of the data from the spatialDLPFC project, and is just one example of how this dataset is relevant to the study of disease. In another application we also checked for enrichment of depression and PTSD related genes between the spatial domains. There are lots of exciting applications for the study of diseases with spatial and single cell, stay tuned to future work from the Lieber Institute for more! 👀</p>
 </section>
 </section>
 <section id="summary" class="level1">
