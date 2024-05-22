@@ -87,7 +87,7 @@
 <h1>Data-Driven Spatial Domains</h1>
 <p>An earlier study, from the Lieber Institute, of spatial transcriptomics in the DLPFC <span class="citation" data-cites="maynard_2021">(Maynard et al. 2021)</span> relied on manually annotating the known layers of the cortex based on the histological images and the expression of select genes. This dataset has been invaluable for testing methodologies in spatial transcriptomics. However, manual annotation is tedious, time-consuming, and prone to human error and bias.&nbsp;</p>
 <p>In our current study, which builds on the previous DLPFC project, we aimed to use unsupervised clustering to annotate the layers of the DLPFC, thereby avoiding the labor-intensive process of manual annotation and potentially discovering novel or unknown layers in the brain.</p>
-<p>Based on benchmarking against the manually annotated layer data, we chose the method BayesSpace as the best method for clustering spatial data. We clustered the 30 Visium slides at a large range of resolutions, from k=2 to 28 (k denotes the number of clusters). We refer to these clusters as spatial domains, to name these domains we used the syntax <img src="https://latex.codecogs.com/png.latex?Sp_%7Bk%7DD_%7Bd%7D">, where <em>k</em> is clustering resolution and d is spatial domain number, so <img src="https://latex.codecogs.com/png.latex?Sp_%7B9%7DD_%7B1%7D"> is spatial domain 1 when <em>k</em>=9.&nbsp;</p>
+<p>Based on benchmarking against the manually annotated layer data, we chose the method <em>BayesSpace</em> as the best method for clustering spatial data. We clustered the 30 Visium slides at a large range of resolutions, from k=2 to 28 (k denotes the number of clusters). We refer to these clusters as spatial domains, to name these domains we used the syntax <img src="https://latex.codecogs.com/png.latex?Sp_%7Bk%7DD_%7Bd%7D">, where <em>k</em> is clustering resolution and d is spatial domain number, so <img src="https://latex.codecogs.com/png.latex?Sp_%7B9%7DD_%7B1%7D"> is spatial domain 1 when <em>k</em>=9.&nbsp;</p>
 <p>We found that <em>k</em>=2 did a great job separating the white matter from the gray matter. With an increasing number of clusters, the layers of the cortex begin to emerge. This brings us to a question: which level of clustering best captures biologically important layers of the DLPFC?</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -96,21 +96,21 @@
 </figure>
 </div>
 <section id="spatial-registration-of-bayesspace-clusters" class="level2">
-<h2 class="anchored" data-anchor-id="spatial-registration-of-bayesspace-clusters">Spatial Registration of BayesSpace Clusters</h2>
-<p>To check which resolution of BayesSpace clusters best matches the six histological layers plus white matter, we used a useful analysis we’ve developed called “spatial registration”. We will delve into the details of this analysis in a future blog post, and its application in this <a href="https://research.libd.org/spatialLIBD/articles/guide_to_spatial_registration.html">vignette</a>.</p>
-<p>Briefly this analysis compares the gene expression profile of a reference set of clusters such as spatial regions or domains, annotated features, or cell type populations etc. (in this case the manual annotations from the pilot dataset), to a query set of clusters we want to learn more about (the BayesSpace clusters). The <em>t</em>-statistics from an enrichment analysis in the query and the reference set are correlated, pairwise across all groups. We visualize this in a heatmap where the high correlation is green, low correlation is purple.&nbsp; Where a query cluster has high correlation with a reference cluster, we can say the two groups are associated, and if the correlation passes our threshold we annotate the query group with the reference.&nbsp;</p>
+<h2 class="anchored" data-anchor-id="spatial-registration-of-bayesspace-clusters">Spatial Registration of <em>BayesSpace</em> Clusters</h2>
+<p>To check which resolution of <em>BayesSpace</em> clusters best matches the six histological layers plus white matter, we used a useful analysis we’ve developed called “spatial registration”. We will delve into the details of this analysis in a future blog post, and its application in this <a href="https://research.libd.org/spatialLIBD/articles/guide_to_spatial_registration.html">vignette</a>.</p>
+<p>Briefly this analysis compares the gene expression profile of a reference set of clusters such as spatial regions or domains, annotated features, or cell type populations etc. (in this case the manual annotations from the pilot dataset), to a query set of clusters we want to learn more about (the <em>BayesSpace</em> clusters). The <em>t</em>-statistics from an enrichment analysis in the query and the reference set are correlated, pairwise across all groups. We visualize this in a heatmap where the high correlation is green, low correlation is purple.&nbsp; Where a query cluster has high correlation with a reference cluster, we can say the two groups are associated, and if the correlation passes our threshold we annotate the query group with the reference.&nbsp;</p>
 <p>In the below example <img src="https://latex.codecogs.com/png.latex?Sp_%7B7%7DD_%7B7%7D"> has a high correlation with the manual annotation white matter, we then annotate it as&nbsp;<img src="https://latex.codecogs.com/png.latex?Sp_%7B7%7DD_%7B7%7D%5Csim%20WM">. This annotation helps add biological context to our newly defined spatial domains.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://lahuuki.github.io/posts/2024-05-23-spatialDLPFC/images/spatial_registration.jpeg" class="img-fluid figure-img"></p>
-<figcaption>Example spatial registration between manual layers and <em>k</em>=7 BayesSpace clusters</figcaption>
+<figcaption>Example spatial registration between manual layers and <em>k</em>=7 <em>BayesSpace</em> clusters</figcaption>
 </figure>
 </div>
 <p>From this process we learned that <em>k</em>=9 best reiterated the expected pattern of six layers + white matter, by matching each spatial domain to only one layer. In contrast to the <em>k</em>=7 resolution where some of the spatial domains (<img src="https://latex.codecogs.com/png.latex?Sp_%7B7%7DD_%7B2%7D"> and <img src="https://latex.codecogs.com/png.latex?Sp_%7B7%7DD_%7B3%7D">) matched more than one layer. <em>K</em>=9 split white matter and Layer 1 into two spatial domains with unique gene expression.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://lahuuki.github.io/posts/2024-05-23-spatialDLPFC/images/bayesSpace_k09_spatial_registration_heatmap_color.png" class="img-fluid figure-img"></p>
-<figcaption>BayesSpace <em>k</em>=9 cluster spatial registration vs.&nbsp;manual layers</figcaption>
+<figcaption><em>BayesSpace</em> <em>k</em>=9 cluster spatial registration vs.&nbsp;manual layers</figcaption>
 </figure>
 </div>
 <p>For higher resolution clustering, <em>k</em>=16 was determined to be the optimal number of clusters based on the fast H+ statistic, so based on the data this is the best way to cluster the data. This further split the six original layers into 2-3 sub-layers each. The maximum number of clusters we could comfortably run on our computing setup was <em>k</em>=28, at this high number of clusters we lose the laminar definition.</p>
@@ -159,7 +159,7 @@
 </figure>
 </div>
 <p>Sub-populations in EndoMural, Oligos, and the Excit/Inhib Neurons were found in the first round of clustering.</p>
-<p>In the DLPFC we know that different populations of excitatory neurons exist between the six layers of gray matter. To annotate our 13 Excit clusters we brought back our spatial registration tool, comparing all of the 29 hierarchical clusters to the manually annotated clusters from <span class="citation" data-cites="maynard_2021">(Maynard et al. 2021)</span> as well as the BayesSpace spatial domains at <em>k</em>=9 &amp; <em>k</em>=16.</p>
+<p>In the DLPFC we know that different populations of excitatory neurons exist between the six layers of gray matter. To annotate our 13 Excit clusters we brought back our spatial registration tool, comparing all of the 29 hierarchical clusters to the manually annotated clusters from <span class="citation" data-cites="maynard_2021">(Maynard et al. 2021)</span> as well as the <em>BayesSpace</em> spatial domains at <em>k</em>=9 &amp; <em>k</em>=16.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://lahuuki.github.io/posts/2024-05-23-spatialDLPFC/images/spatial_registration_sn_heatmap_bayesAnno.png" class="img-fluid figure-img"></p>
@@ -195,7 +195,7 @@
 </div>
 <p>A challenge with Visium spatial transcriptomics is that each spot is larger than single cell resolution, and on average contains 3 cells per spot. To better understand the gene expression of each spot, we employed an analysis called spot deconvolution, which predicts what cell types exist in the tissue for each Visium spot.&nbsp;</p>
 <script defer="" class="speakerdeck-embed" data-slide="39" data-id="ca75f869c0764642b48e8fa7143218ff" data-ratio="1.7772511848341233" src="//speakerdeck.com/assets/embed.js"></script>
-<p>We determined that the methods Tangram and Cell2location were the most accurate for predicting cell type compositions through a benchmark experiment.&nbsp;From there we predicted the cell type composition of the spots across the 30 Visium slides with both deconvolution methods.</p>
+<p>We determined that the methods <em>Tangram</em> and <em>Cell2location</em> were the most accurate for predicting cell type compositions through a benchmark experiment.&nbsp;From there we predicted the cell type composition of the spots across the 30 Visium slides with both deconvolution methods.</p>
 <p>The spot deconvolution work was performed by <a href="https://www.linkedin.com/in/nick-eagles7/">Nick Eagles</a>. Check out his <a href="https://speakerdeck.com/nickeagles/libd-seminar-spot-deconvolution">spot deconvolution slide deck</a> above for more details.</p>
 </section>
 <section id="spatially-map-disease-ligand-receptor-interactions" class="level2">
