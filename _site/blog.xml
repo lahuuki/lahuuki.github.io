@@ -198,6 +198,23 @@
 <p>We determined that the methods Tangram and Cell2location were the most accurate for predicting cell type compositions through a benchmark experiment.&nbsp;From there we predicted the cell type composition of the spots across the 30 Visium slides with both deconvolution methods.</p>
 <p>The spot deconvolution work was performed by <a href="https://www.linkedin.com/in/nick-eagles7/">Nick Eagles</a>. Check out his slide deck above for more details.</p>
 </section>
+<section id="spatially-map-disease-ligand-receptor-interactions" class="level2">
+<h2 class="anchored" data-anchor-id="spatially-map-disease-ligand-receptor-interactions">Spatially Map Disease Ligand Receptor Interactions</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://lahuuki.github.io/posts/2024-05-23-spatialDLPFC/images/ligend_receptor_spatialDLPFC.jpeg" class="img-fluid figure-img"></p>
+<figcaption>Cell-cell communication, EFNA5 and EPHA5 co-localizing in <img src="https://latex.codecogs.com/png.latex?Sp_%7B9%7DD_%7B7%7D%5Csim%20L6"> , cartoon of LR interaction in a Visium spot</figcaption>
+</figure>
+</div>
+<p>To show how this dataset can be a rich resource to study neuropsychiatric diseases we explored the spatial location of a ligand-receptor (LR) interaction that is associated with schizophrenia. We performed a cell-cell communication analysis which predicts which cell types are interacting with each other, and then identified overlapping LR pairs with risk of schizophrenia from databases with the cell-cell communication results. From the common set of LR pairs we examined ligand EFNA5 &amp; receptor EPHA5. From the snRNA-seq populations, EFNA5 was most expressed in Excit_L5/6, and EPHA5 in Excit_L6. From the Visium data we identified spots where the two genes were co-expressed, most frequent in <img src="https://latex.codecogs.com/png.latex?Sp_%7B9%7DD_%7B7%7D%5Csim%20L6">, these spots also had high proportions of Excit_L5/6 neurons and Excit_L6 neurons predicted by spot deconvolution. Spatially mapping LR pairs helps us gain insight into the potentials for drug development. (This cool work was completed By <a href="https://x.com/BoyiGuo">Boyi Guo</a> and <a href="https://x.com/mgrantpeters">Melissa Grant-Peters</a>)</p>
+<p>This analysis used many elements of the data from the spatialLIBD project, and is just one example of how this dataset is relevant to the study of disease, for example we also checked for enrichment of depression and PTSD related genes between the spatial domains. Lots of exciting applications for the study of diseases with spatial and single cell, stay tuned to future work from LIBD for more! 👀</p>
+</section>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<p><img src="https://lahuuki.github.io/posts/2024-05-23-spatialDLPFC/images/SpatialDLPFC_logo.png" class="img-fluid"></p>
+<p>Overall we’ve created a paired spatial transcriptomic and single nucleus RNA-seq dataset of the human DLPFC. We’ve used spatial registration to map the new spatial domains and excitatory neurons to the classical histological layers. The data-driven spatial domains refine the layers of the DLPFC, finding laminar domains and cortical sub-layers. Spot deconvolution further refines the profile of each spot. This data has many applications in the study of neuropsychiatric diseases. We’ve made this dataset widely available to the scientific community (see below).</p>
+<p>For more details be sure to check out the recently published paper in Science 🎉<a href="https://doi.org/10.1126/science.adh1938" class="uri">https://doi.org/10.1126/science.adh1938</a></p>
 <section id="data-availability" class="level2">
 <h2 class="anchored" data-anchor-id="data-availability">Data Availability&nbsp;</h2>
 <p>The 30 DLPFC Visium samples &amp; the 56k nuclei snRNA-seq dataset are available to explore on our interactive websites and Bioconductor/R pacakge: <a href="https://research.libd.org/spatialDLPFC/" class="uri">https://research.libd.org/spatialDLPFC/</a></p>
@@ -234,7 +251,7 @@ Maynard, KR, L Collado-Torres, LM Weber, C Uytingco, BK Barry, SR Williams, JL C
   <category>single cell</category>
   <guid>https://lahuuki.github.io/posts/2024-05-23-spatialDLPFC/</guid>
   <pubDate>Thu, 23 May 2024 04:00:00 GMT</pubDate>
-  <media:content url="https://lahuuki.github.io/posts/2024-05-23-spatialDLPFC/spatialDLPFC_logo.png" medium="image" type="image/png" height="84" width="144"/>
+  <media:content url="https://lahuuki.github.io/posts/2024-05-23-spatialDLPFC/images/spatialDLPFC_logo.png" medium="image" type="image/png" height="84" width="144"/>
 </item>
 </channel>
 </rss>
