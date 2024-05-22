@@ -385,7 +385,7 @@ window.Quarto = {
 <figcaption>Cartoons of brain cell types, Created with BioRender.com</figcaption>
 </figure>
 </div>
-<p>On the single nucleus side of the experiment, we processed 56k nuclei from n=19 samples. The first round of clustering (hierarchical clustering) found 29 distinct cell type clusters from seven broad cell types:&nbsp;</p>
+<p>On the single nucleus side of the experiment, we processed 56k nuclei from n=19 samples. The first round of clustering (hierarchical clustering) found 29 distinct cell type clusters from seven broad cell types (note the abbreviations):&nbsp;</p>
 <p><strong>Glia: provide structure to the brain, support neurons</strong><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>&nbsp;</p>
 <ol type="1">
 <li><p>Astrocytes (Astro):link neurons to blood supply, clear neurotransmitters&nbsp;</p></li>
@@ -444,7 +444,7 @@ window.Quarto = {
 <p>A challenge with Visium spatial transcriptomics is that each spot is larger than single cell resolution, and on average contains 3 cells per spot. To better understand the gene expression of each spot, we employed an analysis called spot deconvolution, which predicts what cell types exist in the tissue for each Visium spot.&nbsp;</p>
 <script defer="" class="speakerdeck-embed" data-id="ca75f869c0764642b48e8fa7143218ff" data-ratio="1.7772511848341233" src="//speakerdeck.com/assets/embed.js"></script>
 <p>We determined that the methods Tangram and Cell2location were the most accurate for predicting cell type compositions through a benchmark experiment.&nbsp;From there we predicted the cell type composition of the spots across the 30 Visium slides with both deconvolution methods.</p>
-<p>The spot deconvolution work was performed by <a href="https://www.linkedin.com/in/nick-eagles7/">Nick Eagles</a>. Check out his slide deck above for more details.</p>
+<p>The spot deconvolution work was performed by <a href="https://www.linkedin.com/in/nick-eagles7/">Nick Eagles</a>. Check out his <a href="https://speakerdeck.com/nickeagles/libd-seminar-spot-deconvolution">spot deconvolution slide deck</a> above for more details.</p>
 </section>
 <section id="spatially-map-disease-ligand-receptor-interactions" class="level2">
 <h2 class="anchored" data-anchor-id="spatially-map-disease-ligand-receptor-interactions">Spatially Map Disease Ligand Receptor Interactions</h2>
@@ -455,17 +455,17 @@ window.Quarto = {
 </figure>
 </div>
 <p>To show how this dataset can be a rich resource to study neuropsychiatric diseases we explored the spatial location of a ligand-receptor (LR) interaction that is associated with schizophrenia. We performed a cell-cell communication analysis which predicts which cell types are interacting with each other, and then identified overlapping LR pairs with risk of schizophrenia from databases with the cell-cell communication results. From the common set of LR pairs we examined ligand EFNA5 &amp; receptor EPHA5. From the snRNA-seq populations, EFNA5 was most expressed in Excit_L5/6, and EPHA5 in Excit_L6. From the Visium data we identified spots where the two genes were co-expressed, most frequent in <span class="math inline">\(Sp_{9}D_{7}\sim L6\)</span>, these spots also had high proportions of Excit_L5/6 neurons and Excit_L6 neurons predicted by spot deconvolution. Spatially mapping LR pairs helps us gain insight into the potentials for drug development. (This cool work was completed By <a href="https://x.com/BoyiGuo">Boyi Guo</a> and <a href="https://x.com/mgrantpeters">Melissa Grant-Peters</a>)</p>
-<p>This analysis used many elements of the data from the spatialLIBD project, and is just one example of how this dataset is relevant to the study of disease, for example we also checked for enrichment of depression and PTSD related genes between the spatial domains. Lots of exciting applications for the study of diseases with spatial and single cell, stay tuned to future work from LIBD for more! 👀</p>
+<p>This analysis used many elements of the data from the spatialLIBD project, and is just one example of how this dataset is relevant to the study of disease, for example we also checked for enrichment of depression and PTSD related genes between the spatial domains. There are lots of exciting applications for the study of diseases with spatial and single cell, stay tuned to future work from the Lieber Institute for more! 👀</p>
 </section>
 </section>
 <section id="summary" class="level1">
 <h1>Summary</h1>
 <p><img src="images/SpatialDLPFC_logo.png" class="img-fluid"></p>
 <p>Overall we’ve created a paired spatial transcriptomic and single nucleus RNA-seq dataset of the human DLPFC. We’ve used spatial registration to map the new spatial domains and excitatory neurons to the classical histological layers. The data-driven spatial domains refine the layers of the DLPFC, finding laminar domains and cortical sub-layers. Spot deconvolution further refines the profile of each spot. This data has many applications in the study of neuropsychiatric diseases. We’ve made this dataset widely available to the scientific community (see below).</p>
-<p>For more details be sure to check out the recently published paper in Science 🎉<a href="https://doi.org/10.1126/science.adh1938" class="uri">https://doi.org/10.1126/science.adh1938</a></p>
+<p>For more details be sure to check out our recently published paper in <em>Science</em> <span class="citation" data-cites="Huuki-Myers2024">(<a href="#ref-Huuki-Myers2024" role="doc-biblioref">Huuki-Myers et al. 2024</a>)</span> 🎉<a href="https://doi.org/10.1126/science.adh1938" class="uri">https://doi.org/10.1126/science.adh1938</a></p>
 <section id="data-availability" class="level2">
 <h2 class="anchored" data-anchor-id="data-availability">Data Availability&nbsp;</h2>
-<p>The 30 DLPFC Visium samples &amp; the 56k nuclei snRNA-seq dataset are available to explore on our interactive websites and Bioconductor/R pacakge: <a href="https://research.libd.org/spatialDLPFC/" class="uri">https://research.libd.org/spatialDLPFC/</a></p>
+<p>The 30 DLPFC Visium samples &amp; the 56k nuclei snRNA-seq dataset are available to explore on our <a href="https://research.libd.org/spatialDLPFC/">interactive websites</a> and <a href="https://research.libd.org/spatialLIBD/">Bioconductor/R package</a>.</p>
 <p>Check out how your favorite gene is expressed over the layers or cell types of the DLPFC!</p>
 <p><img src="images/SpatialDLPFC_shiny-01.png" class="img-fluid"></p>
 
