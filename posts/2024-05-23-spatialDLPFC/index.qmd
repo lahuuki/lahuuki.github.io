@@ -1,4 +1,5 @@
 ---
+425/69---
 title: "Spatial DLPFC: TL;DR"
 description: |
   A high level overview of the spatialDLPFC project, now published in _Science_!
@@ -28,7 +29,7 @@ In the spatialDLPFC project we set out to learn more about the organization of t
 
 The dorsolateral prefrontal cortex region of the brain is especially important for executive functions including working memory, cognitive flexibility, and planning. Disruptions of the DLPFC have been associated with several psychiatric and neurodevelopmental disorders, including schizophrenia and autism spectrum disorder.
 
-![Location of the DLPFC, its laminar structure, and major cell types.](images/background.png)
+![Location of the DLPFC, its laminar structure (illistration from [@House_Pansky]), and major cell types.](images/background.png)
 
 ## RNA-sequencing 
 
@@ -49,7 +50,7 @@ Single nucleus or single cell RNA sequencing (snRNA-seq) enables us to examine t
 
 ![Cartoon of 10x snRNA-seq process (via 10x Genomics), and tSNE plot](images/background_sn.png)
 
-In this experiment we are working with nuclei, as the cell membrane is destroyed when the brain tissue is frozen. The major cell type populations to identify in the DLPFC are neurons (Excitatory and Inhibitory), and glial cells (ex: Astrocytes, Microglia, Oligodendrocytes, OPC).
+In this experiment we are working with nuclei, as the cell membrane is destroyed when the brain tissue is frozen. The major cell type populations to identify in the DLPFC are neurons (Excitatory and Inhibitory), glial cells (ex: Astrocytes, Microglia, Oligodendrocytes, OPC), and vascular cells (Endothelial & Mural).
 
 ### Spatially Resolved Transcriptomics (Visium)
 
@@ -59,7 +60,7 @@ Spatially resolved transcriptomics maps RNA to specific locations on a tissue sa
 
 We used Visium slides, which feature a grid of approximately 5,000 spots arranged in a 6.5x6.5 mm area. Each spot has a unique barcode that binds to the RNA in the contacted tissue. When the RNA is sequenced, these molecules can be traced back to their specific grid locations, similar to the barcodes in snRNA-seq. 
 
-This RNA-seq data is paired with a high-definition histology image of the original tissue, providing additional information and aiding in data visualization. We can visualize the gene expression of each spot in “spot plots” using color gradients overlaid on these images. In the example below we highlight the location of the gray matter with *SNAP25* a gene highly expressed in neurons, *MBP* highlights white matter, and *PCP4* marks layer 5.
+This RNA-seq data is paired with a high-definition histology image of the original tissue, providing additional information and aiding in data visualization. We can visualize the gene expression of each spot in “spot plots” using color gradients overlaid on these images. In the example above we highlight the location of the gray matter with *SNAP25* a gene highly expressed in neurons, *MBP* highlights white matter, and *PCP4* marks layer 5.
 
 ### Study Design 
 
@@ -113,7 +114,7 @@ These new spatial domains help refine the layered anatomy of the DLPFC. Neat! �
 
 On the single nucleus side of the experiment, we processed 56k nuclei from n=19 samples. The first round of clustering (hierarchical clustering) found 29 distinct cell type clusters from seven broad cell types (note the abbreviations): 
 
-**Glia: provide structure to the brain, support neurons**[^3] 
+**Glia & Vascular cells: provide structure to the brain, support neurons**[^3] 
 
 [^3]: The following are brief notes on cell type function to provide context, not comprehensive descriptions of the complex roles of these cell types
 
