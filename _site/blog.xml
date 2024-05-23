@@ -27,7 +27,7 @@
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://lahuuki.github.io/posts/2024-05-23-spatialDLPFC/images/SpatialDLPFC_GraphAbs_revision2.4.png" class="img-fluid figure-img"></p>
-<figcaption>Graphical abstract for the spatialDLPFC project, summarized here (TODO add link)</figcaption>
+<figcaption>Graphical abstract for the spatialDLPFC project published in <a href="https://www.science.org/doi/10.1126/science.adh1938"><em>Science</em></a></figcaption>
 </figure>
 </div>
 </section>
@@ -39,7 +39,7 @@
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://lahuuki.github.io/posts/2024-05-23-spatialDLPFC/images/background.png" class="img-fluid figure-img"></p>
-<figcaption>Location of the DLPFC, its laminar structure (illistration from <span class="citation" data-cites="House_Pansky">(House and Pansky, n.d.)</span>), and major cell types.</figcaption>
+<figcaption>Location of the DLPFC, its laminar structure (illustration from <span class="citation" data-cites="House_Pansky">(House and Pansky, n.d.)</span>), and major cell types.</figcaption>
 </figure>
 </div>
 </section>
@@ -220,14 +220,17 @@
 <p>The 30 DLPFC Visium samples &amp; the 56k nuclei snRNA-seq dataset are available to explore on our <a href="https://research.libd.org/spatialDLPFC/">interactive websites</a> and Bioconductor/R package <a href="https://research.libd.org/spatialLIBD/">spatialLIBD</a>.</p>
 <p>Check out how your favorite gene is expressed over the layers or cell types of the DLPFC!</p>
 <p><img src="https://lahuuki.github.io/posts/2024-05-23-spatialDLPFC/images/SpatialDLPFC_shiny-01.png" class="img-fluid"></p>
+</section>
+</section>
+<section id="comments" class="level1">
+
 
 
 
 </section>
-</section>
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Comments 💬</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
 <div id="ref-House_Pansky" class="csl-entry">
 House, Earl Lawrence, and Ben Pansky. n.d. <em>A Functional Approach to Neuroanatomy</em>. 2nd ed. Blakiston Division.
 </div>

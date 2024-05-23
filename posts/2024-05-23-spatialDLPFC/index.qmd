@@ -20,7 +20,7 @@ This blog post provides a high-level summary of our paper ["A data-driven single
 
 In the spatialDLPFC project we set out to learn more about the organization of the dorsolateral prefrontal cortex (aka DLPFC), its cell types, and gene expression profile 🧠.
 
-![Graphical abstract for the spatialDLPFC project, summarized here (TODO add link)](images/SpatialDLPFC_GraphAbs_revision2.4.png)
+![Graphical abstract for the spatialDLPFC project published in [*Science*](https://www.science.org/doi/10.1126/science.adh1938)](images/SpatialDLPFC_GraphAbs_revision2.4.png)
 
 # Background
 
@@ -28,7 +28,7 @@ In the spatialDLPFC project we set out to learn more about the organization of t
 
 The dorsolateral prefrontal cortex region of the brain is especially important for executive functions including working memory, cognitive flexibility, and planning. Disruptions of the DLPFC have been associated with several psychiatric and neurodevelopmental disorders, including schizophrenia and autism spectrum disorder.
 
-![Location of the DLPFC, its laminar structure (illistration from [@House_Pansky]), and major cell types.](images/background.png)
+![Location of the DLPFC, its laminar structure (illustration from [@House_Pansky]), and major cell types.](images/background.png)
 
 ## RNA-sequencing 
 
@@ -191,3 +191,5 @@ The 30 DLPFC Visium samples & the 56k nuclei snRNA-seq dataset are available to 
 Check out how your favorite gene is expressed over the layers or cell types of the DLPFC!
 
 ![](images/SpatialDLPFC_shiny-01.png)
+
+# Comments 💬
