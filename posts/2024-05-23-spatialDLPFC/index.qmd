@@ -1,5 +1,4 @@
 ---
-425/69---
 title: "Spatial DLPFC: TL;DR"
 description: |
   A high level overview of the spatialDLPFC project, now published in _Science_!

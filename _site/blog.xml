@@ -39,7 +39,7 @@
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://lahuuki.github.io/posts/2024-05-23-spatialDLPFC/images/background.png" class="img-fluid figure-img"></p>
-<figcaption>Location of the DLPFC, its laminar structure, and major cell types.</figcaption>
+<figcaption>Location of the DLPFC, its laminar structure (illistration from <span class="citation" data-cites="House_Pansky">(House and Pansky, n.d.)</span>), and major cell types.</figcaption>
 </figure>
 </div>
 </section>
@@ -57,7 +57,7 @@
 <figcaption>Cartoon of 10x snRNA-seq process (via 10x Genomics), and tSNE plot</figcaption>
 </figure>
 </div>
-<p>In this experiment we are working with nuclei, as the cell membrane is destroyed when the brain tissue is frozen. The major cell type populations to identify in the DLPFC are neurons (Excitatory and Inhibitory), and glial cells (ex: Astrocytes, Microglia, Oligodendrocytes, OPC).</p>
+<p>In this experiment we are working with nuclei, as the cell membrane is destroyed when the brain tissue is frozen. The major cell type populations to identify in the DLPFC are neurons (Excitatory and Inhibitory), glial cells (ex: Astrocytes, Microglia, Oligodendrocytes, OPC), and vascular cells (Endothelial &amp; Mural).</p>
 </section>
 <section id="spatially-resolved-transcriptomics-visium" class="level3">
 <h3 class="anchored" data-anchor-id="spatially-resolved-transcriptomics-visium">Spatially Resolved Transcriptomics (Visium)</h3>
@@ -69,7 +69,7 @@
 </figure>
 </div>
 <p>We used Visium slides, which feature a grid of approximately 5,000 spots arranged in a 6.5x6.5 mm area. Each spot has a unique barcode that binds to the RNA in the contacted tissue. When the RNA is sequenced, these molecules can be traced back to their specific grid locations, similar to the barcodes in snRNA-seq.&nbsp;</p>
-<p>This RNA-seq data is paired with a high-definition histology image of the original tissue, providing additional information and aiding in data visualization. We can visualize the gene expression of each spot in “spot plots” using color gradients overlaid on these images. In the example below we highlight the location of the gray matter with <em>SNAP25</em> a gene highly expressed in neurons, <em>MBP</em> highlights white matter, and <em>PCP4</em> marks layer 5.</p>
+<p>This RNA-seq data is paired with a high-definition histology image of the original tissue, providing additional information and aiding in data visualization. We can visualize the gene expression of each spot in “spot plots” using color gradients overlaid on these images. In the example above we highlight the location of the gray matter with <em>SNAP25</em> a gene highly expressed in neurons, <em>MBP</em> highlights white matter, and <em>PCP4</em> marks layer 5.</p>
 </section>
 <section id="study-design" class="level3">
 <h3 class="anchored" data-anchor-id="study-design">Study Design&nbsp;</h3>
@@ -138,7 +138,7 @@
 </figure>
 </div>
 <p>On the single nucleus side of the experiment, we processed 56k nuclei from n=19 samples. The first round of clustering (hierarchical clustering) found 29 distinct cell type clusters from seven broad cell types (note the abbreviations):&nbsp;</p>
-<p><strong>Glia: provide structure to the brain, support neurons</strong><sup>3</sup>&nbsp;</p>
+<p><strong>Glia &amp; Vascular cells: provide structure to the brain, support neurons</strong><sup>3</sup>&nbsp;</p>
 <ol type="1">
 <li><p>Astrocytes (Astro):link neurons to blood supply, clear neurotransmitters&nbsp;</p></li>
 <li><p>Endothelial/Mural cells (EndoMural): blood vessels/vascular tissue</p></li>
@@ -228,6 +228,9 @@
 
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="ref-House_Pansky" class="csl-entry">
+House, Earl Lawrence, and Ben Pansky. n.d. <em>A Functional Approach to Neuroanatomy</em>. 2nd ed. Blakiston Division.
+</div>
 <div id="ref-huuki-myers" class="csl-entry">
 Huuki-Myers, Louise A., Kelsey D. Montgomery, Sang Ho Kwon, Sophia Cinquemani, Nicholas J. Eagles, Daianna Gonzalez-Padilla, Sean K. Maden, et al. n.d. <span>“Benchmark of Cellular Deconvolution Methods Using a Multi-Assay Reference Dataset from Postmortem Human Prefrontal Cortex.”</span> <a href="https://doi.org/10.1101/2024.02.09.579665">https://doi.org/10.1101/2024.02.09.579665</a>.
 </div>
