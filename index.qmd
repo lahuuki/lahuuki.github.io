@@ -16,6 +16,7 @@ about:
     - icon: envelope-at
       text: lahuuki@gmail.com
       href: mailto:lahuuki@gmail.com
+comments: false
 ---
 
 # Welcome to My Website!

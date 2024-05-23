@@ -24,6 +24,10 @@ website:
         href: mailto:lahuuki@gmail.com
       - icon: rss
         href: blog.xml
+  comments:
+    giscus: 
+      repo: lahuuki/lahuuki.github.io
+    
 format:
   html:
     theme: cosmo
@@ -34,9 +38,3 @@ editor: visual
 
 execute:
   freeze: true
-
-comments:
-  giscus: 
-    repo: lahuuki/lahuuki.github.io
-
-
