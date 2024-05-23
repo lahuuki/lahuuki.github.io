@@ -35,5 +35,8 @@ editor: visual
 execute:
   freeze: true
 
+comments:
+  giscus: 
+    repo: lahuuki/lahuuki.github.io
 
 
