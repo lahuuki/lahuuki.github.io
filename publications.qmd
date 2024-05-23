@@ -1,5 +1,6 @@
 ---
 title: "My Publications"
+comments: false
 ---
 
 ![](images/my_hexs.png){width="336"}
