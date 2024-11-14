@@ -13,6 +13,9 @@ about:
     - icon: twitter
       text: Twitter
       href: https://twitter.com/lahuuki
+    - icon: bluesky
+      text: Blue Sky
+      href: https://bsky.app/profile/lahuuki.bsky.social
     - icon: envelope-at
       text: lahuuki@gmail.com
       href: mailto:lahuuki@gmail.com
@@ -20,6 +23,8 @@ comments: false
 ---
 
 # Welcome to My Website!
+
+Updated: Nov 14, 2024
 
 ### About Me
 
