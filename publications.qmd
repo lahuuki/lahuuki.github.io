@@ -7,6 +7,22 @@ comments: false
 
 You can find my full publications list on [ORCiD](https://orcid.org/0000-0001-5148-3602) or [Google Scholar](https://scholar.google.com/citations?user=GGJIfVYAAAAJ&hl=en)
 
+# 2025
+
+### Deconvolution Benchmark
+
+![](images/DeconvoBuddies.png){width="87"}
+
+**Benchmark of cellular deconvolution methods using a multi-assay reference dataset from postmortem human prefrontal cortex**
+
+-   DOI: <https://doi.org/10.1186/s13059-025-03552-3>
+
+-   Pre-printed 4/7/2024, DOI: <https://doi.org/10.1101/2024.02.09.579665>
+
+-   Software tools and data available through R Package [DeconvoBuddies](https://research.libd.org/DeconvoBuddies/)
+
+-   [Tweetorial](https://x.com/lahuuki/status/1779902215328608480)
+
 # 2024
 
 ### spatialDLPFC
@@ -24,18 +40,6 @@ You can find my full publications list on [ORCiD](https://orcid.org/0000-0001-51
 -   Explore this data at [research.libd.org/spatialDLPFC/](https://research.libd.org/spatialDLPFC/)
 
 -   [Tweetorial](https://twitter.com/lahuuki/status/1626686409313763328?s=20)
-
-### Deconvolution Benchmark
-
-![](images/DeconvoBuddies.png){width="87"}
-
-**Benchmark of cellular deconvolution methods using a multi-assay reference dataset from postmortem human prefrontal cortex**
-
--   Pre-printed 4/7/2024, DOI: <https://doi.org/10.1101/2024.02.09.579665>
-
--   Software tools and data available through R Package [DeconvoBuddies](https://research.libd.org/DeconvoBuddies/)
-
--   [Tweetorial](https://x.com/lahuuki/status/1779902215328608480)
 
 # 2023
 
