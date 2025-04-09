@@ -82,7 +82,7 @@ We designed an experiment to evaluate the performance of deconvolution methods o
 
 ![Diagram of study design. A. Cartoon of brain region and brain block with consecutive slices. B. Tile plot showing available samples and quality control status](images/sfigu_study_design.png)\
 
-### RNAScope Cell Type Proportions
+### RNAScope Cell Type Proportions 🔬
 
 To obtain orthogonal measurements of cell type proportions for six major cell types in the DLPFC, we utilized multiplex single molecule fluorescent in situ hybridization (smFISH) combined with immunofluorescence (IF) using RNAScope/IF.
 
@@ -147,6 +147,87 @@ From the large number of available methods we selected six methods that were pre
 | **CIBERSORTx**                       | [@newman2019]  | Machine Learning             | Differential Gene expression                                  | Webtool, Docker Image        | [@jin2021]                |
 +--------------------------------------+----------------+------------------------------+---------------------------------------------------------------+------------------------------+---------------------------+
 
-## Method Performance
-
 ## Marker Gene Selection
+
+A strategy to improve accuracy in deconvolution is to limit the analysis to a set of cell types marker genes, reducing noise in the analysis. To help select cell type specific marker genes we have developed the *Mean Ratio* method.
+
+The *Mean Ratio* method works by selecting genes with large differences between gene expression in the target cell type and the closest non-target cell type. We calculate the `MeanRatio` for a target cell type for each gene by **dividing the mean expression of the target cell by the mean expression of the next highest non-target cell type**. Genes with the highest `MeanRatio` values are selected as marker genes.
+
+![Illustration of *Mean Ratio* marker selection method, and heatmap of top *Mean Ratio* marker genes](images/get_mean_ratio.png)
+
+For more information about selecting marker genes with *Mean Ratio* see [Finding Marker Genes with DeconvoBuddies](https://research.libd.org/DeconvoBuddies/articles/Marker_Finding.html).
+
+In our benchmark we found that methods responded differently and unpredictably to different marker gene sets, but top methods preformed better using the top 25 *Mean Ratio* marker genes for each cell type.
+
+## Method Performance 🏆
+
+On to the main event: time to **evaluate the deconvolution methods!**
+
+We preformed deconvolution on the 110 bulk RNA seq samples, with each of the six selected methods, using the top25 Mean Ratio genes.
+
+We then compared the estimated cell type proportions with the RNAScope cell type proportions. We calculated **Pearson's correlation and the root mean squared error (RMSE)** between the two. Methods with high correlation and low RMSE are the most accurate.
+
+**Overall *Bisque* and *hspe* were the top preforming methods.** 🏆
+
+These were also the top methods in Dai et al., benchmark which also examined brain data [@dai].
+
+Bisque preformed slightly better in polyA data, *hspe* slightly better in RiboZero data. *CIBERSORTx* was a close third place, preforming similarly to Bisque and *hspe* in polyA data.
+
+![A. Scatter plot of RNAScope proportions vs. Method estimated proportions. B. Pearson's correlation for each method over bulk RNA-seq library combinations, point size corresponds to rmse](images/benchmark.png)
+
+## Other Results
+
+Above I have highlighted the main study design and conclusions of our deconvolution benchmark. In the paper we explored many more facets of deconvolution method performance. Some other results to highlight:
+
+-   *hspe* is sensitive to marker gene selection
+
+-   *Bisque* can preform poorly with \< 4 donors
+
+-   *Bisque* an *hspe* are unaffected by including "case" donors in the snRNA-seq reference
+
+-   *Bisque* is biased to cell type proportions in the reference snRNA-seq data set
+
+-   *Bisque* and *hspe*
+
+Be sure to check out the paper for more! 📃\
+\
+
+# DeconvoBuddies
+
+![](images/deconvobuddies_logo.png)
+
+In conjunction with this study we have developed a Bioconductor package [DeconvoBuddies](https://research.libd.org/DeconvoBuddies).
+
+DeconvoBuddies is currently on the [devel branch](https://bioconductor.org/packages/devel/bioc/html/DeconvoBuddies.html) and will be included in the next release (April 2025) release of Bioconductor.
+
+The main features of the package are:\
+
+**Find Marker Genes**
+
+-   Implements Mean Ratio marker gene selection `get_mean_ratio()`
+
+-   Implements 1 vs. All marker gene selection `findMarkers_1vALL()`
+
+**Plotting tools**
+
+-   Quickly plot gene expression over cell types (or other category) `plot_gene_express()`
+
+-   Plot top marker genes with annotated statistics `plot_marker_express`
+
+-   Plot Composition bar plots of deconvolution outputs `plot_comoposition_bar()`
+
+**Access Data**
+
+-   Access paired data from consecutive slices of human DLPFC, used in deconvolution benchmark `fetch_deconvo_data()`
+
+    -   Access the RNA-scope, snRNA-seq, and bulk RNA-seq data described above
+
+# Truly TL;DR
+
+In this benchmark we used a multi-assay dataset from the human DLPFC to compare deconvolution performace in six top methods. RNAScope/IF cell type estimates were utilized as an orthogonal measurement of the true cell type composition. We developed the *Mean Ratio* method to select highly specific cell type marker genes.
+
+**The top preforming deconvolution methods in brain were *hspe*[@hunt2019] and *Bisque* [@jew2020].** 🏆
+
+We found many factors such as n reference donors, marker genes selection, and library type of bulk RNA-seq can impact performance of deconvolution methods. The dataset, MeanRatio function, and other useful functions for deconvolution are included in our Bioconductor package [DeconvoBuddies](https://research.libd.org/DeconvoBuddies).
+
+Be sure to check out the paper for the full exploration of Deconvolution Method performance [@huuki-myers] ! <https://doi.org/10.1186/s13059-025-03552-3>
