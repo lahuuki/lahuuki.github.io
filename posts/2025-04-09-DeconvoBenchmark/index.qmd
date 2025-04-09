@@ -68,7 +68,49 @@ This motivated us to run our own deconvolution benchmark study!
 
 # Deconvolution Benchmark Study
 
+![Benchmark study design: Use orthogonal RNAScope cell type proportions to evaluate accuracy of deconvolution methods](images/Deconvolution_compare_proportions.png)
+
 ## Study Design
+
+We designed an experiment to evaluate the performance of deconvolution methods on human brain tissue, specifically the dorsal lateral pre-frontal cortex (DLPFC). We used consecutive slices of DLPFC brain blocks to create three assays:
+
+1.  RNAScope: orthogonal measurement of cell type compositions for six major cell types (n=25)
+
+2.  snRNA-seq: reference single nucleus data (n=19)
+
+3.  Bulk RNA-seq: using a variety of library types and RNA extractions methods (n=110)
+
+![Diagram of study design. A. Cartoon of brain region and brain block with consecutive slices. B. Tile plot showing available samples and quality control status](images/sfigu_study_design.png)\
+
+### RNAScope Cell Type Proportions
+
+To obtain orthogonal measurements of cell type proportions for six major cell types in the DLPFC, we utilized multiplex single molecule fluorescent in situ hybridization (smFISH) combined with immunofluorescence (IF) using RNAScope/IF.
+
+We designed two probe combinations:
+
+1.  **Star** measures:
+
+    1.  Excitatory Neurons (Excit)
+
+    2.  Mircoglia (Micro)
+
+    3.  combined Oligodenrocytes and Oligodendrocyte Precursor cells (OligoOPC)
+
+2.  Circle measures:
+
+    1.  Inhibitory Neurons (Inhib)
+
+    2.  Endothelial/Mural cells (EndoMural)
+
+    3.  Astrocytes (Astro)
+
+We used HALO to segment and label cell types, then calculated cell type porotions for each sample.
+
+![RNAScope/IF Experiment Design. A. Star and Circle probe combinations measure 3 cell types each. Example flourescent images of B. Star and C. Circle. D. Bar plots of estimated cell type compositions](images/RNAscope_crop.png)
+
+### Single Nucleus Reference dataset
+
+### Bulk RNA-seq Data
 
 ### What methods to test?
 
