@@ -228,6 +228,6 @@ In this benchmark we used a multi-assay dataset from the human DLPFC to compare 
 
 **The top preforming deconvolution methods in brain were *hspe*[@hunt2019] and *Bisque* [@jew2020].** 🏆
 
-We found many factors such as n reference donors, marker genes selection, and library type of bulk RNA-seq can impact performance of deconvolution methods. The dataset, MeanRatio function, and other useful functions for deconvolution are included in our Bioconductor package [DeconvoBuddies](https://research.libd.org/DeconvoBuddies).
+We found many factors such as n reference donors, marker genes selection, and library type of bulk RNA-seq can impact performance of deconvolution methods. The dataset, *MeanRatio* function, and other useful functions for deconvolution are included in our Bioconductor package [DeconvoBuddies](https://research.libd.org/DeconvoBuddies).
 
 Be sure to check out the paper for the full exploration of Deconvolution Method performance [@huuki-myers] ! <https://doi.org/10.1186/s13059-025-03552-3>
