@@ -118,15 +118,15 @@ The snRNA-seq data was previously analyzed as part of the spatialDLPFC project (
 
 For the bulk RNA-seq we we curious if using different library types (polyA or RiboZero) and RNA Extraction (nuclear, cytoplasmic, or total) would impact the accuracy of deconvolution. So for each brain block we prepared one sample of each library combination.
 
-Analyzing just the bulk RNA-seq data we saw large differences in gene expression between the different preparations of the bulk data, principal component analysis shows the data divide by library type and RNA extraction.
+Analyzing just the bulk RNA-seq data we saw large differences in gene expression between the different preparations of the bulk data, principal component analysis shows the data divide by library type and RNA extraction. We were suspicious that these technical differences in gene expression would impact deconvolution estimates, a good deconvolution method should be robust to the differences in datatypes.
 
 ![tile plot showing n samples over library type and RNA extraction, PCA of the genes expression shows PC1 seperates Library type, PC2 seperates RNA extraction](images/bulk_overview.png)
 
 ### Which methods to test?
 
-![](images/methods.png)
+From the large number of available methods we selected six methods that were previously selected as top performers in other benchmark papers, and applied a range of different approaches: DWLS, Bisque, MuSiC, hspe, BayesPrism, and CIBERSORTx (detailed below).
 
-From the large number of available methods we selected six methods that were previously selected as top performers in other benchmark papers, and applied a range of different approaches.
+![](images/methods.png)
 
 +--------------------------------------+----------------+------------------------------+---------------------------------------------------------------+------------------------------+---------------------------+
 | Method                               | Citation       | Approach                     | Marker Gene Selection                                         | Availability                 | Top Benchmark Performance |
@@ -149,7 +149,7 @@ From the large number of available methods we selected six methods that were pre
 
 ## Marker Gene Selection
 
-A strategy to improve accuracy in deconvolution is to limit the analysis to a set of cell types marker genes, reducing noise in the analysis. To help select cell type specific marker genes we have developed the *Mean Ratio* method.
+A strategy to improve accuracy in deconvolution is to limit the analysis to a set of cell type marker genes; reducing noise in the analysis. To help select cell type specific marker genes we have developed the *Mean Ratio* method.
 
 The *Mean Ratio* method works by selecting genes with large differences between gene expression in the target cell type and the closest non-target cell type. We calculate the `MeanRatio` for a target cell type for each gene by **dividing the mean expression of the target cell by the mean expression of the next highest non-target cell type**. Genes with the highest `MeanRatio` values are selected as marker genes.
 
@@ -187,7 +187,7 @@ Above I have highlighted the main study design and conclusions of our deconvolut
 
 -   *Bisque* is biased to cell type proportions in the reference snRNA-seq data set
 
--   *Bisque* and *hspe*
+-   *Bisque* and *hspe* had relativly fast runtimes and low memory requirements
 
 Be sure to check out the paper for more! 📃\
 \
