@@ -4,7 +4,7 @@ description: |
   A high level overview of the Deconvolution Benchmark project, now published in _Genome Biology_!
 author:
   - name: Louise A. Huuki-Myers
-date: 2024-05-23
+date: 2025-04-09
 categories:
   - "paper preview"
   - "Deconvolution"
@@ -14,16 +14,68 @@ bibliography: references.bib
 
 # Introduction
 
-## What is deconvolution
+This blog post provides a high-level summary of our paper ["Benchmark of cellular deconvolution methods using a multi-assay dataset from postmortem human prefrontal cortex"](https://doi.org/10.1186/s13059-025-03552-3) published in *Genome Biology* in April, 2025 [@huuki-myers].
+
+In this deconvolution benchmark project we set out to determine the most accurate method for predicting cell type composition in bulk RNA-seq data from brain tissue. We also evaluated method for selecting marker genes, and introduced the *MeanRatio* method for marker gene selection. The dataset developed for this experiment, *MeanRatio* functions, and other helpful tools for deconvolution are available in the [*DeconvBuddies*](https://bioconductor.org/packages/devel/bioc/html/DeconvoBuddies.html) Bioconductor package.
+
+## What is deconvolution?
+
+Complex tissue is made up of different cell types that express genes at different levels. In bulk RNA-seq this heterogeneity of the tissue is obscured, and the gene expression measurements represent a mixture of all of the cells and cell types in the sample. Differences in the cell type composition between samples, either technical or biologically real, can confound downstream analysis such as differential expression.
+
+Deconvolution is an analysis that infers the cell type composition of bulk RNA-seq data, using gene expression profiles from single cell data.
 
 ![Cartoon overview of deconvolution](images/Deconvolution.png)
 
-## Why is Deconovlution Important?
+## How to preform deconvolution?
 
-## What Methods to test?
+To run deconvolution you'll need:\
+
+1.  Your Bulk RNA-seq gene expression data
+
+2.  A refrence single cell RNA-seq gene expression data set, from the same tissue type
+
+3.  A deconvolution method (computational algorithm)
+
+## Available Deconvolution Methods
+
+Reviewing the literature we found 20+ deconvolution methods available. This presents quite an overwhelming choice for researchers! Are there big diffrences between methods? If so how can we chose the most accurate method?
+
+![Choosing a method](images/method_choice.png){width="395"}
+
+## Existing Benchmarks
+
+Benchmark studies aim to test and rank the performance of available methods. There have been several benchmarks studies on deconovlution methods, both with-in papers presenting new methods and as separate studies. However there is not much of a consensus on which method is the most accurate:
+
+**Benchmarking results from different papers on “real” data**
+
+-   **MuSiC paper** [@wang2019]**:** MuSiC \> NNLS \> BSEQ-sx \> CIBERSORT
+
+-   **Bisque paper** [@jew2020]**:** Bisque \> MuSiC \> CIBERSORT 
+
+-   **Cobos benchmark** [@avilacobos2020]**:** DWLS \> MuSiC \> Bisque \> deconvoSeq
+
+-   **Jin et al. benchmark** [@jin2021]**:** CIBERSORT, MuSiC \> EPIC\*, TIMER, DeconRNAseq
+
+-   **Dai et al., benchmark** [@dai]: Dtangle \> Bisque \> Other Methods
+
+Additionally the Cobos et al., 2020 benchmark study shows that different methods preform best on different data sets [@avilacobos2020].
+
+A challenge in benchmark studies is producing a "ground truth" estimate for cell type composition. Often in benchmarks pseudobulk mixtures created from the single cell data are used as the bulk data, so the absolute composition is known.
+
+However we think pseudobulk data might not be a stand-in for real bulk RNA-seq data. Better to use orthogonal measurement of cell type compositions paired with real bulk RNA-seq data. We also were curious about the performance of methods specifically in brain RNA-seq data.
+
+This motivated us to run our own deconvolution benchmark study!
+
+# Deconvolution Benchmark Study
+
+## Study Design
+
+### What methods to test?
+
+There are Approach
 
 +--------------------------------------+----------------+------------------------------+---------------------------------------------------------------+------------------------------+---------------------------+
-| Method                               | Citation       | Aprroach                     | Marker Gene Selection                                         | Avalibility                  | Top Benchmark Preformance |
+| Method                               | Citation       | Approach                     | Marker Gene Selection                                         | Availability                 | Top Benchmark Performance |
 +======================================+================+==============================+===============================================================+==============================+===========================+
 | **DWLS**\                            | [@tsoucas2019] | weighted least squares       | \-                                                            | R package on CRAN            | [@avilacobos2020]         |
 | (Dampened weighted least-squares)    |                |                              |                                                               |                              |                           |
