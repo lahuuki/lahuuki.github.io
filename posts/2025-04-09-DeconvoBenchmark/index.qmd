@@ -122,9 +122,11 @@ Analyzing just the bulk RNA-seq data we saw large differences in gene expression
 
 ![tile plot showing n samples over library type and RNA extraction, PCA of the genes expression shows PC1 seperates Library type, PC2 seperates RNA extraction](images/bulk_overview.png)
 
-### What methods to test?
+### Which methods to test?
 
-There are Approach
+![](images/methods.png)
+
+From the large number of available methods we selected six methods that were previously selected as top performers in other benchmark papers, and applied a range of different approaches.
 
 +--------------------------------------+----------------+------------------------------+---------------------------------------------------------------+------------------------------+---------------------------+
 | Method                               | Citation       | Approach                     | Marker Gene Selection                                         | Availability                 | Top Benchmark Performance |
@@ -132,15 +134,12 @@ There are Approach
 | **DWLS**\                            | [@tsoucas2019] | weighted least squares       | \-                                                            | R package on CRAN            | [@avilacobos2020]         |
 | (Dampened weighted least-squares)    |                |                              |                                                               |                              |                           |
 +--------------------------------------+----------------+------------------------------+---------------------------------------------------------------+------------------------------+---------------------------+
-| **Bisque**                           | [@jew2020]     | Bias correction:             | \-                                                            | R package on GitHub          | [@dai]                    |
-|                                      |                |                              |                                                               |                              |                           |
-|                                      |                | Assay                        |                                                               |                              |                           |
+| **Bisque**                           | [@jew2020]     | Bias correction: Assay       | \-                                                            | R package on GitHub          | [@dai]                    |
 +--------------------------------------+----------------+------------------------------+---------------------------------------------------------------+------------------------------+---------------------------+
-| **MuSiC**\                           | [@wang2019]    | Bias correction:             | Weights Genes                                                 | R package GitHub             | [@jin2021]                |
+| **MuSiC**\                           | [@wang2019]    | Bias correction: Source      | Weights Genes                                                 | R package GitHub             | [@jin2021]                |
 | (Multi-subject Single-cell)          |                |                              |                                                               |                              |                           |
-|                                      |                | Source                       |                                                               |                              |                           |
 +--------------------------------------+----------------+------------------------------+---------------------------------------------------------------+------------------------------+---------------------------+
-| **BayesPrism**                       | [@chu2022]     | Bayesian                     | Pairwise t-test                                               | Webtool, R package on GitHub |                           |
+| **BayesPrism**                       | [@chu2022]     | Bayesian                     | Pairwise t-test                                               | Webtool, R package on GitHub | [@hippen2023]             |
 +--------------------------------------+----------------+------------------------------+---------------------------------------------------------------+------------------------------+---------------------------+
 | **hspe** (**dtangle**)\              | [@hunt2019]    | High collinearity adjustment | Multiple options- default “ratio” 1vALL mean expression ratio | R package on GitHub          | [@dai]                    |
 | (hybrid-scale proportion estimation) |                |                              |                                                               |                              |                           |
@@ -148,4 +147,6 @@ There are Approach
 | **CIBERSORTx**                       | [@newman2019]  | Machine Learning             | Differential Gene expression                                  | Webtool, Docker Image        | [@jin2021]                |
 +--------------------------------------+----------------+------------------------------+---------------------------------------------------------------+------------------------------+---------------------------+
 
-: Deconvolution Methods Tested
+## Method Performance
+
+## Marker Gene Selection
