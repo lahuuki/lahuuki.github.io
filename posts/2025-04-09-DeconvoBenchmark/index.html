@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.43">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Louise A. Huuki-Myers">
+<meta name="dcterms.date" content="2025-04-09">
+<meta name="description" content="A high level overview of the Deconvolution Benchmark project, now published in Genome Biology!">
+
+<title>Deconvolution Benchmark: TL;DR – Louise A. Huuki-Myers</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon-32x32.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-d4d76bf8491c20bad77d141916dc28e1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-8647a4a42273f773479d27c00df3f9ed.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Louise A. Huuki-Myers</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">About Me</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../publications.html"> 
+<span class="menu-text">My Publications</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/lahuuki/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/louise-huuki/"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/lahuuki/"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:lahuuki@gmail.com"> <i class="bi bi-envelope-at" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../blog.xml"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#what-is-deconvolution" id="toc-what-is-deconvolution" class="nav-link" data-scroll-target="#what-is-deconvolution">What is deconvolution?</a></li>
+  <li><a href="#how-to-preform-deconvolution" id="toc-how-to-preform-deconvolution" class="nav-link" data-scroll-target="#how-to-preform-deconvolution">How to preform deconvolution?</a></li>
+  <li><a href="#available-deconvolution-methods" id="toc-available-deconvolution-methods" class="nav-link" data-scroll-target="#available-deconvolution-methods">Available Deconvolution Methods</a></li>
+  <li><a href="#existing-benchmarks" id="toc-existing-benchmarks" class="nav-link" data-scroll-target="#existing-benchmarks">Existing Benchmarks</a></li>
+  </ul></li>
+  <li><a href="#deconvolution-benchmark-study" id="toc-deconvolution-benchmark-study" class="nav-link" data-scroll-target="#deconvolution-benchmark-study">Deconvolution Benchmark Study</a>
+  <ul class="collapse">
+  <li><a href="#study-design" id="toc-study-design" class="nav-link" data-scroll-target="#study-design">Study Design</a>
+  <ul class="collapse">
+  <li><a href="#rnascope-cell-type-proportions" id="toc-rnascope-cell-type-proportions" class="nav-link" data-scroll-target="#rnascope-cell-type-proportions">RNAScope Cell Type Proportions 🔬</a></li>
+  <li><a href="#single-nucleus-reference-dataset" id="toc-single-nucleus-reference-dataset" class="nav-link" data-scroll-target="#single-nucleus-reference-dataset">Single Nucleus Reference dataset</a></li>
+  <li><a href="#bulk-rna-seq-data" id="toc-bulk-rna-seq-data" class="nav-link" data-scroll-target="#bulk-rna-seq-data">Bulk RNA-seq Data</a></li>
+  <li><a href="#which-methods-to-test" id="toc-which-methods-to-test" class="nav-link" data-scroll-target="#which-methods-to-test">Which methods to test?</a></li>
+  </ul></li>
+  <li><a href="#marker-gene-selection" id="toc-marker-gene-selection" class="nav-link" data-scroll-target="#marker-gene-selection">Marker Gene Selection</a></li>
+  <li><a href="#method-performance" id="toc-method-performance" class="nav-link" data-scroll-target="#method-performance">Method Performance 🏆</a></li>
+  <li><a href="#other-results" id="toc-other-results" class="nav-link" data-scroll-target="#other-results">Other Results</a></li>
+  </ul></li>
+  <li><a href="#deconvobuddies" id="toc-deconvobuddies" class="nav-link" data-scroll-target="#deconvobuddies">DeconvoBuddies</a></li>
+  <li><a href="#truly-tldr" id="toc-truly-tldr" class="nav-link" data-scroll-target="#truly-tldr">Truly TL;DR</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Deconvolution Benchmark: TL;DR</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">paper preview</div>
+    <div class="quarto-category">Deconvolution</div>
+    <div class="quarto-category">single cell</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    <p>A high level overview of the Deconvolution Benchmark project, now published in <em>Genome Biology</em>!</p>
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Louise A. Huuki-Myers </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 9, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>This blog post provides a high-level summary of our paper <a href="https://doi.org/10.1186/s13059-025-03552-3">“Benchmark of cellular deconvolution methods using a multi-assay dataset from postmortem human prefrontal cortex”</a> published in <em>Genome Biology</em> in April, 2025 <span class="citation" data-cites="huuki-myers">(<a href="#ref-huuki-myers" role="doc-biblioref">Huuki-Myers et al., n.d.</a>)</span>.</p>
+<p>In this deconvolution benchmark project we set out to determine the most accurate method for predicting cell type composition in bulk RNA-seq data from brain tissue. We also evaluated method for selecting marker genes, and introduced the <em>MeanRatio</em> method for marker gene selection. The dataset developed for this experiment, <em>MeanRatio</em> functions, and other helpful tools for deconvolution are available in the <a href="https://bioconductor.org/packages/devel/bioc/html/DeconvoBuddies.html"><em>DeconvBuddies</em></a> Bioconductor package.</p>
+<section id="what-is-deconvolution" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-deconvolution">What is deconvolution?</h2>
+<p>Complex tissue is made up of different cell types that express genes at different levels. In bulk RNA-seq this heterogeneity of the tissue is obscured, and the gene expression measurements represent a mixture of all of the cells and cell types in the sample. Differences in the cell type composition between samples, either technical or biologically real, can confound downstream analysis such as differential expression.</p>
+<p>Deconvolution is an analysis that infers the cell type composition of bulk RNA-seq data, using gene expression profiles from single cell data.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Deconvolution.png" class="img-fluid figure-img"></p>
+<figcaption>Cartoon overview of deconvolution</figcaption>
+</figure>
+</div>
+</section>
+<section id="how-to-preform-deconvolution" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-preform-deconvolution">How to preform deconvolution?</h2>
+<p>To run deconvolution you’ll need:<br>
+</p>
+<ol type="1">
+<li><p>Your Bulk RNA-seq gene expression data</p></li>
+<li><p>A refrence single cell RNA-seq gene expression data set, from the same tissue type</p></li>
+<li><p>A deconvolution method (computational algorithm)</p></li>
+</ol>
+</section>
+<section id="available-deconvolution-methods" class="level2">
+<h2 class="anchored" data-anchor-id="available-deconvolution-methods">Available Deconvolution Methods</h2>
+<p>Reviewing the literature we found 20+ deconvolution methods available. This presents quite an overwhelming choice for researchers! Are there big diffrences between methods? If so how can we chose the most accurate method?</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/method_choice.png" class="img-fluid figure-img" width="395"></p>
+<figcaption>Choosing a method</figcaption>
+</figure>
+</div>
+</section>
+<section id="existing-benchmarks" class="level2">
+<h2 class="anchored" data-anchor-id="existing-benchmarks">Existing Benchmarks</h2>
+<p>Benchmark studies aim to test and rank the performance of available methods. There have been several benchmarks studies on deconovlution methods, both with-in papers presenting new methods and as separate studies. However there is not much of a consensus on which method is the most accurate:</p>
+<p><strong>Benchmarking results from different papers on “real” data</strong></p>
+<ul>
+<li><p><strong>MuSiC paper</strong> <span class="citation" data-cites="wang2019">(<a href="#ref-wang2019" role="doc-biblioref">Wang et al. 2019</a>)</span><strong>:</strong> MuSiC &gt; NNLS &gt; BSEQ-sx &gt; CIBERSORT</p></li>
+<li><p><strong>Bisque paper</strong> <span class="citation" data-cites="jew2020">(<a href="#ref-jew2020" role="doc-biblioref">Jew et al. 2020</a>)</span><strong>:</strong> Bisque &gt; MuSiC &gt; CIBERSORT&nbsp;</p></li>
+<li><p><strong>Cobos benchmark</strong> <span class="citation" data-cites="avilacobos2020">(<a href="#ref-avilacobos2020" role="doc-biblioref">Avila Cobos et al. 2020</a>)</span><strong>:</strong> DWLS &gt; MuSiC &gt; Bisque &gt; deconvoSeq</p></li>
+<li><p><strong>Jin et al.&nbsp;benchmark</strong> <span class="citation" data-cites="jin2021">(<a href="#ref-jin2021" role="doc-biblioref">Jin and Liu 2021</a>)</span><strong>:</strong> CIBERSORT, MuSiC &gt; EPIC*, TIMER, DeconRNAseq</p></li>
+<li><p><strong>Dai et al., benchmark</strong> <span class="citation" data-cites="dai">(<a href="#ref-dai" role="doc-biblioref">Dai et al., n.d.</a>)</span>: Dtangle &gt; Bisque &gt; Other Methods</p></li>
+</ul>
+<p>Additionally the Cobos et al., 2020 benchmark study shows that different methods preform best on different data sets <span class="citation" data-cites="avilacobos2020">(<a href="#ref-avilacobos2020" role="doc-biblioref">Avila Cobos et al. 2020</a>)</span>.</p>
+<p>A challenge in benchmark studies is producing a “ground truth” estimate for cell type composition. Often in benchmarks pseudobulk mixtures created from the single cell data are used as the bulk data, so the absolute composition is known.</p>
+<p>However we think pseudobulk data might not be a stand-in for real bulk RNA-seq data. Better to use orthogonal measurement of cell type compositions paired with real bulk RNA-seq data. We also were curious about the performance of methods specifically in brain RNA-seq data.</p>
+<p>This motivated us to run our own deconvolution benchmark study!</p>
+</section>
+</section>
+<section id="deconvolution-benchmark-study" class="level1">
+<h1>Deconvolution Benchmark Study</h1>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Deconvolution_compare_proportions.png" class="img-fluid figure-img"></p>
+<figcaption>Benchmark study design: Use orthogonal RNAScope cell type proportions to evaluate accuracy of deconvolution methods</figcaption>
+</figure>
+</div>
+<section id="study-design" class="level2">
+<h2 class="anchored" data-anchor-id="study-design">Study Design</h2>
+<p>We designed an experiment to evaluate the performance of deconvolution methods on human brain tissue, specifically the dorsal lateral pre-frontal cortex (DLPFC). We used consecutive slices of 22 DLPFC brain blocks from 10 neurotypical donors, to create three assays:</p>
+<ol type="1">
+<li><p>RNAScope: orthogonal measurement of cell type compositions for six major cell types (n=25)</p></li>
+<li><p>snRNA-seq: reference single nucleus data (n=19)</p></li>
+<li><p>Bulk RNA-seq: using a variety of library types and RNA extractions methods (n=110)</p></li>
+</ol>
+<p><img src="images/sfigu_study_design.png" class="img-fluid" alt="Diagram of study design. A. Cartoon of brain region and brain block with consecutive slices. B. Tile plot showing available samples and quality control status"><br>
+</p>
+<section id="rnascope-cell-type-proportions" class="level3">
+<h3 class="anchored" data-anchor-id="rnascope-cell-type-proportions">RNAScope Cell Type Proportions 🔬</h3>
+<p>To obtain orthogonal measurements of cell type proportions for six major cell types in the DLPFC, we utilized multiplex single molecule fluorescent in situ hybridization (smFISH) combined with immunofluorescence (IF) using RNAScope/IF.</p>
+<p>We designed two probe combinations:</p>
+<ol type="1">
+<li><p><strong>Star</strong> measures:</p>
+<ol type="1">
+<li><p>Excitatory Neurons (Excit)</p></li>
+<li><p>Mircoglia (Micro)</p></li>
+<li><p>combined Oligodenrocytes and Oligodendrocyte Precursor cells (OligoOPC)</p></li>
+</ol></li>
+<li><p>Circle measures:</p>
+<ol type="1">
+<li><p>Inhibitory Neurons (Inhib)</p></li>
+<li><p>Endothelial/Mural cells (EndoMural)</p></li>
+<li><p>Astrocytes (Astro)</p></li>
+</ol></li>
+</ol>
+<p>We used HALO to segment and label cell types, then calculated cell type porotions for each sample.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/RNAscope_crop.png" class="img-fluid figure-img"></p>
+<figcaption>RNAScope/IF Experiment Design. A. Star and Circle probe combinations measure 3 cell types each. Example flourescent images of B. Star and C. Circle. D. Bar plots of estimated cell type compositions</figcaption>
+</figure>
+</div>
+</section>
+<section id="single-nucleus-reference-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="single-nucleus-reference-dataset">Single Nucleus Reference dataset</h3>
+<p>The snRNA-seq data was previously analyzed as part of the spatialDLPFC project (see <a href="10.1126/science.adh1938">Huuki-Myers et al.</a>, or <a href="https://lahuuki.github.io/posts/2024-05-23-spatialDLPFC/#single-nucleus-rna-seq-1">previous blog post</a> for more details. This reference consist of 56k nuclei from 19 samples with seven broad cell types.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/snRNA_overview.png" class="img-fluid figure-img"></p>
+<figcaption>tSNE plot and overall cell type composition for snRNA-seq dataset</figcaption>
+</figure>
+</div>
+</section>
+<section id="bulk-rna-seq-data" class="level3">
+<h3 class="anchored" data-anchor-id="bulk-rna-seq-data">Bulk RNA-seq Data</h3>
+<p>For the bulk RNA-seq we we curious if using different library types (polyA or RiboZero) and RNA Extraction (nuclear, cytoplasmic, or total) would impact the accuracy of deconvolution. So for each brain block we prepared one sample of each library combination.</p>
+<p>Analyzing just the bulk RNA-seq data we saw large differences in gene expression between the different preparations of the bulk data, principal component analysis shows the data divide by library type and RNA extraction.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/bulk_overview.png" class="img-fluid figure-img"></p>
+<figcaption>tile plot showing n samples over library type and RNA extraction, PCA of the genes expression shows PC1 seperates Library type, PC2 seperates RNA extraction</figcaption>
+</figure>
+</div>
+</section>
+<section id="which-methods-to-test" class="level3">
+<h3 class="anchored" data-anchor-id="which-methods-to-test">Which methods to test?</h3>
+<p><img src="images/methods.png" class="img-fluid"></p>
+<p>From the large number of available methods we selected six methods that were previously selected as top performers in other benchmark papers, and applied a range of different approaches.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 7%">
+<col style="width: 14%">
+<col style="width: 29%">
+<col style="width: 14%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Citation</th>
+<th>Approach</th>
+<th>Marker Gene Selection</th>
+<th>Availability</th>
+<th>Top Benchmark Performance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>DWLS</strong><br>
+(Dampened weighted least-squares)</td>
+<td><span class="citation" data-cites="tsoucas2019">(<a href="#ref-tsoucas2019" role="doc-biblioref">Tsoucas et al. 2019</a>)</span></td>
+<td>weighted least squares</td>
+<td>-</td>
+<td>R package on CRAN</td>
+<td><span class="citation" data-cites="avilacobos2020">(<a href="#ref-avilacobos2020" role="doc-biblioref">Avila Cobos et al. 2020</a>)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Bisque</strong></td>
+<td><span class="citation" data-cites="jew2020">(<a href="#ref-jew2020" role="doc-biblioref">Jew et al. 2020</a>)</span></td>
+<td>Bias correction: Assay</td>
+<td>-</td>
+<td>R package on GitHub</td>
+<td><span class="citation" data-cites="dai">(<a href="#ref-dai" role="doc-biblioref">Dai et al., n.d.</a>)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>MuSiC</strong><br>
+(Multi-subject Single-cell)</td>
+<td><span class="citation" data-cites="wang2019">(<a href="#ref-wang2019" role="doc-biblioref">Wang et al. 2019</a>)</span></td>
+<td>Bias correction: Source</td>
+<td>Weights Genes</td>
+<td>R package GitHub</td>
+<td><span class="citation" data-cites="jin2021">(<a href="#ref-jin2021" role="doc-biblioref">Jin and Liu 2021</a>)</span></td>
+</tr>
+<tr class="even">
+<td><strong>BayesPrism</strong></td>
+<td><span class="citation" data-cites="chu2022">(<a href="#ref-chu2022" role="doc-biblioref">Chu et al. 2022</a>)</span></td>
+<td>Bayesian</td>
+<td>Pairwise t-test</td>
+<td>Webtool, R package on GitHub</td>
+<td><span class="citation" data-cites="hippen2023">(<a href="#ref-hippen2023" role="doc-biblioref">Hippen et al. 2023</a>)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>hspe</strong> (<strong>dtangle</strong>)<br>
+(hybrid-scale proportion estimation)</td>
+<td><span class="citation" data-cites="hunt2019">(<a href="#ref-hunt2019" role="doc-biblioref">Hunt et al. 2019</a>)</span></td>
+<td>High collinearity adjustment</td>
+<td>Multiple options- default “ratio” 1vALL mean expression ratio</td>
+<td>R package on GitHub</td>
+<td><span class="citation" data-cites="dai">(<a href="#ref-dai" role="doc-biblioref">Dai et al., n.d.</a>)</span></td>
+</tr>
+<tr class="even">
+<td><strong>CIBERSORTx</strong></td>
+<td><span class="citation" data-cites="newman2019">(<a href="#ref-newman2019" role="doc-biblioref">Newman et al. 2019</a>)</span></td>
+<td>Machine Learning</td>
+<td>Differential Gene expression</td>
+<td>Webtool, Docker Image</td>
+<td><span class="citation" data-cites="jin2021">(<a href="#ref-jin2021" role="doc-biblioref">Jin and Liu 2021</a>)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="marker-gene-selection" class="level2">
+<h2 class="anchored" data-anchor-id="marker-gene-selection">Marker Gene Selection</h2>
+<p>A strategy to improve accuracy in deconvolution is to limit the analysis to a set of cell types marker genes, reducing noise in the analysis. To help select cell type specific marker genes we have developed the <em>Mean Ratio</em> method.</p>
+<p>The <em>Mean Ratio</em> method works by selecting genes with large differences between gene expression in the target cell type and the closest non-target cell type. We calculate the <code>MeanRatio</code> for a target cell type for each gene by <strong>dividing the mean expression of the target cell by the mean expression of the next highest non-target cell type</strong>. Genes with the highest <code>MeanRatio</code> values are selected as marker genes.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/get_mean_ratio.png" class="img-fluid figure-img"></p>
+<figcaption>Illustration of <em>Mean Ratio</em> marker selection method, and heatmap of top <em>Mean Ratio</em> marker genes</figcaption>
+</figure>
+</div>
+<p>For more information about selecting marker genes with <em>Mean Ratio</em> see <a href="https://research.libd.org/DeconvoBuddies/articles/Marker_Finding.html">Finding Marker Genes with DeconvoBuddies</a>.</p>
+<p>In our benchmark we found that methods responded differently and unpredictably to different marker gene sets, but top methods preformed better using the top 25 <em>Mean Ratio</em> marker genes for each cell type.</p>
+</section>
+<section id="method-performance" class="level2">
+<h2 class="anchored" data-anchor-id="method-performance">Method Performance 🏆</h2>
+<p>On to the main event: time to <strong>evaluate the deconvolution methods!</strong></p>
+<p>We preformed deconvolution on the 110 bulk RNA seq samples, with each of the six selected methods, using the top25 Mean Ratio genes.</p>
+<p>We then compared the estimated cell type proportions with the RNAScope cell type proportions. We calculated <strong>Pearson’s correlation and the root mean squared error (RMSE)</strong> between the two. Methods with high correlation and low RMSE are the most accurate.</p>
+<p><strong>Overall <em>Bisque</em> and <em>hspe</em> were the top preforming methods.</strong> 🏆</p>
+<p>These were also the top methods in Dai et al., benchmark which also examined brain data <span class="citation" data-cites="dai">(<a href="#ref-dai" role="doc-biblioref">Dai et al., n.d.</a>)</span>.</p>
+<p>Bisque preformed slightly better in polyA data, <em>hspe</em> slightly better in RiboZero data. <em>CIBERSORTx</em> was a close third place, preforming similarly to Bisque and <em>hspe</em> in polyA data.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/benchmark.png" class="img-fluid figure-img"></p>
+<figcaption>A. Scatter plot of RNAScope proportions vs.&nbsp;Method estimated proportions. B. Pearson’s correlation for each method over bulk RNA-seq library combinations, point size corresponds to rmse</figcaption>
+</figure>
+</div>
+</section>
+<section id="other-results" class="level2">
+<h2 class="anchored" data-anchor-id="other-results">Other Results</h2>
+<p>Above I have highlighted the main study design and conclusions of our deconvolution benchmark. In the paper we explored many more facets of deconvolution method performance. Some other results to highlight:</p>
+<ul>
+<li><p><em>hspe</em> is sensitive to marker gene selection</p></li>
+<li><p><em>Bisque</em> can preform poorly with &lt; 4 donors</p></li>
+<li><p><em>Bisque</em> an <em>hspe</em> are unaffected by including “case” donors in the snRNA-seq reference</p></li>
+<li><p><em>Bisque</em> is biased to cell type proportions in the reference snRNA-seq data set</p></li>
+<li><p><em>Bisque</em> and <em>hspe</em></p></li>
+</ul>
+<p>Be sure to check out the paper for more! 📃<br>
+<br>
+</p>
+</section>
+</section>
+<section id="deconvobuddies" class="level1">
+<h1>DeconvoBuddies</h1>
+<p><img src="images/deconvobuddies_logo.png" class="img-fluid"></p>
+<p>In conjunction with this study we have developed a Bioconductor package <a href="https://research.libd.org/DeconvoBuddies">DeconvoBuddies</a>.</p>
+<p>DeconvoBuddies is currently on the <a href="https://bioconductor.org/packages/devel/bioc/html/DeconvoBuddies.html">devel branch</a> and will be included in the next release (April 2025) release of Bioconductor.</p>
+<p>The main features of the package are:<br>
+</p>
+<p><strong>Find Marker Genes</strong></p>
+<ul>
+<li><p>Implements Mean Ratio marker gene selection&nbsp;<code>get_mean_ratio()</code></p></li>
+<li><p>Implements 1 vs.&nbsp;All marker gene selection <code>findMarkers_1vALL()</code></p></li>
+</ul>
+<p><strong>Plotting tools</strong></p>
+<ul>
+<li><p>Quickly plot gene expression over cell types (or other category)&nbsp;<code>plot_gene_express()</code></p></li>
+<li><p>Plot top marker genes with annotated statistics <code>plot_marker_express</code></p></li>
+<li><p>Plot Composition bar plots of deconvolution outputs&nbsp;<code>plot_comoposition_bar()</code></p></li>
+</ul>
+<p><strong>Access Data</strong></p>
+<ul>
+<li><p>Access paired data from consecutive slices of human DLPFC, used in deconvolution benchmark <code>fetch_deconvo_data()</code></p>
+<ul>
+<li>Access the RNA-scope, snRNA-seq, and bulk RNA-seq data described above</li>
+</ul></li>
+</ul>
+</section>
+<section id="truly-tldr" class="level1">
+<h1>Truly TL;DR</h1>
+<p>In this benchmark we used a multi-assay dataset from the human DLPFC to compare deconvolution performace in six top methods. RNAScope/IF cell type estimates were utilized as an orthogonal measurement of the true cell type composition. We developed the <em>Mean Ratio</em> method to select highly specific cell type marker genes.</p>
+<p><strong>The top preforming deconvolution methods in brain were <em>hspe</em><span class="citation" data-cites="hunt2019">(<a href="#ref-hunt2019" role="doc-biblioref">Hunt et al. 2019</a>)</span> and <em>Bisque</em> <span class="citation" data-cites="jew2020">(<a href="#ref-jew2020" role="doc-biblioref">Jew et al. 2020</a>)</span>.</strong> 🏆</p>
+<p>We found many factors such as n reference donors, marker genes selection, and library type of bulk RNA-seq can impact performance of deconvolution methods. The dataset, MeanRatio function, and other useful functions for deconvolution are included in our Bioconductor package <a href="https://research.libd.org/DeconvoBuddies">DeconvoBuddies</a>.</p>
+<p>Be sure to check out the paper for the full exploration of Deconvolution Method performance <span class="citation" data-cites="huuki-myers">(<a href="#ref-huuki-myers" role="doc-biblioref">Huuki-Myers et al., n.d.</a>)</span> ! <a href="https://doi.org/10.1186/s13059-025-03552-3" class="uri">https://doi.org/10.1186/s13059-025-03552-3</a></p>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-avilacobos2020" class="csl-entry" role="listitem">
+Avila Cobos, Francisco, José Alquicira-Hernandez, Joseph E. Powell, Pieter Mestdagh, and Katleen De Preter. 2020. <span>“Benchmarking of Cell Type Deconvolution Pipelines for Transcriptomics Data.”</span> <em>Nature Communications</em> 11 (November): 5650. <a href="https://doi.org/10.1038/s41467-020-19015-1">https://doi.org/10.1038/s41467-020-19015-1</a>.
+</div>
+<div id="ref-chu2022" class="csl-entry" role="listitem">
+Chu, Tinyi, Zhong Wang, Dana Pe’er, and Charles G. Danko. 2022. <span>“Cell Type and Gene Expression Deconvolution with BayesPrism Enables Bayesian Integrative Analysis Across Bulk and Single-Cell RNA Sequencing in Oncology.”</span> <em>Nature Cancer</em> 3 (4): 505–17. <a href="https://doi.org/10.1038/s43018-022-00356-3">https://doi.org/10.1038/s43018-022-00356-3</a>.
+</div>
+<div id="ref-dai" class="csl-entry" role="listitem">
+Dai, Rujia, Tianyao Chu, Ming Zhang, Xuan Wang, Alexandre Jourdon, Feinan Wu, Jessica Mariani, et al. n.d. <span>“Evaluating Performance and Applications of Sample-Wise Cell Deconvolution Methods on Human Brain Transcriptomic Data.”</span> <a href="https://doi.org/10.1101/2023.03.13.532468">https://doi.org/10.1101/2023.03.13.532468</a>.
+</div>
+<div id="ref-hippen2023" class="csl-entry" role="listitem">
+Hippen, Ariel A., Dalia K. Omran, Lukas M. Weber, Euihye Jung, Ronny Drapkin, Jennifer A. Doherty, Stephanie C. Hicks, and Casey S. Greene. 2023. <span>“Performance of Computational Algorithms to Deconvolve Heterogeneous Bulk Ovarian Tumor Tissue Depends on Experimental Factors.”</span> <em>Genome Biology</em> 24 (1): 239. <a href="https://doi.org/10.1186/s13059-023-03077-7">https://doi.org/10.1186/s13059-023-03077-7</a>.
+</div>
+<div id="ref-hunt2019" class="csl-entry" role="listitem">
+Hunt, Gregory J, Saskia Freytag, Melanie Bahlo, and Johann A Gagnon-Bartsch. 2019. <span>“Dtangle: Accurate and Robust Cell Type Deconvolution.”</span> <em>Bioinformatics</em> 35 (12): 2093–99. <a href="https://doi.org/10.1093/bioinformatics/bty926">https://doi.org/10.1093/bioinformatics/bty926</a>.
+</div>
+<div id="ref-huuki-myers" class="csl-entry" role="listitem">
+Huuki-Myers, Louise A., Kelsey D. Montgomery, Sang Ho Kwon, Sophia Cinquemani, Nicholas J. Eagles, Daianna Gonzalez-Padilla, Sean K. Maden, et al. n.d. <span>“Benchmark of Cellular Deconvolution Methods Using a Multi-Assay Reference Dataset from Postmortem Human Prefrontal Cortex.”</span> <a href="https://doi.org/10.1101/2024.02.09.579665">https://doi.org/10.1101/2024.02.09.579665</a>.
+</div>
+<div id="ref-jew2020" class="csl-entry" role="listitem">
+Jew, Brandon, Marcus Alvarez, Elior Rahmani, Zong Miao, Arthur Ko, Kristina M. Garske, Jae Hoon Sul, Kirsi H. Pietiläinen, Päivi Pajukanta, and Eran Halperin. 2020. <span>“Accurate Estimation of Cell Composition in Bulk Expression Through Robust Integration of Single-Cell Information.”</span> <em>Nature Communications</em> 11 (1): 1971. <a href="https://doi.org/10.1038/s41467-020-15816-6">https://doi.org/10.1038/s41467-020-15816-6</a>.
+</div>
+<div id="ref-jin2021" class="csl-entry" role="listitem">
+Jin, Haijing, and Zhandong Liu. 2021. <span>“A Benchmark for RNA-Seq Deconvolution Analysis Under Dynamic Testing Environments.”</span> <em>Genome Biology</em> 22 (1): 102. <a href="https://doi.org/10.1186/s13059-021-02290-6">https://doi.org/10.1186/s13059-021-02290-6</a>.
+</div>
+<div id="ref-newman2019" class="csl-entry" role="listitem">
+Newman, Aaron M., Chloé B. Steen, Chih Long Liu, Andrew J. Gentles, Aadel A. Chaudhuri, Florian Scherer, Michael S. Khodadoust, et al. 2019. <span>“Determining Cell Type Abundance and Expression from Bulk Tissues with Digital Cytometry.”</span> <em>Nature Biotechnology</em> 37 (7): 773–82. <a href="https://doi.org/10.1038/s41587-019-0114-2">https://doi.org/10.1038/s41587-019-0114-2</a>.
+</div>
+<div id="ref-tsoucas2019" class="csl-entry" role="listitem">
+Tsoucas, Daphne, Rui Dong, Haide Chen, Qian Zhu, Guoji Guo, and Guo-Cheng Yuan. 2019. <span>“Accurate Estimation of Cell-Type Composition from Gene Expression Data.”</span> <em>Nature Communications</em> 10 (July): 2975. <a href="https://doi.org/10.1038/s41467-019-10802-z">https://doi.org/10.1038/s41467-019-10802-z</a>.
+</div>
+<div id="ref-wang2019" class="csl-entry" role="listitem">
+Wang, Xuran, Jihwan Park, Katalin Susztak, Nancy R. Zhang, and Mingyao Li. 2019. <span>“Bulk Tissue Cell Type Deconvolution with Multi-Subject Single-Cell Expression Reference.”</span> <em>Nature Communications</em> 10 (1): 380. <a href="https://doi.org/10.1038/s41467-018-08023-x">https://doi.org/10.1038/s41467-018-08023-x</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/lahuuki\.github\.io\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="lahuuki/lahuuki.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnkzNDM1NTI0NjA=" data-category="General" data-category-id="DIC_kwDOFHoxzM4CfkDR" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -10,7 +10,333 @@
 <atom:link href="https://lahuuki.github.io/blog.xml" rel="self" type="application/rss+xml"/>
 <description>Louise&#39;s personal webpage &amp; blog</description>
 <generator>quarto-1.6.43</generator>
-<lastBuildDate>Thu, 23 May 2024 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Wed, 09 Apr 2025 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Deconvolution Benchmark: TL;DR</title>
+  <dc:creator>Louise A. Huuki-Myers</dc:creator>
+  <link>https://lahuuki.github.io/posts/2025-04-09-DeconvoBenchmark/</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>This blog post provides a high-level summary of our paper <a href="https://doi.org/10.1186/s13059-025-03552-3">“Benchmark of cellular deconvolution methods using a multi-assay dataset from postmortem human prefrontal cortex”</a> published in <em>Genome Biology</em> in April, 2025 <span class="citation" data-cites="huuki-myers">(Huuki-Myers et al., n.d.)</span>.</p>
+<p>In this deconvolution benchmark project we set out to determine the most accurate method for predicting cell type composition in bulk RNA-seq data from brain tissue. We also evaluated method for selecting marker genes, and introduced the <em>MeanRatio</em> method for marker gene selection. The dataset developed for this experiment, <em>MeanRatio</em> functions, and other helpful tools for deconvolution are available in the <a href="https://bioconductor.org/packages/devel/bioc/html/DeconvoBuddies.html"><em>DeconvBuddies</em></a> Bioconductor package.</p>
+<section id="what-is-deconvolution" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-deconvolution">What is deconvolution?</h2>
+<p>Complex tissue is made up of different cell types that express genes at different levels. In bulk RNA-seq this heterogeneity of the tissue is obscured, and the gene expression measurements represent a mixture of all of the cells and cell types in the sample. Differences in the cell type composition between samples, either technical or biologically real, can confound downstream analysis such as differential expression.</p>
+<p>Deconvolution is an analysis that infers the cell type composition of bulk RNA-seq data, using gene expression profiles from single cell data.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://lahuuki.github.io/posts/2025-04-09-DeconvoBenchmark/images/Deconvolution.png" class="img-fluid figure-img"></p>
+<figcaption>Cartoon overview of deconvolution</figcaption>
+</figure>
+</div>
+</section>
+<section id="how-to-preform-deconvolution" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-preform-deconvolution">How to preform deconvolution?</h2>
+<p>To run deconvolution you’ll need:<br>
+</p>
+<ol type="1">
+<li><p>Your Bulk RNA-seq gene expression data</p></li>
+<li><p>A refrence single cell RNA-seq gene expression data set, from the same tissue type</p></li>
+<li><p>A deconvolution method (computational algorithm)</p></li>
+</ol>
+</section>
+<section id="available-deconvolution-methods" class="level2">
+<h2 class="anchored" data-anchor-id="available-deconvolution-methods">Available Deconvolution Methods</h2>
+<p>Reviewing the literature we found 20+ deconvolution methods available. This presents quite an overwhelming choice for researchers! Are there big diffrences between methods? If so how can we chose the most accurate method?</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://lahuuki.github.io/posts/2025-04-09-DeconvoBenchmark/images/method_choice.png" class="img-fluid figure-img" width="395"></p>
+<figcaption>Choosing a method</figcaption>
+</figure>
+</div>
+</section>
+<section id="existing-benchmarks" class="level2">
+<h2 class="anchored" data-anchor-id="existing-benchmarks">Existing Benchmarks</h2>
+<p>Benchmark studies aim to test and rank the performance of available methods. There have been several benchmarks studies on deconovlution methods, both with-in papers presenting new methods and as separate studies. However there is not much of a consensus on which method is the most accurate:</p>
+<p><strong>Benchmarking results from different papers on “real” data</strong></p>
+<ul>
+<li><p><strong>MuSiC paper</strong> <span class="citation" data-cites="wang2019">(Wang et al. 2019)</span><strong>:</strong> MuSiC &gt; NNLS &gt; BSEQ-sx &gt; CIBERSORT</p></li>
+<li><p><strong>Bisque paper</strong> <span class="citation" data-cites="jew2020">(Jew et al. 2020)</span><strong>:</strong> Bisque &gt; MuSiC &gt; CIBERSORT&nbsp;</p></li>
+<li><p><strong>Cobos benchmark</strong> <span class="citation" data-cites="avilacobos2020">(Avila Cobos et al. 2020)</span><strong>:</strong> DWLS &gt; MuSiC &gt; Bisque &gt; deconvoSeq</p></li>
+<li><p><strong>Jin et al.&nbsp;benchmark</strong> <span class="citation" data-cites="jin2021">(Jin and Liu 2021)</span><strong>:</strong> CIBERSORT, MuSiC &gt; EPIC*, TIMER, DeconRNAseq</p></li>
+<li><p><strong>Dai et al., benchmark</strong> <span class="citation" data-cites="dai">(Dai et al., n.d.)</span>: Dtangle &gt; Bisque &gt; Other Methods</p></li>
+</ul>
+<p>Additionally the Cobos et al., 2020 benchmark study shows that different methods preform best on different data sets <span class="citation" data-cites="avilacobos2020">(Avila Cobos et al. 2020)</span>.</p>
+<p>A challenge in benchmark studies is producing a “ground truth” estimate for cell type composition. Often in benchmarks pseudobulk mixtures created from the single cell data are used as the bulk data, so the absolute composition is known.</p>
+<p>However we think pseudobulk data might not be a stand-in for real bulk RNA-seq data. Better to use orthogonal measurement of cell type compositions paired with real bulk RNA-seq data. We also were curious about the performance of methods specifically in brain RNA-seq data.</p>
+<p>This motivated us to run our own deconvolution benchmark study!</p>
+</section>
+</section>
+<section id="deconvolution-benchmark-study" class="level1">
+<h1>Deconvolution Benchmark Study</h1>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://lahuuki.github.io/posts/2025-04-09-DeconvoBenchmark/images/Deconvolution_compare_proportions.png" class="img-fluid figure-img"></p>
+<figcaption>Benchmark study design: Use orthogonal RNAScope cell type proportions to evaluate accuracy of deconvolution methods</figcaption>
+</figure>
+</div>
+<section id="study-design" class="level2">
+<h2 class="anchored" data-anchor-id="study-design">Study Design</h2>
+<p>We designed an experiment to evaluate the performance of deconvolution methods on human brain tissue, specifically the dorsal lateral pre-frontal cortex (DLPFC). We used consecutive slices of 22 DLPFC brain blocks from 10 neurotypical donors, to create three assays:</p>
+<ol type="1">
+<li><p>RNAScope: orthogonal measurement of cell type compositions for six major cell types (n=25)</p></li>
+<li><p>snRNA-seq: reference single nucleus data (n=19)</p></li>
+<li><p>Bulk RNA-seq: using a variety of library types and RNA extractions methods (n=110)</p></li>
+</ol>
+<p><img src="https://lahuuki.github.io/posts/2025-04-09-DeconvoBenchmark/images/sfigu_study_design.png" class="img-fluid" alt="Diagram of study design. A. Cartoon of brain region and brain block with consecutive slices. B. Tile plot showing available samples and quality control status"><br>
+</p>
+<section id="rnascope-cell-type-proportions" class="level3">
+<h3 class="anchored" data-anchor-id="rnascope-cell-type-proportions">RNAScope Cell Type Proportions 🔬</h3>
+<p>To obtain orthogonal measurements of cell type proportions for six major cell types in the DLPFC, we utilized multiplex single molecule fluorescent in situ hybridization (smFISH) combined with immunofluorescence (IF) using RNAScope/IF.</p>
+<p>We designed two probe combinations:</p>
+<ol type="1">
+<li><p><strong>Star</strong> measures:</p>
+<ol type="1">
+<li><p>Excitatory Neurons (Excit)</p></li>
+<li><p>Mircoglia (Micro)</p></li>
+<li><p>combined Oligodenrocytes and Oligodendrocyte Precursor cells (OligoOPC)</p></li>
+</ol></li>
+<li><p>Circle measures:</p>
+<ol type="1">
+<li><p>Inhibitory Neurons (Inhib)</p></li>
+<li><p>Endothelial/Mural cells (EndoMural)</p></li>
+<li><p>Astrocytes (Astro)</p></li>
+</ol></li>
+</ol>
+<p>We used HALO to segment and label cell types, then calculated cell type porotions for each sample.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://lahuuki.github.io/posts/2025-04-09-DeconvoBenchmark/images/RNAscope_crop.png" class="img-fluid figure-img"></p>
+<figcaption>RNAScope/IF Experiment Design. A. Star and Circle probe combinations measure 3 cell types each. Example flourescent images of B. Star and C. Circle. D. Bar plots of estimated cell type compositions</figcaption>
+</figure>
+</div>
+</section>
+<section id="single-nucleus-reference-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="single-nucleus-reference-dataset">Single Nucleus Reference dataset</h3>
+<p>The snRNA-seq data was previously analyzed as part of the spatialDLPFC project (see <a href="10.1126/science.adh1938">Huuki-Myers et al.</a>, or <a href="https://lahuuki.github.io/posts/2024-05-23-spatialDLPFC/#single-nucleus-rna-seq-1">previous blog post</a> for more details. This reference consist of 56k nuclei from 19 samples with seven broad cell types.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://lahuuki.github.io/posts/2025-04-09-DeconvoBenchmark/images/snRNA_overview.png" class="img-fluid figure-img"></p>
+<figcaption>tSNE plot and overall cell type composition for snRNA-seq dataset</figcaption>
+</figure>
+</div>
+</section>
+<section id="bulk-rna-seq-data" class="level3">
+<h3 class="anchored" data-anchor-id="bulk-rna-seq-data">Bulk RNA-seq Data</h3>
+<p>For the bulk RNA-seq we we curious if using different library types (polyA or RiboZero) and RNA Extraction (nuclear, cytoplasmic, or total) would impact the accuracy of deconvolution. So for each brain block we prepared one sample of each library combination.</p>
+<p>Analyzing just the bulk RNA-seq data we saw large differences in gene expression between the different preparations of the bulk data, principal component analysis shows the data divide by library type and RNA extraction.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://lahuuki.github.io/posts/2025-04-09-DeconvoBenchmark/images/bulk_overview.png" class="img-fluid figure-img"></p>
+<figcaption>tile plot showing n samples over library type and RNA extraction, PCA of the genes expression shows PC1 seperates Library type, PC2 seperates RNA extraction</figcaption>
+</figure>
+</div>
+</section>
+<section id="which-methods-to-test" class="level3">
+<h3 class="anchored" data-anchor-id="which-methods-to-test">Which methods to test?</h3>
+<p><img src="https://lahuuki.github.io/posts/2025-04-09-DeconvoBenchmark/images/methods.png" class="img-fluid"></p>
+<p>From the large number of available methods we selected six methods that were previously selected as top performers in other benchmark papers, and applied a range of different approaches.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 7%">
+<col style="width: 14%">
+<col style="width: 29%">
+<col style="width: 14%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Citation</th>
+<th>Approach</th>
+<th>Marker Gene Selection</th>
+<th>Availability</th>
+<th>Top Benchmark Performance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>DWLS</strong><br>
+(Dampened weighted least-squares)</td>
+<td><span class="citation" data-cites="tsoucas2019">(Tsoucas et al. 2019)</span></td>
+<td>weighted least squares</td>
+<td>-</td>
+<td>R package on CRAN</td>
+<td><span class="citation" data-cites="avilacobos2020">(Avila Cobos et al. 2020)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Bisque</strong></td>
+<td><span class="citation" data-cites="jew2020">(Jew et al. 2020)</span></td>
+<td>Bias correction: Assay</td>
+<td>-</td>
+<td>R package on GitHub</td>
+<td><span class="citation" data-cites="dai">(Dai et al., n.d.)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>MuSiC</strong><br>
+(Multi-subject Single-cell)</td>
+<td><span class="citation" data-cites="wang2019">(Wang et al. 2019)</span></td>
+<td>Bias correction: Source</td>
+<td>Weights Genes</td>
+<td>R package GitHub</td>
+<td><span class="citation" data-cites="jin2021">(Jin and Liu 2021)</span></td>
+</tr>
+<tr class="even">
+<td><strong>BayesPrism</strong></td>
+<td><span class="citation" data-cites="chu2022">(Chu et al. 2022)</span></td>
+<td>Bayesian</td>
+<td>Pairwise t-test</td>
+<td>Webtool, R package on GitHub</td>
+<td><span class="citation" data-cites="hippen2023">(Hippen et al. 2023)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>hspe</strong> (<strong>dtangle</strong>)<br>
+(hybrid-scale proportion estimation)</td>
+<td><span class="citation" data-cites="hunt2019">(Hunt et al. 2019)</span></td>
+<td>High collinearity adjustment</td>
+<td>Multiple options- default “ratio” 1vALL mean expression ratio</td>
+<td>R package on GitHub</td>
+<td><span class="citation" data-cites="dai">(Dai et al., n.d.)</span></td>
+</tr>
+<tr class="even">
+<td><strong>CIBERSORTx</strong></td>
+<td><span class="citation" data-cites="newman2019">(Newman et al. 2019)</span></td>
+<td>Machine Learning</td>
+<td>Differential Gene expression</td>
+<td>Webtool, Docker Image</td>
+<td><span class="citation" data-cites="jin2021">(Jin and Liu 2021)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="marker-gene-selection" class="level2">
+<h2 class="anchored" data-anchor-id="marker-gene-selection">Marker Gene Selection</h2>
+<p>A strategy to improve accuracy in deconvolution is to limit the analysis to a set of cell types marker genes, reducing noise in the analysis. To help select cell type specific marker genes we have developed the <em>Mean Ratio</em> method.</p>
+<p>The <em>Mean Ratio</em> method works by selecting genes with large differences between gene expression in the target cell type and the closest non-target cell type. We calculate the <code>MeanRatio</code> for a target cell type for each gene by <strong>dividing the mean expression of the target cell by the mean expression of the next highest non-target cell type</strong>. Genes with the highest <code>MeanRatio</code> values are selected as marker genes.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://lahuuki.github.io/posts/2025-04-09-DeconvoBenchmark/images/get_mean_ratio.png" class="img-fluid figure-img"></p>
+<figcaption>Illustration of <em>Mean Ratio</em> marker selection method, and heatmap of top <em>Mean Ratio</em> marker genes</figcaption>
+</figure>
+</div>
+<p>For more information about selecting marker genes with <em>Mean Ratio</em> see <a href="https://research.libd.org/DeconvoBuddies/articles/Marker_Finding.html">Finding Marker Genes with DeconvoBuddies</a>.</p>
+<p>In our benchmark we found that methods responded differently and unpredictably to different marker gene sets, but top methods preformed better using the top 25 <em>Mean Ratio</em> marker genes for each cell type.</p>
+</section>
+<section id="method-performance" class="level2">
+<h2 class="anchored" data-anchor-id="method-performance">Method Performance 🏆</h2>
+<p>On to the main event: time to <strong>evaluate the deconvolution methods!</strong></p>
+<p>We preformed deconvolution on the 110 bulk RNA seq samples, with each of the six selected methods, using the top25 Mean Ratio genes.</p>
+<p>We then compared the estimated cell type proportions with the RNAScope cell type proportions. We calculated <strong>Pearson’s correlation and the root mean squared error (RMSE)</strong> between the two. Methods with high correlation and low RMSE are the most accurate.</p>
+<p><strong>Overall <em>Bisque</em> and <em>hspe</em> were the top preforming methods.</strong> 🏆</p>
+<p>These were also the top methods in Dai et al., benchmark which also examined brain data <span class="citation" data-cites="dai">(Dai et al., n.d.)</span>.</p>
+<p>Bisque preformed slightly better in polyA data, <em>hspe</em> slightly better in RiboZero data. <em>CIBERSORTx</em> was a close third place, preforming similarly to Bisque and <em>hspe</em> in polyA data.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://lahuuki.github.io/posts/2025-04-09-DeconvoBenchmark/images/benchmark.png" class="img-fluid figure-img"></p>
+<figcaption>A. Scatter plot of RNAScope proportions vs.&nbsp;Method estimated proportions. B. Pearson’s correlation for each method over bulk RNA-seq library combinations, point size corresponds to rmse</figcaption>
+</figure>
+</div>
+</section>
+<section id="other-results" class="level2">
+<h2 class="anchored" data-anchor-id="other-results">Other Results</h2>
+<p>Above I have highlighted the main study design and conclusions of our deconvolution benchmark. In the paper we explored many more facets of deconvolution method performance. Some other results to highlight:</p>
+<ul>
+<li><p><em>hspe</em> is sensitive to marker gene selection</p></li>
+<li><p><em>Bisque</em> can preform poorly with &lt; 4 donors</p></li>
+<li><p><em>Bisque</em> an <em>hspe</em> are unaffected by including “case” donors in the snRNA-seq reference</p></li>
+<li><p><em>Bisque</em> is biased to cell type proportions in the reference snRNA-seq data set</p></li>
+<li><p><em>Bisque</em> and <em>hspe</em></p></li>
+</ul>
+<p>Be sure to check out the paper for more! 📃<br>
+<br>
+</p>
+</section>
+</section>
+<section id="deconvobuddies" class="level1">
+<h1>DeconvoBuddies</h1>
+<p><img src="https://lahuuki.github.io/posts/2025-04-09-DeconvoBenchmark/images/deconvobuddies_logo.png" class="img-fluid"></p>
+<p>In conjunction with this study we have developed a Bioconductor package <a href="https://research.libd.org/DeconvoBuddies">DeconvoBuddies</a>.</p>
+<p>DeconvoBuddies is currently on the <a href="https://bioconductor.org/packages/devel/bioc/html/DeconvoBuddies.html">devel branch</a> and will be included in the next release (April 2025) release of Bioconductor.</p>
+<p>The main features of the package are:<br>
+</p>
+<p><strong>Find Marker Genes</strong></p>
+<ul>
+<li><p>Implements Mean Ratio marker gene selection&nbsp;<code>get_mean_ratio()</code></p></li>
+<li><p>Implements 1 vs.&nbsp;All marker gene selection <code>findMarkers_1vALL()</code></p></li>
+</ul>
+<p><strong>Plotting tools</strong></p>
+<ul>
+<li><p>Quickly plot gene expression over cell types (or other category)&nbsp;<code>plot_gene_express()</code></p></li>
+<li><p>Plot top marker genes with annotated statistics <code>plot_marker_express</code></p></li>
+<li><p>Plot Composition bar plots of deconvolution outputs&nbsp;<code>plot_comoposition_bar()</code></p></li>
+</ul>
+<p><strong>Access Data</strong></p>
+<ul>
+<li><p>Access paired data from consecutive slices of human DLPFC, used in deconvolution benchmark <code>fetch_deconvo_data()</code></p>
+<ul>
+<li>Access the RNA-scope, snRNA-seq, and bulk RNA-seq data described above</li>
+</ul></li>
+</ul>
+</section>
+<section id="truly-tldr" class="level1">
+<h1>Truly TL;DR</h1>
+<p>In this benchmark we used a multi-assay dataset from the human DLPFC to compare deconvolution performace in six top methods. RNAScope/IF cell type estimates were utilized as an orthogonal measurement of the true cell type composition. We developed the <em>Mean Ratio</em> method to select highly specific cell type marker genes.</p>
+<p><strong>The top preforming deconvolution methods in brain were <em>hspe</em><span class="citation" data-cites="hunt2019">(Hunt et al. 2019)</span> and <em>Bisque</em> <span class="citation" data-cites="jew2020">(Jew et al. 2020)</span>.</strong> 🏆</p>
+<p>We found many factors such as n reference donors, marker genes selection, and library type of bulk RNA-seq can impact performance of deconvolution methods. The dataset, MeanRatio function, and other useful functions for deconvolution are included in our Bioconductor package <a href="https://research.libd.org/DeconvoBuddies">DeconvoBuddies</a>.</p>
+<p>Be sure to check out the paper for the full exploration of Deconvolution Method performance <span class="citation" data-cites="huuki-myers">(Huuki-Myers et al., n.d.)</span> ! <a href="https://doi.org/10.1186/s13059-025-03552-3" class="uri">https://doi.org/10.1186/s13059-025-03552-3</a></p>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="ref-avilacobos2020" class="csl-entry">
+Avila Cobos, Francisco, José Alquicira-Hernandez, Joseph E. Powell, Pieter Mestdagh, and Katleen De Preter. 2020. <span>“Benchmarking of Cell Type Deconvolution Pipelines for Transcriptomics Data.”</span> <em>Nature Communications</em> 11 (November): 5650. <a href="https://doi.org/10.1038/s41467-020-19015-1">https://doi.org/10.1038/s41467-020-19015-1</a>.
+</div>
+<div id="ref-chu2022" class="csl-entry">
+Chu, Tinyi, Zhong Wang, Dana Pe’er, and Charles G. Danko. 2022. <span>“Cell Type and Gene Expression Deconvolution with BayesPrism Enables Bayesian Integrative Analysis Across Bulk and Single-Cell RNA Sequencing in Oncology.”</span> <em>Nature Cancer</em> 3 (4): 505–17. <a href="https://doi.org/10.1038/s43018-022-00356-3">https://doi.org/10.1038/s43018-022-00356-3</a>.
+</div>
+<div id="ref-dai" class="csl-entry">
+Dai, Rujia, Tianyao Chu, Ming Zhang, Xuan Wang, Alexandre Jourdon, Feinan Wu, Jessica Mariani, et al. n.d. <span>“Evaluating Performance and Applications of Sample-Wise Cell Deconvolution Methods on Human Brain Transcriptomic Data.”</span> <a href="https://doi.org/10.1101/2023.03.13.532468">https://doi.org/10.1101/2023.03.13.532468</a>.
+</div>
+<div id="ref-hippen2023" class="csl-entry">
+Hippen, Ariel A., Dalia K. Omran, Lukas M. Weber, Euihye Jung, Ronny Drapkin, Jennifer A. Doherty, Stephanie C. Hicks, and Casey S. Greene. 2023. <span>“Performance of Computational Algorithms to Deconvolve Heterogeneous Bulk Ovarian Tumor Tissue Depends on Experimental Factors.”</span> <em>Genome Biology</em> 24 (1): 239. <a href="https://doi.org/10.1186/s13059-023-03077-7">https://doi.org/10.1186/s13059-023-03077-7</a>.
+</div>
+<div id="ref-hunt2019" class="csl-entry">
+Hunt, Gregory J, Saskia Freytag, Melanie Bahlo, and Johann A Gagnon-Bartsch. 2019. <span>“Dtangle: Accurate and Robust Cell Type Deconvolution.”</span> <em>Bioinformatics</em> 35 (12): 2093–99. <a href="https://doi.org/10.1093/bioinformatics/bty926">https://doi.org/10.1093/bioinformatics/bty926</a>.
+</div>
+<div id="ref-huuki-myers" class="csl-entry">
+Huuki-Myers, Louise A., Kelsey D. Montgomery, Sang Ho Kwon, Sophia Cinquemani, Nicholas J. Eagles, Daianna Gonzalez-Padilla, Sean K. Maden, et al. n.d. <span>“Benchmark of Cellular Deconvolution Methods Using a Multi-Assay Reference Dataset from Postmortem Human Prefrontal Cortex.”</span> <a href="https://doi.org/10.1101/2024.02.09.579665">https://doi.org/10.1101/2024.02.09.579665</a>.
+</div>
+<div id="ref-jew2020" class="csl-entry">
+Jew, Brandon, Marcus Alvarez, Elior Rahmani, Zong Miao, Arthur Ko, Kristina M. Garske, Jae Hoon Sul, Kirsi H. Pietiläinen, Päivi Pajukanta, and Eran Halperin. 2020. <span>“Accurate Estimation of Cell Composition in Bulk Expression Through Robust Integration of Single-Cell Information.”</span> <em>Nature Communications</em> 11 (1): 1971. <a href="https://doi.org/10.1038/s41467-020-15816-6">https://doi.org/10.1038/s41467-020-15816-6</a>.
+</div>
+<div id="ref-jin2021" class="csl-entry">
+Jin, Haijing, and Zhandong Liu. 2021. <span>“A Benchmark for RNA-Seq Deconvolution Analysis Under Dynamic Testing Environments.”</span> <em>Genome Biology</em> 22 (1): 102. <a href="https://doi.org/10.1186/s13059-021-02290-6">https://doi.org/10.1186/s13059-021-02290-6</a>.
+</div>
+<div id="ref-newman2019" class="csl-entry">
+Newman, Aaron M., Chloé B. Steen, Chih Long Liu, Andrew J. Gentles, Aadel A. Chaudhuri, Florian Scherer, Michael S. Khodadoust, et al. 2019. <span>“Determining Cell Type Abundance and Expression from Bulk Tissues with Digital Cytometry.”</span> <em>Nature Biotechnology</em> 37 (7): 773–82. <a href="https://doi.org/10.1038/s41587-019-0114-2">https://doi.org/10.1038/s41587-019-0114-2</a>.
+</div>
+<div id="ref-tsoucas2019" class="csl-entry">
+Tsoucas, Daphne, Rui Dong, Haide Chen, Qian Zhu, Guoji Guo, and Guo-Cheng Yuan. 2019. <span>“Accurate Estimation of Cell-Type Composition from Gene Expression Data.”</span> <em>Nature Communications</em> 10 (July): 2975. <a href="https://doi.org/10.1038/s41467-019-10802-z">https://doi.org/10.1038/s41467-019-10802-z</a>.
+</div>
+<div id="ref-wang2019" class="csl-entry">
+Wang, Xuran, Jihwan Park, Katalin Susztak, Nancy R. Zhang, and Mingyao Li. 2019. <span>“Bulk Tissue Cell Type Deconvolution with Multi-Subject Single-Cell Expression Reference.”</span> <em>Nature Communications</em> 10 (1): 380. <a href="https://doi.org/10.1038/s41467-018-08023-x">https://doi.org/10.1038/s41467-018-08023-x</a>.
+</div>
+</div></section></div> ]]></description>
+  <category>paper preview</category>
+  <category>Deconvolution</category>
+  <category>single cell</category>
+  <guid>https://lahuuki.github.io/posts/2025-04-09-DeconvoBenchmark/</guid>
+  <pubDate>Wed, 09 Apr 2025 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Spatial DLPFC: TL;DR</title>
   <dc:creator>Louise A. Huuki-Myers</dc:creator>
