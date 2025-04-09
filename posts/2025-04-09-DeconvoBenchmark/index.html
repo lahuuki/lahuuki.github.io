@@ -343,7 +343,7 @@ div.csl-indent {
 <section id="bulk-rna-seq-data" class="level3">
 <h3 class="anchored" data-anchor-id="bulk-rna-seq-data">Bulk RNA-seq Data</h3>
 <p>For the bulk RNA-seq we we curious if using different library types (polyA or RiboZero) and RNA Extraction (nuclear, cytoplasmic, or total) would impact the accuracy of deconvolution. So for each brain block we prepared one sample of each library combination.</p>
-<p>Analyzing just the bulk RNA-seq data we saw large differences in gene expression between the different preparations of the bulk data, principal component analysis shows the data divide by library type and RNA extraction.</p>
+<p>Analyzing just the bulk RNA-seq data we saw large differences in gene expression between the different preparations of the bulk data, principal component analysis shows the data divide by library type and RNA extraction. We were suspicious that these technical differences in gene expression would impact deconvolution estimates, a good deconvolution method should be robust to the differences in datatypes.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/bulk_overview.png" class="img-fluid figure-img"></p>
@@ -353,8 +353,8 @@ div.csl-indent {
 </section>
 <section id="which-methods-to-test" class="level3">
 <h3 class="anchored" data-anchor-id="which-methods-to-test">Which methods to test?</h3>
+<p>From the large number of available methods we selected six methods that were previously selected as top performers in other benchmark papers, and applied a range of different approaches: DWLS, Bisque, MuSiC, hspe, BayesPrism, and CIBERSORTx (detailed below).</p>
 <p><img src="images/methods.png" class="img-fluid"></p>
-<p>From the large number of available methods we selected six methods that were previously selected as top performers in other benchmark papers, and applied a range of different approaches.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 18%">
@@ -432,7 +432,7 @@ div.csl-indent {
 </section>
 <section id="marker-gene-selection" class="level2">
 <h2 class="anchored" data-anchor-id="marker-gene-selection">Marker Gene Selection</h2>
-<p>A strategy to improve accuracy in deconvolution is to limit the analysis to a set of cell types marker genes, reducing noise in the analysis. To help select cell type specific marker genes we have developed the <em>Mean Ratio</em> method.</p>
+<p>A strategy to improve accuracy in deconvolution is to limit the analysis to a set of cell type marker genes; reducing noise in the analysis. To help select cell type specific marker genes we have developed the <em>Mean Ratio</em> method.</p>
 <p>The <em>Mean Ratio</em> method works by selecting genes with large differences between gene expression in the target cell type and the closest non-target cell type. We calculate the <code>MeanRatio</code> for a target cell type for each gene by <strong>dividing the mean expression of the target cell by the mean expression of the next highest non-target cell type</strong>. Genes with the highest <code>MeanRatio</code> values are selected as marker genes.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -466,7 +466,7 @@ div.csl-indent {
 <li><p><em>Bisque</em> can preform poorly with &lt; 4 donors</p></li>
 <li><p><em>Bisque</em> an <em>hspe</em> are unaffected by including “case” donors in the snRNA-seq reference</p></li>
 <li><p><em>Bisque</em> is biased to cell type proportions in the reference snRNA-seq data set</p></li>
-<li><p><em>Bisque</em> and <em>hspe</em></p></li>
+<li><p><em>Bisque</em> and <em>hspe</em> had relativly fast runtimes and low memory requirements</p></li>
 </ul>
 <p>Be sure to check out the paper for more! 📃<br>
 <br>
