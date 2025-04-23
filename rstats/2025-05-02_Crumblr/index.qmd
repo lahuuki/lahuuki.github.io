@@ -12,14 +12,178 @@ format:
     code-fold: false
 ---
 
-```{r, "load libraries"}
+# Background
+
+<https://diseaseneurogenomics.github.io/crumblr/articles/crumblr.html>
+
+# Tutorial
+
+## Load Packages
+
+```{r, "load libraries", message=FALSE, warning=FALSE}
 
 library(spatialLIBD)
+library(crumblr)
+library(tidyverse)
+library(variancePartition)
 
 ```
+
+## Prep Data
+
+Use spatiaLIBD::fetch_data to download Visium data from the Human DLPFC, our [spatialDLPFC](https://research.libd.org/spatialDLPFC/) dataset.
 
 ```{r, "Access Data"}
 ## Access visium data from SpatialDLPFC 
 spe <- fetch_data("spatialDLPFC_Visium")
+spe
+
+```
+
+```{r, "explore data"}
+# Check frequency of BayesSpace k=9 spatial domains
+table(spe$BayesSpace_harmony_09)
+
+## plot spatial domains
+vis_clus(spe = spe,
+         sampleid = "Br8667_mid",
+         clustervar = "BayesSpace_harmony_09")
+
+```
+
+## Extract proportion data
+
+Extract proportion data from spe object, include variables like sex, age, and position we want to test for impact on the proportions. We can see the composition of samples varies.
+
+```{r, "Extract Proportions"}
+## from ColData extract sampel info and SpD (BayesSpace cluster)
+dlpfc_SpD_prop <- as.data.frame(colData(spe)) |>
+  select(sample_id, subject, age, sex, position, BayesSpace_harmony_09) |>
+  mutate(BayesSpace_harmony_09 = sprintf("Sp9D%i", BayesSpace_harmony_09)) |> ## make a factor
+  group_by(sample_id, subject, age, sex, position, BayesSpace_harmony_09) |>
+  summarize(n_spots = n()) |>
+  group_by(sample_id, subject, age, sex, position) |>
+  mutate(prop = n_spots/sum(n_spots))
+  
+## plot the number of spots by Sample and SpDs
+dlpfc_SpD_prop |>
+  ggplot(aes(x = sample_id, y = n_spots, fill = BayesSpace_harmony_09)) +
+  geom_col() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+## plot the proportion of spots by Sample and SpDs
+dlpfc_SpD_prop |>
+  ggplot(aes(x = sample_id, y = prop, fill = BayesSpace_harmony_09)) +
+  geom_col() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+```
+
+## Crumblr
+
+### 1. Apply Crumblr Transormation
+
+```{r, "Apply Crumblr"}
+
+## Extract SpD counts into matrix
+SpD_nspots <- dlpfc_SpD_prop |>
+  ungroup() |>
+  select(sample_id, BayesSpace_harmony_09, n_spots) |>
+  pivot_wider(names_from = 'BayesSpace_harmony_09', values_from = "n_spots") |>
+  column_to_rownames("sample_id")
+
+## peak at a corner
+SpD_nspots[1:5, 1:5]
+
+# Apply crumblr transformation
+cobj <- crumblr(SpD_nspots)
+
+```
+
+### 2. Variance Partition
+
+```{r, "variance parition"}
+
+## create data.frame of sample info
+info <- dlpfc_SpD_prop |>
+  select(sample_id, subject, age, sex, position) |>
+  unique() |>
+  column_to_rownames("sample_id")
+
+## reorder sample_info rows to match SpD spots
+setequal(rownames(SpD_nspots), rownames(sample_info))
+info <- sample_info[rownames(SpD_nspots),]
+
+## check rownames match SpD_nspots
+identical(rownames(SpD_nspots), rownames(info))
+
+## Evaluate the variance 
+form <- ~ (1 | subject) + (1 | position) + (1 | sex) + age
+vp <- fitExtractVarPartModel(cobj, form, info)
+
+# Plot variance fractions
+plotPercentBars(vp)
+
+```
+
+### 3. PCA
+
+```{r "pca"}
+## Run PCA on transformed proportions
+pca <- prcomp(t(standardize(cobj)))
+
+# merge with sample info
+df_pca <- merge(pca$x, info, by = "row.names")
+
+## plot PCA by subject
+ggplot(df_pca, aes(PC1, PC2, color = subject, shape = position)) +
+  geom_point()
+
+## plot PCA by age
+ggplot(df_pca, aes(PC1, PC2, color = age, shape = position)) +
+  geom_point()
+
+```
+
+### 3. Hierarchical Clustering
+
+```{r, "hierarchial clustering"}
+
+```
+
+### 4. Differential Testing
+
+```{r, "differential testing"}
+
+fit <- dream(cobj, ~ age + position, info)
+fit <- eBayes(fit)
+
+# Extract results for each cell type
+topTable(fit, coef = "age", number = Inf)
+
+```
+
+Plot CLR values
+
+```{r, "plot_clr"}
+
+clr_long <- cobj$E |>
+  as.data.frame() |>
+  rownames_to_column("BayesSpace_harmony_09") |>
+  pivot_longer(!BayesSpace_harmony_09, names_to = "sample_id", values_to = "CLR") |>
+  left_join(dlpfc_SpD_prop)
+
+## plot proportion over age
+clr_long |>
+  ggplot(aes(x = age, y = prop)) +
+  geom_point() +
+  facet_wrap(~BayesSpace_harmony_09, scales = "free_y")
+
+## plot CLR over age
+clr_long |>
+  ggplot(aes(x = age, y = CLR)) +
+  geom_point() +
+  facet_wrap(~BayesSpace_harmony_09, scales = "free_y")
+  
 
 ```
