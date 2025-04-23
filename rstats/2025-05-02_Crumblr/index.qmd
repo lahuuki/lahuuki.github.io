@@ -7,11 +7,18 @@ author:
 date: 2025-05-02
 categories:
   - "single cell"
-bibliography: references.bib
+format: 
+  html:
+    code-fold: false
 ---
 
-```{r, "Access Data"}
+```{r, "load libraries"}
+
 library(spatialLIBD)
+
+```
+
+```{r, "Access Data"}
 ## Access visium data from SpatialDLPFC 
 spe <- fetch_data("spatialDLPFC_Visium")
 
