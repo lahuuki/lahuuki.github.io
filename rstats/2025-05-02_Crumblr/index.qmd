@@ -1,0 +1,18 @@
+---
+title: "Rstats Club: Crumblr"
+description: |
+  Tutorial for running curmblr diffential proportion analysis on LIBD data
+author:
+  - name: Louise A. Huuki-Myers
+date: 2025-05-02
+categories:
+  - "single cell"
+bibliography: references.bib
+---
+
+```{r, "Access Data"}
+library(spatialLIBD)
+## Access visium data from SpatialDLPFC 
+spe <- fetch_data("spatialDLPFC_Visium")
+
+```
