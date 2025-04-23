@@ -11,7 +11,9 @@ website:
       - text: "About Me"
         file: index.qmd
       - text: "Blog"
-        file: blog.qmd
+        file: blog.qmd      
+      - text: "Rstats Club"
+        file: rstats.qmd
       - text: "My Publications"
         file: publications.qmd
       - icon: github
