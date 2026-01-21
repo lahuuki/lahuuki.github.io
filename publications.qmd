@@ -9,6 +9,16 @@ You can find my full publications list on [ORCiD](https://orcid.org/0000-0001-51
 
 # 2025
 
+### Spatial ERC (preprint)
+
+**APOE E4 Alzheimer’s Risk Converges on an Oligodendrocyte Subtype in the Human Entorhinal Cortex**
+
+-   DOI: <https://doi.org/10.1101/2025.11.20.689483>
+
+-   Pre-printed 11/20/2025
+
+-   [Blue sky post](https://bsky.app/profile/lahuuki.bsky.social/post/3m7pkckfzrc2d)
+
 ### Deconvolution Benchmark
 
 ![](images/DeconvoBuddies.png){width="87"}
