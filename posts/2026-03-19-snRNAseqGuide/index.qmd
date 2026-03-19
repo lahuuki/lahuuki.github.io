@@ -1,0 +1,27 @@
+---
+title: "snRNA-seq Guide: cluster QC"
+description: |
+  A guide for LIBD snRNA-seq processing
+author:
+  - name: Louise A. Huuki-Myers
+date: 2026-03-19
+categories:
+  - "single cell"
+---
+
+# Introduction
+
+The goal of cluster quality control (QC) is to further identify low quality nuclei by running a preliminary clustering step, then dropping clusters with poor QC scores (high mitochondrial rate, high doublet score, low sum UMI, or low detected genes). After cluster QC, the data is re-clustered with the aim that the second 'optimal' clustering is then driven by cell type identity not quality signal.
+
+# First Step: Nuclei QC
+
+This step is run after 'nuclei' QC where droplets/nuclei are quality controlled in the following process:
+
+1.  Evaluate each droplet for if it contains nuclei or only ambinet RNA (an 'empty droplet') with `DropletUtils::emptyDrops()` , DROP empty droplets, KEEP droplets containing nuclei
+2.  Calculate the double score for each nuclei with `scDblFinder::scDblFinder()` ([see scDBLFinder docs](https://plger.github.io/scDblFinder/index.html)), but **don't drop** yet - we'll evaluate this in the cluster QC step
+3.  Nuclei are evaluated **by sample** for high mitochondrial rate, low sum UMI, or low detected genes with `scuttle::isOutlier()` , DROP nuclei that are over cutoff for any metrics, KEEP nuclei that pass all metrics
+    -   It may be reasonable to set a hard cutoff for mitochondrial rate - we'll discuss more
+
+After nuclei QC, you'll retain high QC nuclei with double scores, ready for clustering! But notably when evaluating brain snRNA-seq data, neurons have high levels of transcriptional activity than glia leading to different distributions of these QC metrics. This is visible in the bi-modal distributions of the nuclei sum UMI QC plots. Some of the nuclei that look fine might be low quality neurons, but we don't know which neurons are neurons yet 🕵️: !
+
+![Quality Control violin plot of sum UMI from LFF ERC snRNA-seq data.](images/erc_sn_QC_outlier-sum.png)
