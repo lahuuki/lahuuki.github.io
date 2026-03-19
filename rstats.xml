@@ -24,9 +24,11 @@
 <h1>Introduction</h1>
 <p>The goal of cluster quality control (QC) is to further identify low quality nuclei by running a preliminary clustering step, then dropping clusters with poor QC scores (high mitochondrial rate, high doublet score, low sum UMI, or low detected genes). After cluster QC, the data is re-clustered with the aim that the second ‘optimal’ clustering is then driven by cell type identity not quality signal.</p>
 </section>
-<section id="first-step-nuclei-qc" class="level1">
-<h1>First Step: Nuclei QC</h1>
-<p>This step is run after ‘nuclei’ QC where droplets/nuclei are quality controlled in the following process:</p>
+<section id="get-ready" class="level1">
+<h1>Get Ready:</h1>
+<section id="nuclei-qc" class="level2">
+<h2 class="anchored" data-anchor-id="nuclei-qc">1. Nuclei QC</h2>
+<p>Cluster QC is run after ‘nuclei’ QC where droplets/nuclei are quality controlled in the following process:</p>
 <ol type="1">
 <li>Evaluate each droplet for if it contains nuclei or only ambinet RNA (an ‘empty droplet’) with <code>DropletUtils::emptyDrops()</code> , DROP empty droplets, KEEP droplets containing nuclei</li>
 <li>Calculate the double score for each nuclei with <code>scDblFinder::scDblFinder()</code> (<a href="https://plger.github.io/scDblFinder/index.html">see scDBLFinder docs</a>), but <strong>don’t drop</strong> yet - we’ll evaluate this in the cluster QC step</li>
@@ -35,15 +37,33 @@
 <li>It may be reasonable to set a hard cutoff for mitochondrial rate - we’ll discuss more</li>
 </ul></li>
 </ol>
-<p>After nuclei QC, you’ll retain high QC nuclei with double scores, ready for clustering! But notably when evaluating brain snRNA-seq data, neurons have high levels of transcriptional activity than glia leading to different distributions of these QC metrics. This is visible in the bi-modal distributions of the nuclei sum UMI QC plots. Some of the nuclei that look fine might be low quality neurons, but we don’t know which neurons are neurons yet 🕵️: !</p>
+<p>After nuclei QC, you’ll retain high QC nuclei with double scores, ready for clustering! But notably when evaluating brain snRNA-seq data, neurons have high levels of transcriptional activity than glia leading to different distributions of these QC metrics. This is visible in the bi-modal distributions of the nuclei sum UMI QC plots. Some of the nuclei that look fine might be low quality neurons, but we don’t know which neurons are neurons yet 🕵️! To understand what type of cells these nuclei are we’ll have to cluster.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://lahuuki.github.io/rstats/2026-03-19-snRNAseqGuide/images/erc_sn_QC_outlier-sum.png" class="img-fluid figure-img"></p>
 <figcaption>Quality Control violin plot of sum UMI from LFF ERC snRNA-seq data.</figcaption>
 </figure>
 </div>
+</section>
+<section id="feature-selection-dimension-reduction-and-batch-correction" class="level2">
+<h2 class="anchored" data-anchor-id="feature-selection-dimension-reduction-and-batch-correction">3. Feature Selection, Dimension Reduction, and Batch Correction</h2>
+<p>To cluster the nuclei we’ll need batch corrected PCAs. We won’t get in to too much detail here but our current method is GLM-PCA but quickly:<br>
+</p>
+<ol type="1">
+<li>Select top 2k genes (features) deviating from binomial model <code>scry::devianceFeatureSelection()</code> then calculate deviance residuals with <code>scry::nullResiduals()</code></li>
+<li>Reduce dimensions with PCA, calculate UMAP and TSNE for visualization<br>
+<img src="https://lahuuki.github.io/rstats/2026-03-19-snRNAseqGuide/images/ERC_sn_TSNE-sample_id-uncorrected.png" class="img-fluid" width="400" alt="TSNE of LFF ERC snRNA-seq data, color by sample ID"></li>
+<li>Run batch correction with Harmony<br>
+<img src="https://lahuuki.github.io/rstats/2026-03-19-snRNAseqGuide/images/ERC_sn_TSNE-sample_id-HARMONY.png" class="img-fluid" width="400" alt="TSNE of LFF ERC snRNA-seq data: after batch correction with HARMONY"></li>
+</ol>
+<p>We will use the batch corrected PCAs for clustering.</p>
+</section>
+<section id="preliminary-clustering-annotation" class="level2">
+<h2 class="anchored" data-anchor-id="preliminary-clustering-annotation">2. Preliminary Clustering &amp; Annotation</h2>
+<p>The next step is to cluster the nuclei. There are many ways to optimize clustering</p>
 
 
+</section>
 </section>
 
  ]]></description>
