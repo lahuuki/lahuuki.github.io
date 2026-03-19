@@ -13,15 +13,33 @@ categories:
 
 The goal of cluster quality control (QC) is to further identify low quality nuclei by running a preliminary clustering step, then dropping clusters with poor QC scores (high mitochondrial rate, high doublet score, low sum UMI, or low detected genes). After cluster QC, the data is re-clustered with the aim that the second 'optimal' clustering is then driven by cell type identity not quality signal.
 
-# First Step: Nuclei QC
+# Get Ready:
 
-This step is run after 'nuclei' QC where droplets/nuclei are quality controlled in the following process:
+## 1. Nuclei QC
+
+Cluster QC is run after 'nuclei' QC where droplets/nuclei are quality controlled in the following process:
 
 1.  Evaluate each droplet for if it contains nuclei or only ambinet RNA (an 'empty droplet') with `DropletUtils::emptyDrops()` , DROP empty droplets, KEEP droplets containing nuclei
 2.  Calculate the double score for each nuclei with `scDblFinder::scDblFinder()` ([see scDBLFinder docs](https://plger.github.io/scDblFinder/index.html)), but **don't drop** yet - we'll evaluate this in the cluster QC step
 3.  Nuclei are evaluated **by sample** for high mitochondrial rate, low sum UMI, or low detected genes with `scuttle::isOutlier()` , DROP nuclei that are over cutoff for any metrics, KEEP nuclei that pass all metrics
     -   It may be reasonable to set a hard cutoff for mitochondrial rate - we'll discuss more
 
-After nuclei QC, you'll retain high QC nuclei with double scores, ready for clustering! But notably when evaluating brain snRNA-seq data, neurons have high levels of transcriptional activity than glia leading to different distributions of these QC metrics. This is visible in the bi-modal distributions of the nuclei sum UMI QC plots. Some of the nuclei that look fine might be low quality neurons, but we don't know which neurons are neurons yet 🕵️: !
+After nuclei QC, you'll retain high QC nuclei with double scores, ready for clustering! But notably when evaluating brain snRNA-seq data, neurons have high levels of transcriptional activity than glia leading to different distributions of these QC metrics. This is visible in the bi-modal distributions of the nuclei sum UMI QC plots. Some of the nuclei that look fine might be low quality neurons, but we don't know which neurons are neurons yet 🕵️! To understand what type of cells these nuclei are we'll have to cluster.
 
 ![Quality Control violin plot of sum UMI from LFF ERC snRNA-seq data.](images/erc_sn_QC_outlier-sum.png)
+
+## 3. Feature Selection, Dimension Reduction, and Batch Correction
+
+To cluster the nuclei we'll need batch corrected PCAs. We won't get in to too much detail here but our current method is GLM-PCA but quickly: \
+
+1.  Select top 2k genes (features) deviating from binomial model `scry::devianceFeatureSelection()` then calculate deviance residuals with `scry::nullResiduals()`
+2.  Reduce dimensions with PCA, calculate UMAP and TSNE for visualization\
+    ![TSNE of LFF ERC snRNA-seq data, color by sample ID](images/ERC_sn_TSNE-sample_id-uncorrected.png){width="400"}
+3.  Run batch correction with Harmony\
+    ![TSNE of LFF ERC snRNA-seq data: after batch correction with HARMONY](images/ERC_sn_TSNE-sample_id-HARMONY.png){width="400"}
+
+We will use the batch corrected PCAs for clustering.
+
+## 2. Preliminary Clustering & Annotation
+
+The next step is to cluster the nuclei. There are many ways to optimize clustering
