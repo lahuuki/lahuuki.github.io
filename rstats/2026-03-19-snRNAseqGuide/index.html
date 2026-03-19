@@ -160,6 +160,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#cluster-quality-control" id="toc-cluster-quality-control" class="nav-link" data-scroll-target="#cluster-quality-control">Cluster Quality Control</a>
   <ul class="collapse">
   <li><a href="#preliminary-clustering" id="toc-preliminary-clustering" class="nav-link" data-scroll-target="#preliminary-clustering">1. Preliminary Clustering</a></li>
+  <li><a href="#cluster-cell-type-annotation" id="toc-cluster-cell-type-annotation" class="nav-link" data-scroll-target="#cluster-cell-type-annotation">2. Cluster Cell Type Annotation</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -253,7 +254,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Previously we’ve used single-nearest-neighbors + walktrap clustering. For larger data we’ve started using Leiden clustering, possible starting parameters to use there are k=25, resolution = 0.3.</p>
 <p>I used SSN with k=10, then walktrap on the ERC data (140k nuclei after QC) resulting in 44 clusters:</p>
 <pre><code>## running single-nearest-neighbors k =10
-snn.gr &lt;- buildSNNGraph(sce, k = k, use.dimred = "HARMONY")
+snn.gr &lt;- bluster::buildSNNGraph(sce, k = k, use.dimred = "HARMONY")
 
 ## Run walk trap clustering
 clusters &lt;- igraph::cluster_walktrap(snn.gr)$membership
@@ -268,6 +269,70 @@ table(clusters)
 #   341   396   459   668 22929   774   325   137   197    44   139    41    67 
 #    40    41    42    43    44 
 #    73    84    25   178    14 </code></pre>
+</section>
+<section id="cluster-cell-type-annotation" class="level2">
+<h2 class="anchored" data-anchor-id="cluster-cell-type-annotation">2. Cluster Cell Type Annotation</h2>
+<p>Next we want a <strong>preliminary</strong> cell type annotation for each cluster. Cell type annotation can be tricky and time consuming, especially on low quality clusters. Here we just want to focus on classifying nuclei clusters as neurons or glia (cell_type_class).</p>
+<p>To help with this process I’ve used the automated cell type identification tool <a href="https://github.com/IanevskiAleksandr/sc-type">ScType</a>. I had to make some adaptions to run with <code>SingleCellExperiment</code> data, see <a href="https://github.com/LieberInstitute/LFF_spatial_ERC/blob/devel/code/04_snRNA-seq/08_sctype_prelim.R">my code here</a>.</p>
+<p>ScType scores each cluster based on expression of marker genes from a tissue-specific database (we’ll use brain). From the scores it provides a cell type classification and a measure of confidence for its classification. I used these classifications to annotate each cluster <code>cell_type_broad</code> and <code>cell_type_class</code>.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">type</th>
+<th style="text-align: left;">cell_type_broad</th>
+<th style="text-align: left;">cell_type_class</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Astrocytes</td>
+<td style="text-align: left;">Astro</td>
+<td style="text-align: left;">glia</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Endothelial cells</td>
+<td style="text-align: left;">Endo</td>
+<td style="text-align: left;">glia</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Microglial cells</td>
+<td style="text-align: left;">Micro</td>
+<td style="text-align: left;">glia</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Oligodendrocytes</td>
+<td style="text-align: left;">Oligo</td>
+<td style="text-align: left;">glia</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Oligodendrocyte precursor cells</td>
+<td style="text-align: left;">OPC</td>
+<td style="text-align: left;">glia</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Glutamatergic neurons</td>
+<td style="text-align: left;">Excit</td>
+<td style="text-align: left;">neuron</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GABAergic neurons</td>
+<td style="text-align: left;">Inhib</td>
+<td style="text-align: left;">neuron</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mature neurons</td>
+<td style="text-align: left;">Neu</td>
+<td style="text-align: left;">neuron</td>
+</tr>
+</tbody>
+</table>
+<p>I also assigned <code>cell_type_fine</code> as a combination of <code>cell_type_broad</code> and rank of number of nuclei within a cell type (so the Astrocyte cluster with most nuclei is <code>Astro.1</code>).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/sn_clusterQC_TSNE-cell_type_fine-prelim_k10.png" class="img-fluid figure-img"></p>
+<figcaption>TSNE of LFF ERC data, colors how fine cell type clusters from scType annotation</figcaption>
+</figure>
+</div>
 
 
 </section>
