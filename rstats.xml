@@ -10,6 +10,73 @@
 <atom:link href="https://lahuuki.github.io/rstats.xml" rel="self" type="application/rss+xml"/>
 <description>Louise&#39;s personal webpage &amp; blog</description>
 <generator>quarto-1.8.27</generator>
-<lastBuildDate>Thu, 19 Mar 2026 18:34:55 GMT</lastBuildDate>
+<lastBuildDate>Thu, 19 Mar 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>snRNA-seq Guide: cluster QC</title>
+  <dc:creator>Louise A. Huuki-Myers</dc:creator>
+  <link>https://lahuuki.github.io/rstats/2026-03-19-snRNAseqGuide/</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>The goal of cluster quality control (QC) is to further identify low quality nuclei by running a preliminary clustering step, then dropping clusters with poor QC scores (high mitochondrial rate, high doublet score, low sum UMI, or low detected genes). After cluster QC, the data is re-clustered with the aim that the second ‘optimal’ clustering is then driven by cell type identity not quality signal.</p>
+</section>
+<section id="first-step-nuclei-qc" class="level1">
+<h1>First Step: Nuclei QC</h1>
+<p>This step is run after ‘nuclei’ QC where droplets/nuclei are quality controlled in the following process:</p>
+<ol type="1">
+<li>Evaluate each droplet for if it contains nuclei or only ambinet RNA (an ‘empty droplet’) with <code>DropletUtils::emptyDrops()</code> , DROP empty droplets, KEEP droplets containing nuclei</li>
+<li>Calculate the double score for each nuclei with <code>scDblFinder::scDblFinder()</code> (<a href="https://plger.github.io/scDblFinder/index.html">see scDBLFinder docs</a>), but <strong>don’t drop</strong> yet - we’ll evaluate this in the cluster QC step</li>
+<li>Nuclei are evaluated <strong>by sample</strong> for high mitochondrial rate, low sum UMI, or low detected genes with <code>scuttle::isOutlier()</code> , DROP nuclei that are over cutoff for any metrics, KEEP nuclei that pass all metrics
+<ul>
+<li>It may be reasonable to set a hard cutoff for mitochondrial rate - we’ll discuss more</li>
+</ul></li>
+</ol>
+<p>After nuclei QC, you’ll retain high QC nuclei with double scores, ready for clustering! But notably when evaluating brain snRNA-seq data, neurons have high levels of transcriptional activity than glia leading to different distributions of these QC metrics. This is visible in the bi-modal distributions of the nuclei sum UMI QC plots. Some of the nuclei that look fine might be low quality neurons, but we don’t know which neurons are neurons yet 🕵️: !</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://lahuuki.github.io/rstats/2026-03-19-snRNAseqGuide/images/erc_sn_QC_outlier-sum.png" class="img-fluid figure-img"></p>
+<figcaption>Quality Control violin plot of sum UMI from LFF ERC snRNA-seq data.</figcaption>
+</figure>
+</div>
+
+
+</section>
+
+ ]]></description>
+  <category>single cell</category>
+  <guid>https://lahuuki.github.io/rstats/2026-03-19-snRNAseqGuide/</guid>
+  <pubDate>Thu, 19 Mar 2026 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Rstats Club: Crumblr</title>
+  <dc:creator>Louise A. Huuki-Myers</dc:creator>
+  <link>https://lahuuki.github.io/rstats/2025-05-02_Crumblr/</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="background" class="level1">
+<h1>Background</h1>
+<p><a href="https://diseaseneurogenomics.github.io/crumblr/articles/crumblr.html" class="uri">https://diseaseneurogenomics.github.io/crumblr/articles/crumblr.html</a></p>
+</section>
+<section id="tutorial" class="level1">
+<h1>Tutorial</h1>
+<section id="load-packages" class="level2">
+<h2 class="anchored" data-anchor-id="load-packages">Load Packages</h2>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>single cell</category>
+  <guid>https://lahuuki.github.io/rstats/2025-05-02_Crumblr/</guid>
+  <pubDate>Fri, 02 May 2025 00:00:00 GMT</pubDate>
+</item>
 </channel>
 </rss>
