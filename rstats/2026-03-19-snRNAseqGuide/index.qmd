@@ -69,9 +69,11 @@ table(clusters)
 #    73    84    25   178    14 
 ```
 
-## 2. Cluster Cell Type Annotation
+## 2. Annotate Clusters by Cell Type
 
 Next we want a **preliminary** cell type annotation for each cluster. Cell type annotation can be tricky and time consuming, especially on low quality clusters. Here we just want to focus on classifying nuclei clusters as neurons or glia (cell_type_class).
+
+Clusters can be classified by expression of cell type marker genes, but even at the class or broad cell cell type level that can be time consuming!
 
 To help with this process I've used the automated cell type identification tool [ScType](https://github.com/IanevskiAleksandr/sc-type). I had to make some adaptions to run with `SingleCellExperiment` data, see [my code here](https://github.com/LieberInstitute/LFF_spatial_ERC/blob/devel/code/04_snRNA-seq/08_sctype_prelim.R).
 
@@ -88,6 +90,53 @@ ScType scores each cluster based on expression of marker genes from a tissue-spe
 | GABAergic neurons               | Inhib           | neuron          |
 | Mature neurons                  | Neu             | neuron          |
 
-I also assigned `cell_type_fine` as a combination of `cell_type_broad` and rank of number of nuclei within a cell type (so the Astrocyte cluster with most nuclei is `Astro.1`).
+I also assigned `cell_type_fine` as a combination of `cell_type_broad` and rank of number of nuclei within a cell type (so the Astrocyte cluster with most nuclei is `Astro.1`). Now I have a name and cell type annotation for all 44 clusters! ✅
 
 ![TSNE of LFF ERC data, colors how fine cell type clusters from scType annotation](images/sn_clusterQC_TSNE-cell_type_fine-prelim_k10.png)
+
+## 3. Check Quality Metrics of Clusters
+
+We will now evaluate clusters based on high mitochondrial rate, low sum UMI, or low detected genes (like in nuclei QC), and now we'll evaluate `scDblFinder score` by cluster.
+
+For each metric the cluster's median QC score is compared to a cell class specific cutoff (calculated below). If the median score is below the cutoff for sum UMI or low detected genes OR above the cutoff for mitochondrial rate or doublet score the cluster will fail quality control. Often poor quality clusters will fail more than one QC evaluation.
+
+**Sum UMI & Detected Genes \
+**These metrics have different ranges between gila and neurons. With the adjusted cutoffs low quality neurons (ex. Excit.2) can be detected with out loosing too many glia.
+
+![Violin plot of sum UMI by cluster](images/sn_clusterQC-QCmetricViolin_sum.png)
+
+![Violin plot of detected genes by cluster](images/sn_clusterQC-QCmetricViolin_detected.png)
+
+**Mitochondrial Gene Expression**
+
+Mitochondrial rate was low for the ERC data, and just a bit higher in neurons. For other data sets a stricter cutoff may need to be set, but more discussion is needed.
+
+![Violin plot of subset Mitochondrial rate by cluster](images/sn_clusterQC-QCmetricViolin_subsets_Mito_percent.png)
+
+**Doublet Score**
+
+In the ERC data the `scDblFInderScore` was close to 0 or 1. Doublet clusters can look fine in other metrics but have super high doublet scores (ex. Astro.4 & Astro.5)
+
+![Violin plot of scDblFInderScore: cutoff is \>0.5](images/sn_clusterQC-QCmetricViolin_scDblFinder.score.png)
+
+### Calculate QC Cutoffs
+
+For the first three metrics we'll determine a cutoff for neurons and glia separately, by grouping the nuclei by `cell_type_class` then calculating the median value, the median absolute deviation (MAD), and a cutoff based on those values. Below are the values from the ERC snRNA-seq data. The multipliers may need to be adjusted based on the data set. \
+
+-   For sum UMI and detected, we want to keep clusters with high values (drop low), so we'll set the cutoff to be `median - 1*MAD`
+
+-   For mitochondrial rate we want to keep clusters with low values (drop high), so so we'll set the cutoff to be `median + 3*MAD`.
+
+-   For `scDblFInderScore` we'll use a consistent cutoff of \>0.05.
+
+| cell_type_class | metric               |   median |      mad |  cutoff | cutoff_anno |
+|:-----------|:-------------|-----------:|-----------:|-----------:|:-----------|
+| glia            | detected             |  2321.00 |  1103.05 | 1217.95 | \> 1217.95  |
+| glia            | subsets_Mito_percent |     0.09 |     0.10 |    0.40 | \< 0.4      |
+| glia            | sum                  |  4957.00 |  3616.06 | 1340.94 | \> 1340.94  |
+| neuron          | detected             |  6711.00 |  2536.73 | 4174.27 | \> 4174.27  |
+| neuron          | subsets_Mito_percent |     0.12 |     0.14 |    0.53 | \< 0.53     |
+| neuron          | sum                  | 28592.00 | 22999.57 | 5592.43 | \> 5592.43  |
+
+Here is another look at the cluster median QC values vs. these cutoffs. \
+![Boxplots of median QC values by cell_type_broad](images/sn_clusterQC-QCmedian_boxplot.png)
