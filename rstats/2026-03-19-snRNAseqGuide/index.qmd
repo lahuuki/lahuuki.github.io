@@ -52,7 +52,7 @@ I used SSN with k=10, then walktrap on the ERC data (140k nuclei after QC) resul
 
 ```         
 ## running single-nearest-neighbors k =10
-snn.gr <- buildSNNGraph(sce, k = k, use.dimred = "HARMONY")
+snn.gr <- bluster::buildSNNGraph(sce, k = k, use.dimred = "HARMONY")
 
 ## Run walk trap clustering
 clusters <- igraph::cluster_walktrap(snn.gr)$membership
@@ -68,3 +68,26 @@ table(clusters)
 #    40    41    42    43    44 
 #    73    84    25   178    14 
 ```
+
+## 2. Cluster Cell Type Annotation
+
+Next we want a **preliminary** cell type annotation for each cluster. Cell type annotation can be tricky and time consuming, especially on low quality clusters. Here we just want to focus on classifying nuclei clusters as neurons or glia (cell_type_class).
+
+To help with this process I've used the automated cell type identification tool [ScType](https://github.com/IanevskiAleksandr/sc-type). I had to make some adaptions to run with `SingleCellExperiment` data, see [my code here](https://github.com/LieberInstitute/LFF_spatial_ERC/blob/devel/code/04_snRNA-seq/08_sctype_prelim.R).
+
+ScType scores each cluster based on expression of marker genes from a tissue-specific database (we'll use brain). From the scores it provides a cell type classification and a measure of confidence for its classification. I used these classifications to annotate each cluster `cell_type_broad` and `cell_type_class`.
+
+| type                            | cell_type_broad | cell_type_class |
+|:--------------------------------|:----------------|:----------------|
+| Astrocytes                      | Astro           | glia            |
+| Endothelial cells               | Endo            | glia            |
+| Microglial cells                | Micro           | glia            |
+| Oligodendrocytes                | Oligo           | glia            |
+| Oligodendrocyte precursor cells | OPC             | glia            |
+| Glutamatergic neurons           | Excit           | neuron          |
+| GABAergic neurons               | Inhib           | neuron          |
+| Mature neurons                  | Neu             | neuron          |
+
+I also assigned `cell_type_fine` as a combination of `cell_type_broad` and rank of number of nuclei within a cell type (so the Astrocyte cluster with most nuclei is `Astro.1`).
+
+![TSNE of LFF ERC data, colors how fine cell type clusters from scType annotation](images/sn_clusterQC_TSNE-cell_type_fine-prelim_k10.png)
