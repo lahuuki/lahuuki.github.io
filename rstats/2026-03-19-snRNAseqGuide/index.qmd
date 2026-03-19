@@ -140,3 +140,7 @@ For the first three metrics we'll determine a cutoff for neurons and glia separa
 
 Here is another look at the cluster median QC values vs. these cutoffs. \
 ![Boxplots of median QC values by cell_type_broad](images/sn_clusterQC-QCmedian_boxplot.png)
+
+Note many of the clusters dropped were quite small
+
+![Barplot of n nuclei per cluster, dropped clusters highlighted in red](images/sn_clusterQC-barplot_ct_n.png)
