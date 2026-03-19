@@ -1,23 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://lahuuki.github.io/blog.html</loc>
-    <lastmod>2025-04-09T22:01:36.656Z</lastmod>
+    <loc>https://lahuuki.github.io/publications.html</loc>
+    <lastmod>2026-03-19T18:34:36.138Z</lastmod>
+  </url>
+  <url>
+    <loc>https://lahuuki.github.io/posts/2025-05-02_Crumblr/index.html</loc>
+    <lastmod>2026-03-19T18:34:36.122Z</lastmod>
   </url>
   <url>
     <loc>https://lahuuki.github.io/posts/2025-04-09-DeconvoBenchmark/index.html</loc>
-    <lastmod>2025-04-09T22:01:36.782Z</lastmod>
+    <lastmod>2026-03-19T18:34:36.122Z</lastmod>
+  </url>
+  <url>
+    <loc>https://lahuuki.github.io/blog.html</loc>
+    <lastmod>2026-03-19T18:34:36.005Z</lastmod>
   </url>
   <url>
     <loc>https://lahuuki.github.io/index.html</loc>
-    <lastmod>2025-04-09T22:01:36.659Z</lastmod>
+    <lastmod>2026-03-19T18:34:36.007Z</lastmod>
   </url>
   <url>
     <loc>https://lahuuki.github.io/posts/2024-05-23-spatialDLPFC/index.html</loc>
-    <lastmod>2025-04-09T22:01:36.757Z</lastmod>
+    <lastmod>2026-03-19T18:34:36.099Z</lastmod>
   </url>
   <url>
-    <loc>https://lahuuki.github.io/publications.html</loc>
-    <lastmod>2025-04-09T22:01:36.782Z</lastmod>
+    <loc>https://lahuuki.github.io/posts/2026-03-19-snRNAseqGuide/index.html</loc>
+    <lastmod>2026-03-19T18:34:36.138Z</lastmod>
+  </url>
+  <url>
+    <loc>https://lahuuki.github.io/rstats.html</loc>
+    <lastmod>2026-03-19T18:34:36.138Z</lastmod>
   </url>
 </urlset>

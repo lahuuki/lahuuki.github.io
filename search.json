@@ -1,10 +1,31 @@
 [
   {
-    "objectID": "blog.html",
-    "href": "blog.html",
-    "title": "My Blog",
+    "objectID": "publications.html",
+    "href": "publications.html",
+    "title": "My Publications",
     "section": "",
-    "text": "Deconvolution Benchmark: TL;DR\n\n\n\n\n\n\npaper preview\n\n\nDeconvolution\n\n\nsingle cell\n\n\n\nA high level overview of the Deconvolution Benchmark project, now published in Genome Biology! \n\n\n\n\n\nApr 9, 2025\n\n\nLouise A. Huuki-Myers\n\n\n\n\n\n\n\n\n\n\n\n\nSpatial DLPFC: TL;DR\n\n\n\n\n\n\npaper preview\n\n\nspatialDLPFC\n\n\nspatial\n\n\nsingle cell\n\n\n\nA high level overview of the spatialDLPFC project, now published in Science! \n\n\n\n\n\nMay 23, 2024\n\n\nLouise A. Huuki-Myers\n\n\n\n\n\n\nNo matching items"
+    "text": "You can find my full publications list on ORCiD or Google Scholar"
+  },
+  {
+    "objectID": "publications.html#presentations",
+    "href": "publications.html#presentations",
+    "title": "My Publications",
+    "section": "Presentations",
+    "text": "Presentations\nSlides and posters and available on my speakerdeck"
+  },
+  {
+    "objectID": "posts/2025-05-02_Crumblr/index.html",
+    "href": "posts/2025-05-02_Crumblr/index.html",
+    "title": "Rstats Club: Crumblr",
+    "section": "",
+    "text": "https://diseaseneurogenomics.github.io/crumblr/articles/crumblr.html"
+  },
+  {
+    "objectID": "posts/2025-05-02_Crumblr/index.html#load-packages",
+    "href": "posts/2025-05-02_Crumblr/index.html#load-packages",
+    "title": "Rstats Club: Crumblr",
+    "section": "Load Packages",
+    "text": "Load Packages"
   },
   {
     "objectID": "posts/2025-04-09-DeconvoBenchmark/index.html",
@@ -68,6 +89,13 @@
     "title": "Deconvolution Benchmark: TL;DR",
     "section": "Other Results",
     "text": "Other Results\nAbove I have highlighted the main study design and conclusions of our deconvolution benchmark. In the paper we explored many more facets of deconvolution method performance. Some other results to highlight:\n\nhspe is sensitive to marker gene selection\nBisque can preform poorly with &lt; 4 donors\nBisque an hspe are unaffected by including “case” donors in the snRNA-seq reference\nBisque is biased to cell type proportions in the reference snRNA-seq data set\nBisque and hspe had relativly fast runtimes and low memory requirements\n\nBe sure to check out the paper for more! 📃"
+  },
+  {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "My Blog",
+    "section": "",
+    "text": "snRNA-seq Guide: cluster QC\n\n\n\nsingle cell\n\n\n\nA guide for LIBD snRNA-seq processing\n\n\n\n\n\nMar 19, 2026\n\n\nLouise A. Huuki-Myers\n\n\n\n\n\n\n\n\n\n\n\n\nRstats Club: Crumblr\n\n\n\nsingle cell\n\n\n\nTutorial for running curmblr diffential proportion analysis on LIBD data\n\n\n\n\n\nMay 2, 2025\n\n\nLouise A. Huuki-Myers\n\n\n\n\n\n\n\n\n\n\n\n\nDeconvolution Benchmark: TL;DR\n\n\n\npaper preview\n\nDeconvolution\n\nsingle cell\n\n\n\nA high level overview of the Deconvolution Benchmark project, now published in Genome Biology!\n\n\n\n\n\nApr 9, 2025\n\n\nLouise A. Huuki-Myers\n\n\n\n\n\n\n\n\n\n\n\n\nSpatial DLPFC: TL;DR\n\n\n\npaper preview\n\nspatialDLPFC\n\nspatial\n\nsingle cell\n\n\n\nA high level overview of the spatialDLPFC project, now published in Science!\n\n\n\n\n\nMay 23, 2024\n\n\nLouise A. Huuki-Myers\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
@@ -140,17 +168,17 @@
     "text": "Footnotes\n\n\nthe measurement of RNA transcription is known as “transcriptomics”↩︎\nThe full interpretation of these kinds of plots takes much nuance we won’t discuss here↩︎\nThe following are brief notes on cell type function to provide context, not comprehensive descriptions of the complex roles of these cell types↩︎"
   },
   {
-    "objectID": "publications.html",
-    "href": "publications.html",
-    "title": "My Publications",
+    "objectID": "posts/2026-03-19-snRNAseqGuide/index.html",
+    "href": "posts/2026-03-19-snRNAseqGuide/index.html",
+    "title": "snRNA-seq Guide: cluster QC",
     "section": "",
-    "text": "You can find my full publications list on ORCiD or Google Scholar"
+    "text": "Introduction\nThe goal of cluster quality control (QC) is to further identify low quality nuclei by running a preliminary clustering step, then dropping clusters with poor QC scores (high mitochondrial rate, high doublet score, low sum UMI, or low detected genes). After cluster QC, the data is re-clustered with the aim that the second ‘optimal’ clustering is then driven by cell type identity not quality signal.\n\n\nFirst Step: Nuclei QC\nThis step is run after ‘nuclei’ QC where droplets/nuclei are quality controlled in the following process:\n\nEvaluate each droplet for if it contains nuclei or only ambinet RNA (an ‘empty droplet’) with DropletUtils::emptyDrops() , DROP empty droplets, KEEP droplets containing nuclei\nCalculate the double score for each nuclei with scDblFinder::scDblFinder() (see scDBLFinder docs), but don’t drop yet - we’ll evaluate this in the cluster QC step\nNuclei are evaluated by sample for high mitochondrial rate, low sum UMI, or low detected genes with scuttle::isOutlier() , DROP nuclei that are over cutoff for any metrics, KEEP nuclei that pass all metrics\n\nIt may be reasonable to set a hard cutoff for mitochondrial rate - we’ll discuss more\n\n\nAfter nuclei QC, you’ll retain high QC nuclei with double scores, ready for clustering! But notably when evaluating brain snRNA-seq data, neurons have high levels of transcriptional activity than glia leading to different distributions of these QC metrics. This is visible in the bi-modal distributions of the nuclei sum UMI QC plots. Some of the nuclei that look fine might be low quality neurons, but we don’t know which neurons are neurons yet 🕵️: !\n\n\n\nQuality Control violin plot of sum UMI from LFF ERC snRNA-seq data."
   },
   {
-    "objectID": "publications.html#presentations",
-    "href": "publications.html#presentations",
-    "title": "My Publications",
-    "section": "Presentations",
-    "text": "Presentations\nSlides and posters and available on my speakerdeck"
+    "objectID": "rstats.html",
+    "href": "rstats.html",
+    "title": "Rstats Club",
+    "section": "",
+    "text": "No matching items"
   }
 ]
