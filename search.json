@@ -122,15 +122,15 @@
     "objectID": "rstats/2026-03-19-snRNAseqGuide/index.html#feature-selection-dimension-reduction-and-batch-correction",
     "href": "rstats/2026-03-19-snRNAseqGuide/index.html#feature-selection-dimension-reduction-and-batch-correction",
     "title": "snRNA-seq Guide: cluster QC",
-    "section": "3. Feature Selection, Dimension Reduction, and Batch Correction",
-    "text": "3. Feature Selection, Dimension Reduction, and Batch Correction\nTo cluster the nuclei we’ll need batch corrected PCAs. We won’t get in to too much detail here but our current method is GLM-PCA but quickly:\n\n\nSelect top 2k genes (features) deviating from binomial model scry::devianceFeatureSelection() then calculate deviance residuals with scry::nullResiduals()\nReduce dimensions with PCA, calculate UMAP and TSNE for visualization\n\nRun batch correction with Harmony\n\n\nWe will use the batch corrected PCAs for clustering."
+    "section": "2. Feature Selection, Dimension Reduction, and Batch Correction",
+    "text": "2. Feature Selection, Dimension Reduction, and Batch Correction\nTo cluster the nuclei we’ll need batch-corrected principal components (PCs). We won’t get in to too much detail here but our current method is GLM-PCA but quickly:\n\n\nSelect top 2k genes (features) deviating from binomial model scry::devianceFeatureSelection() then calculate deviance residuals with scry::nullResiduals()\nReduce dimensions with PCA, calculate UMAP and TSNE for visualization\n\nRun batch correction with Harmony- the batch correction is subtle in this example\n\n\nWe will use the batch-corrected PCAs for clustering."
   },
   {
-    "objectID": "rstats/2026-03-19-snRNAseqGuide/index.html#preliminary-clustering-annotation",
-    "href": "rstats/2026-03-19-snRNAseqGuide/index.html#preliminary-clustering-annotation",
+    "objectID": "rstats/2026-03-19-snRNAseqGuide/index.html#preliminary-clustering",
+    "href": "rstats/2026-03-19-snRNAseqGuide/index.html#preliminary-clustering",
     "title": "snRNA-seq Guide: cluster QC",
-    "section": "2. Preliminary Clustering & Annotation",
-    "text": "2. Preliminary Clustering & Annotation\nThe next step is to cluster the nuclei. There are many ways to optimize clustering"
+    "section": "1. Preliminary Clustering",
+    "text": "1. Preliminary Clustering\nThe next step is to cluster the nuclei. There are many ways to optimize clustering, but to keep things simple, I recommend using a finer cluster resolution (for more but smaller clusters), but still a manageable number (~50 clusters).\nPreviously we’ve used single-nearest-neighbors + walktrap clustering. For larger data we’ve started using Leiden clustering, possible starting parameters to use there are k=25, resolution = 0.3.\nI used SSN with k=10, then walktrap on the ERC data (140k nuclei after QC) resulting in 44 clusters:\n## running single-nearest-neighbors k =10\nsnn.gr &lt;- buildSNNGraph(sce, k = k, use.dimred = \"HARMONY\")\n\n## Run walk trap clustering\nclusters &lt;- igraph::cluster_walktrap(snn.gr)$membership\ntable(clusters)\n\n# clusters\n#     1     2     3     4     5     6     7     8     9    10    11    12    13 \n#  7364  1309  2884  2949 10363 13986  1909   809   596   160   919 15594   694 \n#    14    15    16    17    18    19    20    21    22    23    24    25    26 \n#   770   839  1672  2243  8680  8484 13680   216  4745  8787    39   420  3117 \n#    27    28    29    30    31    32    33    34    35    36    37    38    39 \n#   341   396   459   668 22929   774   325   137   197    44   139    41    67 \n#    40    41    42    43    44 \n#    73    84    25   178    14"
   },
   {
     "objectID": "posts/2024-05-23-spatialDLPFC/index.html",
