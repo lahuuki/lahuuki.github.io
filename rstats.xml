@@ -83,9 +83,10 @@ table(clusters)
 #    40    41    42    43    44 
 #    73    84    25   178    14 </code></pre>
 </section>
-<section id="cluster-cell-type-annotation" class="level2">
-<h2 class="anchored" data-anchor-id="cluster-cell-type-annotation">2. Cluster Cell Type Annotation</h2>
+<section id="annotate-clusters-by-cell-type" class="level2">
+<h2 class="anchored" data-anchor-id="annotate-clusters-by-cell-type">2. Annotate Clusters by Cell Type</h2>
 <p>Next we want a <strong>preliminary</strong> cell type annotation for each cluster. Cell type annotation can be tricky and time consuming, especially on low quality clusters. Here we just want to focus on classifying nuclei clusters as neurons or glia (cell_type_class).</p>
+<p>Clusters can be classified by expression of cell type marker genes, but even at the class or broad cell cell type level that can be time consuming!</p>
 <p>To help with this process I’ve used the automated cell type identification tool <a href="https://github.com/IanevskiAleksandr/sc-type">ScType</a>. I had to make some adaptions to run with <code>SingleCellExperiment</code> data, see <a href="https://github.com/LieberInstitute/LFF_spatial_ERC/blob/devel/code/04_snRNA-seq/08_sctype_prelim.R">my code here</a>.</p>
 <p>ScType scores each cluster based on expression of marker genes from a tissue-specific database (we’ll use brain). From the scores it provides a cell type classification and a measure of confidence for its classification. I used these classifications to annotate each cluster <code>cell_type_broad</code> and <code>cell_type_class</code>.</p>
 <table class="caption-top table">
@@ -139,15 +140,132 @@ table(clusters)
 </tr>
 </tbody>
 </table>
-<p>I also assigned <code>cell_type_fine</code> as a combination of <code>cell_type_broad</code> and rank of number of nuclei within a cell type (so the Astrocyte cluster with most nuclei is <code>Astro.1</code>).</p>
+<p>I also assigned <code>cell_type_fine</code> as a combination of <code>cell_type_broad</code> and rank of number of nuclei within a cell type (so the Astrocyte cluster with most nuclei is <code>Astro.1</code>). Now I have a name and cell type annotation for all 44 clusters! ✅</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://lahuuki.github.io/rstats/2026-03-19-snRNAseqGuide/images/sn_clusterQC_TSNE-cell_type_fine-prelim_k10.png" class="img-fluid figure-img"></p>
 <figcaption>TSNE of LFF ERC data, colors how fine cell type clusters from scType annotation</figcaption>
 </figure>
 </div>
+</section>
+<section id="check-quality-metrics-of-clusters" class="level2">
+<h2 class="anchored" data-anchor-id="check-quality-metrics-of-clusters">3. Check Quality Metrics of Clusters</h2>
+<p>We will now evaluate clusters based on high mitochondrial rate, low sum UMI, or low detected genes (like in nuclei QC), and now we’ll evaluate <code>scDblFinder score</code> by cluster.</p>
+<p>For each metric the cluster’s median QC score is compared to a cell class specific cutoff (calculated below). If the median score is below the cutoff for sum UMI or low detected genes OR above the cutoff for mitochondrial rate or doublet score the cluster will fail quality control. Often poor quality clusters will fail more than one QC evaluation.</p>
+<p><strong>Sum UMI &amp; Detected Genes<br>
+</strong>These metrics have different ranges between gila and neurons. With the adjusted cutoffs low quality neurons (ex. Excit.2) can be detected with out loosing too many glia.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://lahuuki.github.io/rstats/2026-03-19-snRNAseqGuide/images/sn_clusterQC-QCmetricViolin_sum.png" class="img-fluid figure-img"></p>
+<figcaption>Violin plot of sum UMI by cluster</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://lahuuki.github.io/rstats/2026-03-19-snRNAseqGuide/images/sn_clusterQC-QCmetricViolin_detected.png" class="img-fluid figure-img"></p>
+<figcaption>Violin plot of detected genes by cluster</figcaption>
+</figure>
+</div>
+<p><strong>Mitochondrial Gene Expression</strong></p>
+<p>Mitochondrial rate was low for the ERC data, and just a bit higher in neurons. For other data sets a stricter cutoff may need to be set, but more discussion is needed.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://lahuuki.github.io/rstats/2026-03-19-snRNAseqGuide/images/sn_clusterQC-QCmetricViolin_subsets_Mito_percent.png" class="img-fluid figure-img"></p>
+<figcaption>Violin plot of subset Mitochondrial rate by cluster</figcaption>
+</figure>
+</div>
+<p><strong>Doublet Score</strong></p>
+<p>In the ERC data the <code>scDblFInderScore</code> was close to 0 or 1. Doublet clusters can look fine in other metrics but have super high doublet scores (ex. Astro.4 &amp; Astro.5)</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://lahuuki.github.io/rstats/2026-03-19-snRNAseqGuide/images/sn_clusterQC-QCmetricViolin_scDblFinder.score.png" class="img-fluid figure-img"></p>
+<figcaption>Violin plot of scDblFInderScore: cutoff is &gt;0.5</figcaption>
+</figure>
+</div>
+<section id="calculate-qc-cutoffs" class="level3">
+<h3 class="anchored" data-anchor-id="calculate-qc-cutoffs">Calculate QC Cutoffs</h3>
+<p>For the first three metrics we’ll determine a cutoff for neurons and glia separately, by grouping the nuclei by <code>cell_type_class</code> then calculating the median value, the median absolute deviation (MAD), and a cutoff based on those values. Below are the values from the ERC snRNA-seq data. The multipliers may need to be adjusted based on the data set.<br>
+</p>
+<ul>
+<li><p>For sum UMI and detected, we want to keep clusters with high values (drop low), so we’ll set the cutoff to be <code>median - 1*MAD</code></p></li>
+<li><p>For mitochondrial rate we want to keep clusters with low values (drop high), so so we’ll set the cutoff to be <code>median + 3*MAD</code>.</p></li>
+<li><p>For <code>scDblFInderScore</code> we’ll use a consistent cutoff of &gt;0.05.</p></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 18%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">cell_type_class</th>
+<th style="text-align: left;">metric</th>
+<th style="text-align: right;">median</th>
+<th style="text-align: right;">mad</th>
+<th style="text-align: right;">cutoff</th>
+<th style="text-align: left;">cutoff_anno</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">glia</td>
+<td style="text-align: left;">detected</td>
+<td style="text-align: right;">2321.00</td>
+<td style="text-align: right;">1103.05</td>
+<td style="text-align: right;">1217.95</td>
+<td style="text-align: left;">&gt; 1217.95</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">glia</td>
+<td style="text-align: left;">subsets_Mito_percent</td>
+<td style="text-align: right;">0.09</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: left;">&lt; 0.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">glia</td>
+<td style="text-align: left;">sum</td>
+<td style="text-align: right;">4957.00</td>
+<td style="text-align: right;">3616.06</td>
+<td style="text-align: right;">1340.94</td>
+<td style="text-align: left;">&gt; 1340.94</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">neuron</td>
+<td style="text-align: left;">detected</td>
+<td style="text-align: right;">6711.00</td>
+<td style="text-align: right;">2536.73</td>
+<td style="text-align: right;">4174.27</td>
+<td style="text-align: left;">&gt; 4174.27</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">neuron</td>
+<td style="text-align: left;">subsets_Mito_percent</td>
+<td style="text-align: right;">0.12</td>
+<td style="text-align: right;">0.14</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: left;">&lt; 0.53</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">neuron</td>
+<td style="text-align: left;">sum</td>
+<td style="text-align: right;">28592.00</td>
+<td style="text-align: right;">22999.57</td>
+<td style="text-align: right;">5592.43</td>
+<td style="text-align: left;">&gt; 5592.43</td>
+</tr>
+</tbody>
+</table>
+<p>Here is another look at the cluster median QC values vs.&nbsp;these cutoffs.<br>
+<img src="https://lahuuki.github.io/rstats/2026-03-19-snRNAseqGuide/images/sn_clusterQC-QCmedian_boxplot.png" class="img-fluid" alt="Boxplots of median QC values by cell_type_broad"></p>
 
 
+</section>
 </section>
 </section>
 
