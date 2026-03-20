@@ -25,23 +25,24 @@
 <p>The goal of cluster quality control (QC) is to further identify low quality nuclei by running a preliminary clustering step, then dropping clusters with poor QC scores (high mitochondrial rate, high doublet score, low sum UMI, or low detected genes). After cluster QC, the data is re-clustered with the aim that the second ‘optimal’ clustering is then driven by cell type identity not quality signal.</p>
 </section>
 <section id="get-ready" class="level1">
-<h1>Get Ready:</h1>
+<h1>Get Ready</h1>
 <section id="nuclei-qc" class="level2">
 <h2 class="anchored" data-anchor-id="nuclei-qc">0. Nuclei QC</h2>
 <p>Cluster QC is run after ‘nuclei’ QC where droplets/nuclei are quality controlled in the following process:</p>
 <ol type="1">
-<li>Evaluate each droplet for if it contains nuclei or only ambinet RNA (an ‘empty droplet’) with <code>DropletUtils::emptyDrops()</code> , DROP empty droplets, KEEP droplets containing nuclei</li>
-<li>Calculate the double score for each nuclei with <code>scDblFinder::scDblFinder()</code> (<a href="https://plger.github.io/scDblFinder/index.html">see scDBLFinder docs</a>), but <strong>don’t drop</strong> yet - we’ll evaluate this in the cluster QC step</li>
-<li>Nuclei are evaluated <strong>by sample</strong> for high mitochondrial rate, low sum UMI, or low detected genes with <code>scuttle::isOutlier()</code> , DROP nuclei that are over cutoff for any metrics, KEEP nuclei that pass all metrics
+<li>Evaluate each droplet for if it contains nuclei or only ambient RNA (an ‘empty droplet’) with <code>DropletUtils::emptyDrops()</code> , DROP empty droplets, KEEP droplets containing nuclei (<a href="https://bioconductor.org/packages/release/bioc/vignettes/DropletUtils/inst/doc/DropletUtils.html">see DropletUtils docs</a>)</li>
+<li>Calculate the double score for each nuclei with <code>scDblFinder::scDblFinder()</code> (<a href="https://plger.github.io/scDblFinder/index.html">see scDBLFinder docs</a>), but <strong>don’t drop</strong> yet - we’ll evaluate this in the cluster QC step (It is important to do this before low quality nuclei are dropped in the next step)</li>
+<li>Nuclei are evaluated <strong>by sample</strong> for <strong>high mitochondrial rate, low sum UMI, or low detected genes</strong> with <code>scuttle::isOutlier()</code> , DROP nuclei that are over cutoff for any metrics, KEEP nuclei that pass all metrics
 <ul>
 <li>It may be reasonable to set a hard cutoff for mitochondrial rate - we’ll discuss more</li>
 </ul></li>
 </ol>
-<p>After nuclei QC, you’ll retain high QC nuclei with double scores, ready for clustering! But notably when evaluating brain snRNA-seq data, neurons have high levels of transcriptional activity than glia leading to different distributions of these QC metrics. This is visible in the bi-modal distributions of the nuclei sum UMI QC plots. Some of the nuclei that look fine might be low quality neurons, but we don’t know which neurons are neurons yet 🕵️! To understand what type of cells these nuclei are we’ll have to cluster.</p>
+<p>After nuclei QC, you’ll retain high QC nuclei with double scores, ready for clustering! But notably when evaluating brain snRNA-seq data, neurons have high levels of transcriptional activity than glia leading to different distributions of these QC metrics. This is visible in the bi-modal distributions of the nuclei sum UMI QC plots.</p>
+<p>Some of the nuclei that look fine might be low quality neurons, but we don’t know which neurons are neurons yet 🕵️! To understand what type of cells these nuclei are we’ll have to cluster.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://lahuuki.github.io/rstats/2026-03-19-snRNAseqGuide/images/erc_sn_QC_outlier-sum.png" class="img-fluid figure-img"></p>
-<figcaption>Quality Control violin plot of sum UMI from LFF ERC snRNA-seq data.</figcaption>
+<figcaption>Quality Control violin plot of sum UMI by sample from LFF ERC snRNA-seq data.</figcaption>
 </figure>
 </div>
 </section>
@@ -150,8 +151,8 @@ table(clusters)
 </section>
 <section id="check-quality-metrics-of-clusters" class="level2">
 <h2 class="anchored" data-anchor-id="check-quality-metrics-of-clusters">4. Check Quality Metrics of Clusters</h2>
-<p>We will now evaluate clusters based on high mitochondrial rate, low sum UMI, or low detected genes (like in nuclei QC), and now we’ll evaluate <code>scDblFinder score</code> by cluster.</p>
-<p>For each metric the cluster’s median QC score is compared to a cell class specific cutoff (calculated below). If the median score is below the cutoff for sum UMI or low detected genes OR above the cutoff for mitochondrial rate or doublet score the cluster will fail quality control. Often poor quality clusters will fail more than one QC evaluation.</p>
+<p>We will now evaluate clusters based on <strong>high mitochondrial rate, low sum UMI, or low detected genes</strong> (like in nuclei QC), and now we’ll evaluate <code>scDblFinder score</code> by cluster.</p>
+<p>For each metric the <strong>cluster’s median QC score is compared to a cell class specific cutoff</strong> (calculated below). If the median score is below the cutoff for sum UMI or low detected genes OR above the cutoff for mitochondrial rate or doublet score the cluster will fail quality control. Often poor quality clusters will fail more than one QC evaluation.</p>
 <p><strong>Sum UMI &amp; Detected Genes<br>
 </strong>These metrics have different ranges between gila and neurons. With the adjusted cutoffs low quality neurons (ex. Excit.2) can be detected with out loosing too many glia.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -167,7 +168,7 @@ table(clusters)
 </figure>
 </div>
 <p><strong>Mitochondrial Gene Expression</strong></p>
-<p>Mitochondrial rate was low for the ERC data, and just a bit higher in neurons. For other data sets a stricter cutoff may need to be set, but more discussion is needed.</p>
+<p>Mitochondrial rate was low for the ERC data, and just a bit higher in neurons. For other data sets a stricter cutoff may need to be set.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://lahuuki.github.io/rstats/2026-03-19-snRNAseqGuide/images/sn_clusterQC-QCmetricViolin_subsets_Mito_percent.png" class="img-fluid figure-img"></p>
@@ -175,7 +176,7 @@ table(clusters)
 </figure>
 </div>
 <p><strong>Doublet Score</strong></p>
-<p>In the ERC data the <code>scDblFInderScore</code> was close to 0 or 1. Doublet clusters can look fine in other metrics but have super high doublet scores (ex. Astro.4 &amp; Astro.5)</p>
+<p>In the ERC data the <code>scDblFInderScore</code> for a cluster was either close to 0 or 1. Doublet clusters can look fine in other metrics but have super high doublet scores (ex. Astro.4 &amp; Astro.5)</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://lahuuki.github.io/rstats/2026-03-19-snRNAseqGuide/images/sn_clusterQC-QCmetricViolin_scDblFinder.score.png" class="img-fluid figure-img"></p>
@@ -184,7 +185,7 @@ table(clusters)
 </div>
 <section id="calculate-qc-cutoffs" class="level3">
 <h3 class="anchored" data-anchor-id="calculate-qc-cutoffs">Calculate QC Cutoffs</h3>
-<p>For the first three metrics we’ll determine a cutoff for neurons and glia separately, first by grouping the nuclei by <code>cell_type_class,</code> then calculating the median value and median absolute deviation (MAD), and finally a cutoff based on those values.<br>
+<p>For the first three metrics we’ll determine a cutoff for neurons and glia separately, first by grouping the nuclei by <code>cell_type_class</code>, then calculating the median value and median absolute deviation (MAD), and finally a cutoff based on those values.<br>
 </p>
 <ul>
 <li><p>For sum UMI and detected, we want to keep clusters with high values (drop low), so we’ll set the cutoff to be <code>median - 1*MAD</code></p></li>
