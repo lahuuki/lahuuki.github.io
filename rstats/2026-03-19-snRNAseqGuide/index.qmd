@@ -15,7 +15,7 @@ The goal of cluster quality control (QC) is to further identify low quality nucl
 
 # Get Ready:
 
-## 1. Nuclei QC
+## 0. Nuclei QC
 
 Cluster QC is run after 'nuclei' QC where droplets/nuclei are quality controlled in the following process:
 
@@ -28,7 +28,9 @@ After nuclei QC, you'll retain high QC nuclei with double scores, ready for clus
 
 ![Quality Control violin plot of sum UMI from LFF ERC snRNA-seq data.](images/erc_sn_QC_outlier-sum.png)
 
-## 2. Feature Selection, Dimension Reduction, and Batch Correction
+# Cluster Quality Control
+
+## 1. Feature Selection, Dimension Reduction, and Batch Correction
 
 To cluster the nuclei we'll need batch-corrected principal components (PCs). We won't get in to too much detail here but our current method is GLM-PCA but quickly:\
 
@@ -40,9 +42,7 @@ To cluster the nuclei we'll need batch-corrected principal components (PCs). We 
 
 We will use the batch-corrected PCAs for clustering.
 
-# Cluster Quality Control
-
-## 1. Preliminary Clustering
+## 2. Preliminary Clustering
 
 The next step is to cluster the nuclei. There are many ways to optimize clustering, but to keep things simple, I recommend using a finer cluster resolution (for more but smaller clusters), but still a manageable number (\~50 clusters).
 
@@ -69,7 +69,7 @@ table(clusters)
 #    73    84    25   178    14 
 ```
 
-## 2. Annotate Clusters by Cell Type
+## 3. Annotate Clusters by Cell Type
 
 Next we want a **preliminary** cell type annotation for each cluster. Cell type annotation can be tricky and time consuming, especially on low quality clusters. Here we just want to focus on classifying nuclei clusters as neurons or glia (cell_type_class).
 
@@ -94,7 +94,7 @@ I also assigned `cell_type_fine` as a combination of `cell_type_broad` and rank 
 
 ![TSNE of LFF ERC data, colors how fine cell type clusters from scType annotation](images/sn_clusterQC_TSNE-cell_type_fine-prelim_k10.png)
 
-## 3. Check Quality Metrics of Clusters
+## 4. Check Quality Metrics of Clusters
 
 We will now evaluate clusters based on high mitochondrial rate, low sum UMI, or low detected genes (like in nuclei QC), and now we'll evaluate `scDblFinder score` by cluster.
 
@@ -121,13 +121,15 @@ In the ERC data the `scDblFInderScore` was close to 0 or 1. Doublet clusters can
 
 ### Calculate QC Cutoffs
 
-For the first three metrics we'll determine a cutoff for neurons and glia separately, by grouping the nuclei by `cell_type_class` then calculating the median value, the median absolute deviation (MAD), and a cutoff based on those values. Below are the values from the ERC snRNA-seq data. The multipliers may need to be adjusted based on the data set. \
+For the first three metrics we'll determine a cutoff for neurons and glia separately, first by grouping the nuclei by `cell_type_class,` then calculating the median value and median absolute deviation (MAD), and finally a cutoff based on those values. \
 
 -   For sum UMI and detected, we want to keep clusters with high values (drop low), so we'll set the cutoff to be `median - 1*MAD`
 
 -   For mitochondrial rate we want to keep clusters with low values (drop high), so so we'll set the cutoff to be `median + 3*MAD`.
 
--   For `scDblFInderScore` we'll use a consistent cutoff of \>0.05.
+-   For `scDblFInderScore` we'll use a **consistent cutoff of \>0.05**.
+
+Below are the values from the ERC snRNA-seq data. Note the multipliers may need to be adjusted based on the data set.
 
 | cell_type_class | metric               |   median |      mad |  cutoff | cutoff_anno |
 |:-----------|:-------------|-----------:|-----------:|-----------:|:-----------|
@@ -138,9 +140,32 @@ For the first three metrics we'll determine a cutoff for neurons and glia separa
 | neuron          | subsets_Mito_percent |     0.12 |     0.14 |    0.53 | \< 0.53     |
 | neuron          | sum                  | 28592.00 | 22999.57 | 5592.43 | \> 5592.43  |
 
-Here is another look at the cluster median QC values vs. these cutoffs. \
+Here is another look at the cluster median QC values vs. these cutoffs in the ERC data set. Again clusters that did not pass ALL of the QC cutoffs were dropped.
+
+\
 ![Boxplots of median QC values by cell_type_broad](images/sn_clusterQC-QCmedian_boxplot.png)
 
 Note many of the clusters dropped were quite small
 
 ![Barplot of n nuclei per cluster, dropped clusters highlighted in red](images/sn_clusterQC-barplot_ct_n.png)
+
+![TSNE plot of ERC data, nuclei that failed cluster QC are highlighted in red.](images/sn_clusterQC_TSNE-pass_clusterQC-prelim_k10.png)
+
+## 5. Rinse and Repeat 🧼
+
+After *rinsing* our data by dropping nuclei in low QC clusters, we now need to *repeat* steps 1 to 4 🔁
+
+1.  **Feature Selection, Dimension Reduction, and Batch Correction**: by removing low quality data or "technical' signal from the data, the feature selection and reduced dimensions should now better highlight the cell type signal
+2.  **Clustering**: Now is the time to optimize clustering parameters, perhaps testing multiple resolutions, to best define cell types for the data (cluster optimzation discussed elsewhere)
+3.  **Annotate Clusters by Cell Type:** I'd now spend time carefully annotating cell type clusters. I found ambiguous cell types often dropped in cluster QC (maybe the doublets?) and annotation is clearer in the improved clustering. 🔎
+4.  **Cluster QC**: To be extra thorough now examine the new clusters against the **same QC cutoffs**. Most of the clusters should now be in the clear of the cutoffs. In ERC we only dropped one Oligo cluster in the second round of QC.
+
+![Violin plot of QC metrics for 2nd round of cluster QC in ERC snRNA-seq data](images/ERC_sn_QCmetricViolin_ALL.png)
+
+## Done!
+
+Finally some squeaky clean data! Ready for the next analysis 🧑‍🔬
+
+![TSNE plot of ERC snRNA-seq data after second round of cluster QC processing](images/ERC_sn_reprocess_TSNE-cell_type_anno-sctype.png)
+
+Thanks for reading! 😀
