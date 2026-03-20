@@ -1,7 +1,7 @@
 ---
 title: "snRNA-seq Guide: cluster QC"
 description: |
-  A guide for LIBD snRNA-seq processing
+  An overview for snRNA-seq Cluster Quality Control method
 author:
   - name: Louise A. Huuki-Myers
 date: 2026-03-19
